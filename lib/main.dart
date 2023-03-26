@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/screens/verivication_code_page/verification_code_page.dart';
+import 'package:restaurant_marketplace_h/screens/welcome.dart';
 
 void main() {
   runApp( MaterialApp(
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(Duration(seconds: 0), () {
-      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Verification_Code_page()));
+      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>welcome()));
     });
 
     return  
