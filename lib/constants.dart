@@ -10,7 +10,7 @@ final ButtonStyle Primarybuttonstyle = ElevatedButton.styleFrom(
     minimumSize: const Size(139.26, 54),
     shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(30))),
-    elevation: 30,
+    elevation: 10,
     backgroundColor: const Color(0XFFFFFFFF),
     foregroundColor: const Color(0xFF000000));
 const welcometextstyle = TextStyle(

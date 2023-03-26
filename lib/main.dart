@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(Duration(seconds: 0), () {
-      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Signup_page()));
+      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Verification_Code_page()));
     });
 
     return  

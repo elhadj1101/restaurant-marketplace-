@@ -12,6 +12,7 @@ class Sign_up_content extends StatefulWidget {
 
 class _Sign_up_contentState extends State<Sign_up_content> {
   bool isvisible = true;
+  bool isvisible2 = true ;
   bool istaped = false;
 
   @override
@@ -68,40 +69,7 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                       )),
                 ),
               ),
-              const SizedBox(
-                height: 40,
-              ),
-              TextFormField(
-                cursorColor: KPrimarycolor,
-                decoration: InputDecoration(
-                  contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-                  suffixIconColor: Klighttextcolor,
-                  suffixIcon: const Icon(
-                    Icons.person,
-                  ),
-                  hintStyle: const TextStyle(
-                    color: Kverylighttextcolor,
-                  ),
-                  labelText: 'Last name',
-                  labelStyle: const TextStyle(
-                    color: Klighttextcolor,
-                  ),
-                  enabledBorder: OutlineInputBorder(
 
-                      borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14,
-                      borderSide: const BorderSide(color: Ktextcolor )),
-                  focusColor: KPrimarycolor,
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14,
-                      borderSide: const BorderSide(
-                        color: KPrimarycolor,
-                        width: 2,
-                      )),
-                ),
-              ),
               const SizedBox(
                 height: 40,
               ),
@@ -179,10 +147,59 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                       )),
                 ),
               ),
+
+              const SizedBox(
+                height: 40,
+              ),
+              TextFormField(
+                cursorColor: KPrimarycolor,
+                onTap: () {},
+                obscureText: !isvisible2,
+                decoration: InputDecoration(
+                  suffixIconColor: Klighttextcolor,
+                  contentPadding:
+                  EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      isvisible2 ? Icons.visibility : Icons.visibility_off,
+                      size: 24,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        isvisible2 = !isvisible;
+                      });
+                    },
+                  ),
+                  hintStyle: const TextStyle(
+                    color: Kverylighttextcolor,
+                  ),
+                  labelText: 'Confirm your Password',
+                  labelStyle: const TextStyle(
+                    color: Klighttextcolor,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      gapPadding: 14,
+                      borderSide: const BorderSide(color: Ktextcolor)),
+                  focusColor: KPrimarycolor,
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      gapPadding: 14,
+                      borderSide: const BorderSide(
+                        color: KPrimarycolor,
+                        width: 2,
+                      )),
+                ),
+              ),
+
               const SizedBox(
                 height: 60,
               ),
-              const default_button(text: 'Sign up', x: 10, y: 135, button_color: KPrimarycolor) ,
+
+                const Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 40.0,vertical: 0),
+                  child: default_button(text: 'Sign up', x: 1.5, y: 13, button_color: KPrimarycolor),
+                ) ,
               const SizedBox(
                 height: 40,
               ),

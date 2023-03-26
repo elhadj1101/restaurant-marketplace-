@@ -34,10 +34,10 @@ class Verification_Code_page_contents extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                'Please type the verification code sent to useradress@gmail.com ',
+                'Please type the verification code sent to  useradress@gmail.com ',
                 style: TextStyle(
-                    color: Ktextcolor,
-                    fontSize: 15,
+                    color: Colors.black,
+                    fontSize: 16,
                     fontFamily: GoogleFonts
                         .roboto()
                         .fontFamily,
@@ -60,16 +60,16 @@ class Verification_Code_page_contents extends StatelessWidget {
                 height: 40,
               ),
               Padding(
-                padding: EdgeInsets.only(
-                    left: MediaQuery
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery
                         .of(context)
                         .size
-                        .width / 8),
+                        .width / 12),
                 child: Row(
                   children: [
                     Text('I don\'t receive a code !',
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 16,
                           color: Ktextcolor,
                           fontFamily: GoogleFonts
                               .roboto()
@@ -79,7 +79,7 @@ class Verification_Code_page_contents extends StatelessWidget {
 
                       child: Text(' Please Resend',
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 16,
                             color: KPrimarycolor,
                             fontFamily: GoogleFonts
                                 .roboto()
@@ -138,7 +138,7 @@ class Otp_form extends StatelessWidget {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(
-              color: Klighttextcolor,
+              color: Colors.black38,
               width: 2,
             ),
           ),

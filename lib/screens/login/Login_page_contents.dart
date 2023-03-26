@@ -113,11 +113,14 @@ class _Login_page_contentsState extends State<Login_page_contents> {
                 ),
               ),
               const SizedBox(
-                height: 40,
+                height: 60,
               ),
-              const default_button(
-                  text: 'Sign up', x: 10, y: 135, button_color: KPrimarycolor),
-              const SizedBox(
+               const Padding(
+
+                 padding:  EdgeInsets.symmetric(horizontal: 40.0,vertical: 0),
+                 child: default_button(
+                    text: 'Sign up', x: 1.5, y: 13, button_color: KPrimarycolor),
+               ),              const SizedBox(
                 height: 40,
               ),
               Padding(
@@ -134,7 +137,7 @@ class _Login_page_contentsState extends State<Login_page_contents> {
                 ),
               ),
               const SizedBox(
-                height: 100,
+                height: 40,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
