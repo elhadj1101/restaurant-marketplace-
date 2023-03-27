@@ -1,5 +1,3 @@
-
-
 # restaurant-marketplace-
 restaurant maketplace app usring flutter and firebase
 ### rules to follow while coding  
