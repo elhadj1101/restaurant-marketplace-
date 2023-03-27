@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
+import 'package:restaurant_marketplace_h/screens/email_or_phone_page.dart';
+import 'package:restaurant_marketplace_h/screens/login/Login_page.dart';
 
 class welcome extends StatelessWidget {
   const welcome({super.key});
+
   @override
   Widget build(BuildContext context) {
+    print("hello world");
     return Scaffold(
       body: Stack(
         children: [
-          Container(
+           Container(
+
             height: double.infinity,
             child: Image.asset(
-              "assets/Images/welcome.jpg",
+              "assets/images/realwelcome.png",
               fit: BoxFit.cover,
             ),
           ),
@@ -123,6 +128,9 @@ class welcome extends StatelessWidget {
                         width: 5,
                       ),
                       GestureDetector(
+                        onTap:() {
+                          Navigator.of(context).push(MaterialPageRoute(builder:(context) => Login_page(),));
+                        },
                         child: const Text(
                           "Sign In",
                           style: TextStyle(
@@ -157,7 +165,7 @@ class googlebutton extends StatelessWidget {
           child: Row(
             // Row of Google logo and text google
             children: [
-              Image.asset("lib/assets/Images/google.png"),
+              Image.asset("assets/images/google.png"),
               const SizedBox(
                 width: 10,
               ),
@@ -197,7 +205,9 @@ class email_or_phonebutton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(builder:(context) => Email_or_phone(),));
+      },
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(315, 54),
         shape: const RoundedRectangleBorder(

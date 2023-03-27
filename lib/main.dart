@@ -1,6 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:restaurant_marketplace_h/screens/Phone_reg_page/phone_reg_page.dart';
+import 'package:restaurant_marketplace_h/screens/Reset_pass_page/reset_password_page.dart';
+import 'package:restaurant_marketplace_h/screens/email_or_phone_page.dart';
 import 'package:restaurant_marketplace_h/screens/login/Login_page.dart';
+import 'package:restaurant_marketplace_h/screens/Phone_reg_page/phoneregistration.dart';
+import 'package:restaurant_marketplace_h/screens/Reset_pass_page/resetpassword.dart';
 import 'package:restaurant_marketplace_h/screens/signUP//sign_up.dart';
 
 import 'package:flutter/material.dart';
@@ -23,7 +29,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(Duration(seconds: 0), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.of(context).push(MaterialPageRoute(builder: (_)=>welcome()));
     });
 
@@ -31,14 +37,21 @@ class MyApp extends StatelessWidget {
 
      Scaffold(
         backgroundColor: KPrimarycolor,
-        body: Center(
-          child: Image.asset(
-            'assets/images/default-monochrome1.png',
-            height: 170,
-            width: 170,
-
-          ),
-
+        body: Stack(
+          children: [
+            Positioned(
+              right:0 ,
+              top: 0,
+              child: Image.asset(
+                'assets/images/pizzaintro.png'
+              ),
+            ),
+            Center(
+              child: Image.asset(
+                 'assets/images/intro.png'
+               ),
+            ),
+          ],
         ),
 
   

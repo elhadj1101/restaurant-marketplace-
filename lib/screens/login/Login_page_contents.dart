@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:restaurant_marketplace_h/screens/Reset_pass_page/resetpassword.dart';
 
 import '../../constants.dart';
 import '../../widgets/default_button.dart';
+import '../Reset_pass_page/reset_password_page.dart';
 
 class Login_page_contents extends StatefulWidget {
   const Login_page_contents({Key? key}) : super(key: key);
@@ -127,6 +129,10 @@ class _Login_page_contentsState extends State<Login_page_contents> {
                 padding: EdgeInsets.symmetric(
                     horizontal: 10 * MediaQuery.of(context).size.width / 38),
                 child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder:(context) => reset_password_page(),));
+
+                  },
                   child: const Text(
                     'Forgot password ? ',
                     style: TextStyle(

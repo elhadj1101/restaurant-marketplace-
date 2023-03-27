@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/widgets/default_button.dart';
 
+import '../login/Login_page.dart';
+
 class Sign_up_content extends StatefulWidget {
   const Sign_up_content({Key? key}) : super(key: key);
 
@@ -216,6 +218,10 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                           fontFamily: GoogleFonts.roboto().fontFamily,
                         )),
                     GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder:(context) => Login_page(),));
+
+                      },
                       child:Text(' Sign in',
                           style: TextStyle(
                             fontSize: 15,
