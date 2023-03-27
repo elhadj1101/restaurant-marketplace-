@@ -1,19 +1,8 @@
 import 'dart:async';
-
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:restaurant_marketplace_h/screens/Phone_reg_page/phone_reg_page.dart';
-import 'package:restaurant_marketplace_h/screens/Reset_pass_page/reset_password_page.dart';
-import 'package:restaurant_marketplace_h/screens/email_or_phone_page.dart';
-import 'package:restaurant_marketplace_h/screens/login/Login_page.dart';
-import 'package:restaurant_marketplace_h/screens/Phone_reg_page/phoneregistration.dart';
-import 'package:restaurant_marketplace_h/screens/Reset_pass_page/resetpassword.dart';
-import 'package:restaurant_marketplace_h/screens/signUP//sign_up.dart';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
-import 'package:restaurant_marketplace_h/screens/verivication_code_page/verification_code_page.dart';
-import 'package:restaurant_marketplace_h/screens/welcome.dart';
+import 'package:restaurant_marketplace_h/screens/starting_with_us/welcome.dart';
 
 void main() {
   runApp( MaterialApp(

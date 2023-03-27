@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
-import 'package:restaurant_marketplace_h/screens/email_or_phone_page.dart';
-import 'package:restaurant_marketplace_h/screens/login/Login_page.dart';
+import 'package:restaurant_marketplace_h/screens/starting_with_us/email_or_phone_page.dart';
+import 'login/Login_page.dart';
 
 class welcome extends StatelessWidget {
   const welcome({super.key});

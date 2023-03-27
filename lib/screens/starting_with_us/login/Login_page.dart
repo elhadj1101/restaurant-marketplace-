@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
-import 'package:restaurant_marketplace_h/screens/login/Login_page_contents.dart';
+
+import 'Login_page_contents.dart';
+
 
 
 class Login_page extends StatelessWidget {
@@ -64,7 +66,7 @@ class Login_page extends StatelessWidget {
                         color: KLightcolor, shape: BoxShape.circle)),
               ),
             ),
-            Login_page_contents(),
+            const Login_page_contents(),
 
 
           ]),

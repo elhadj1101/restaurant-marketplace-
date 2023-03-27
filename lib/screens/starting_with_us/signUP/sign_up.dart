@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
-import 'package:restaurant_marketplace_h/screens/signUP/signupcontents.dart';
+import 'package:restaurant_marketplace_h/screens/starting_with_us/signUP/signupcontents.dart';
 import 'package:restaurant_marketplace_h/widgets/circle_container.dart';
 
 class Signup_page extends StatelessWidget {

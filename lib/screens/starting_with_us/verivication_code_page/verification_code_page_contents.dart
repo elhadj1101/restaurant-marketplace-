@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../constants.dart';
-
+import '../../../constants.dart';
 class Verification_Code_page_contents extends StatelessWidget {
   const Verification_Code_page_contents({Key? key}) : super(key: key);
 

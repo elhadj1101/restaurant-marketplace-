@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restaurant_marketplace_h/screens/Reset_pass_page/resetpassword.dart';
-
-import '../../constants.dart';
-import '../../widgets/default_button.dart';
+import '../../../constants.dart';
+import '../../../widgets/default_button.dart';
 import '../Reset_pass_page/reset_password_page.dart';
 
 class Login_page_contents extends StatefulWidget {

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
-import 'package:restaurant_marketplace_h/screens/Phone_reg_page/phone_reg_page.dart';
-import 'package:restaurant_marketplace_h/screens/Phone_reg_page/phoneregistration.dart';
-import 'package:restaurant_marketplace_h/screens/signUP/sign_up.dart';
-import 'welcome.dart';
+import 'package:restaurant_marketplace_h/screens/starting_with_us/signUP/sign_up.dart';
+import 'Phone_reg_page/phone_reg_page.dart';
 
 class Email_or_phone extends StatelessWidget {
   const Email_or_phone({Key? key}) : super(key: key);
@@ -47,7 +44,7 @@ class Email_or_phone extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(30)),
                         ),
                         backgroundColor: KPrimarycolor.withOpacity(0.7)),
-                    icon: Icon(Icons.email),
+                    icon: const Icon(Icons.email),
                     label:const  Text(
                       "start with email",
                       style: TextStyle(
@@ -69,7 +66,7 @@ class Email_or_phone extends StatelessWidget {
                           fontSize: 18, color: Colors.white),
                     ),
 
-                    icon: Icon(Icons.phone),
+                    icon: const Icon(Icons.phone),
                     style: ElevatedButton.styleFrom(
 
                         minimumSize: const Size(315, 54),

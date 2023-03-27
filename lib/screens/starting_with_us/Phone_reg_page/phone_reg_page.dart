@@ -1,9 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
-import 'package:restaurant_marketplace_h/screens/Phone_reg_page/phoneregistration.dart';
-import 'package:restaurant_marketplace_h/screens/Reset_pass_page/resetpassword.dart';
-import 'package:restaurant_marketplace_h/screens/login/Login_page_contents.dart';
+import 'package:restaurant_marketplace_h/screens/starting_with_us/Phone_reg_page/phoneregistration.dart';
 
 
 class phone_reg_page extends StatelessWidget {
@@ -66,7 +64,7 @@ class phone_reg_page extends StatelessWidget {
                         color: KLightcolor, shape: BoxShape.circle)),
               ),
             ),
-             phoneregistration(),
+             const phoneregistration(),
 
 
           ]),
