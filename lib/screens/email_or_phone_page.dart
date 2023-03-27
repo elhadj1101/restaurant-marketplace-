@@ -12,48 +12,78 @@ class Email_or_phone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: KPrimarycolor,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+        backgroundColor: KPrimarycolor,
+        body: Stack(children: [
+          Container(
+            height: double.infinity,
+            child: Image.asset(
+              "assets/images/realwelcome.png",
+              fit: BoxFit.cover,
+            ),
+          ),
+          Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.transparent, Color(0xFF191B2F)])),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(58.0),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const Signup_page(),
+                      ));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(315, 54),
+                        shape: const RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.white, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        backgroundColor: KPrimarycolor.withOpacity(0.7)),
+                    icon: Icon(Icons.email),
+                    label:const  Text(
+                      "start with email",
+                      style: TextStyle(
+                          fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => phone_reg_page(),
+                      ));
+                    },
+                    label: const Text(
+                      "start with phone",
+                      style: TextStyle(
+                          fontSize: 18, color: Colors.white),
+                    ),
 
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder:(context) => const Signup_page(),));
+                    icon: Icon(Icons.phone),
+                    style: ElevatedButton.styleFrom(
 
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(315, 54),
-                shape: const RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                ),
-                backgroundColor: Colors.grey.withOpacity(0.45),
+                        minimumSize: const Size(315, 54),
+                        shape: const RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.white, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        backgroundColor: KPrimarycolor.withOpacity(0.7)),
+
+                  ),
+                ],
               ),
-              child: const Text("start with email",style: TextStyle(fontSize: 20),),
             ),
-            const SizedBox(
-              height: 30,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder:(context) => phone_reg_page(),));
-
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(315, 54),
-                shape: const RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                ),
-                backgroundColor: Colors.grey.withOpacity(0.45),
-              ),
-              child: const Text("start with phone",style: TextStyle(fontSize: 20),),
-            ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ]));
   }
 }
