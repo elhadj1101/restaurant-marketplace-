@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/email_or_phone_page.dart';
 import 'login/Login_page.dart';
@@ -8,16 +9,16 @@ class welcome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("hello world");
+
     return Scaffold(
       body: Stack(
         children: [
-           Container(
-
+          Container(
             height: double.infinity,
+            width: double.infinity,
             child: Image.asset(
               "assets/images/realwelcome.png",
-              fit: BoxFit.cover,
+              fit: BoxFit.fitWidth,
             ),
           ),
           Container(
@@ -31,118 +32,124 @@ class welcome extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 160, 64, 19),
+                padding: EdgeInsets.fromLTRB(20.w, 160.h, 64.w, 19.h),
                 child: RichText(
-                    text: const TextSpan(children: [
+                    text:  TextSpan(children: [
                   TextSpan(
                       text: "Welcome to ",
                       style: TextStyle(
                           fontFamily: "sofiapro",
                           color: Ktextcolor,
                           fontWeight: FontWeight.w700,
-                          fontSize: 45)),
+                          fontSize: 45.sp)),
                   TextSpan(
                       text: "\nTabaki",
                       style: TextStyle(
                           fontFamily: "sofiapro",
-                          fontSize: 53,
+                          fontSize: 53.sp,
                           fontWeight: FontWeight.w700,
                           color: KPrimarycolor)),
                 ])),
               ),
-              const SizedBox(
-                height: 19,
+               SizedBox(
+                height: 19.h,
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 20),
+               Padding(
+                padding: EdgeInsets.only(left: 20.w),
                 child: Text(
                   "Your favourite foods delivered \nfast at your door.",
                   style: TextStyle(
                       color: Color(0xFF30384F),
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w400),
                 ),
               ),
-              const SizedBox(
-                height: 213,
+               SizedBox(
+                height: 200.h,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                // column of under sign up with
-                children: [
-                  Row(children: const <Widget>[
-                    Expanded(
-                        child: Divider(
-                      indent: 44,
-                      color: Color(0xFFFFFFFF),
-                      endIndent: 17,
-                    )),
-                    Text(
-                      " sign up with ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFFFFFFF),
-                      ),
-                    ),
-                    Expanded(
-                        child: Divider(
-                      endIndent: 38,
-                      color: Color(0xFFFFFFFF),
-                      indent: 17,
-                    )),
-                  ]),
-                  const SizedBox(
-                    height: 18,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    // Row of facebook and google button
-                    children: const [
-                       facebookbutton(),
-                       SizedBox(
-                        width: 30,
-                      ),
-                      googlebutton()
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 23,
-                  ),
-                  const email_or_phonebutton(),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  // Row of already have an account and sign in button
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+              Padding(
+                padding:  EdgeInsets.only(bottom: 20.0.h),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  // column of under sign up with
+                  children: [
+                    Row(children:  <Widget>[
+                      Expanded(
+                          child: Divider(
+                        indent: 44.w,
+                        color: const Color(0xFFFFFFFF),
+                        endIndent: 17.w,
+                      )),
                       const Text(
-                        "Already have an account? ",
+                        " sign up with ",
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFFFFFFF),
                         ),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      GestureDetector(
-                        onTap:() {
-                          Navigator.of(context).push(MaterialPageRoute(builder:(context) => Login_page(),));
-                        },
-                        child: const Text(
-                          "Sign In",
+                      Expanded(
+                          child: Divider(
+                        endIndent: 38.w,
+                        color: const Color(0xFFFFFFFF),
+                        indent: 17.w,
+                      )),
+                    ]),
+                     SizedBox(
+                      height: 18.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      // Row of facebook and google button
+                      children:  [
+                        facebookbutton(),
+                        SizedBox(
+                          width: 30.w,
+                        ),
+                        googlebutton()
+                      ],
+                    ),
+                     SizedBox(
+                      height: 23.h,
+                    ),
+                    const email_or_phonebutton(),
+                     SizedBox(
+                      height: 30.h,
+                    ),
+                    // Row of already have an account and sign in button
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                         Text(
+                          "Already have an account? ",
                           style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                              decoration: TextDecoration.underline),
+                            color: Colors.white,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      )
-                    ],
-                  ),
-                ],
+                         SizedBox(
+                          width: 5.w,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => Login_page(),
+                            ));
+                          },
+                          child:  Text(
+                            "Sign In",
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                                decoration: TextDecoration.underline),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               )
             ],
           )
@@ -151,6 +158,7 @@ class welcome extends StatelessWidget {
     );
   }
 }
+
 // google button
 class googlebutton extends StatelessWidget {
   const googlebutton({super.key});
@@ -161,15 +169,15 @@ class googlebutton extends StatelessWidget {
         onPressed: () {},
         style: Primarybuttonstyle,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding:  EdgeInsets.symmetric(horizontal: 10.w),
           child: Row(
             // Row of Google logo and text google
             children: [
               Image.asset("assets/images/google.png"),
-              const SizedBox(
-                width: 10,
+               SizedBox(
+                width: 10.w,
               ),
-              const Text(
+               Text(
                 "GOOGLE",
                 style: welcometextstyle,
               ),
@@ -178,6 +186,7 @@ class googlebutton extends StatelessWidget {
         ));
   }
 }
+
 //facebook button
 class facebookbutton extends StatelessWidget {
   const facebookbutton({super.key});
@@ -186,12 +195,12 @@ class facebookbutton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: () {},
-      icon: const Icon(
+      icon:  Icon(
         Icons.facebook,
-        color: Color(0xFF1877F2),
-        size: 35,
+        color: const Color(0xFF1877F2),
+        size: 42.r,
       ),
-      label: const Text(
+      label:  Text(
         "FACEBOOK",
         style: welcometextstyle,
       ),
@@ -199,6 +208,7 @@ class facebookbutton extends StatelessWidget {
     );
   }
 }
+
 class email_or_phonebutton extends StatelessWidget {
   const email_or_phonebutton({super.key});
 
@@ -206,13 +216,15 @@ class email_or_phonebutton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(builder:(context) => Email_or_phone(),));
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const  Email_or_phone(),
+        ));
       },
       style: ElevatedButton.styleFrom(
-        minimumSize: const Size(315, 54),
-        shape: const RoundedRectangleBorder(
-          side: BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.all(Radius.circular(30)),
+        minimumSize:  Size(315.w, 54.h),
+        shape:  RoundedRectangleBorder(
+          side: BorderSide(color: Colors.white,width: 2.w),
+          borderRadius: const  BorderRadius.all(Radius.circular(30)),
         ),
         backgroundColor: Colors.grey.withOpacity(0.45),
       ),
@@ -220,6 +232,3 @@ class email_or_phonebutton extends StatelessWidget {
     );
   }
 }
-
-
-

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/signUP/sign_up.dart';
 import 'Phone_reg_page/phone_reg_page.dart';
@@ -13,9 +14,10 @@ class Email_or_phone extends StatelessWidget {
         body: Stack(children: [
           Container(
             height: double.infinity,
+            width: double.infinity,
             child: Image.asset(
               "assets/images/realwelcome.png",
-              fit: BoxFit.cover,
+              fit: BoxFit.fitWidth,
             ),
           ),
           Container(
@@ -38,21 +40,21 @@ class Email_or_phone extends StatelessWidget {
                       ));
                     },
                     style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(315, 54),
-                        shape: const RoundedRectangleBorder(
-                          side: BorderSide(color: Colors.white, width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        minimumSize:  Size(315.w, 54.h),
+                        shape:  RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.white, width: 2.w),
+                          borderRadius: const BorderRadius.all(Radius.circular(30)),
                         ),
                         backgroundColor: KPrimarycolor.withOpacity(0.7)),
                     icon: const Icon(Icons.email),
-                    label:const  Text(
+                    label:  Text(
                       "start with email",
                       style: TextStyle(
-                          fontSize: 18, color: Colors.white),
+                          fontSize: 18.sp, color: Colors.white),
                     ),
                   ),
-                  const SizedBox(
-                    height: 30,
+                   SizedBox(
+                    height: 30.h,
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
@@ -60,19 +62,19 @@ class Email_or_phone extends StatelessWidget {
                         builder: (context) => phone_reg_page(),
                       ));
                     },
-                    label: const Text(
+                    label:  Text(
                       "start with phone",
                       style: TextStyle(
-                          fontSize: 18, color: Colors.white),
+                          fontSize: 18.sp, color: Colors.white),
                     ),
 
                     icon: const Icon(Icons.phone),
                     style: ElevatedButton.styleFrom(
 
-                        minimumSize: const Size(315, 54),
-                        shape: const RoundedRectangleBorder(
-                          side: BorderSide(color: Colors.white, width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        minimumSize:  Size(315.w, 54.h),
+                        shape:  RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.white, width: 2.w),
+                          borderRadius: const BorderRadius.all(Radius.circular(30)),
                         ),
                         backgroundColor: KPrimarycolor.withOpacity(0.7)),
 

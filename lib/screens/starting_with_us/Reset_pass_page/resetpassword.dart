@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant_marketplace_h/widgets/default_button.dart';
@@ -14,39 +15,39 @@ class resetpassword extends StatelessWidget {
 
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
+        padding:  EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 0.h),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 60,
+              SizedBox(
+                height: 60.h,
               ),
               Text(
                 'Reset Password ',
                 style: TextStyle(
                     color: Ktextcolor,
-                    fontSize: 40,
+                    fontSize: 40.sp,
                     fontFamily: GoogleFonts
                         .roboto()
                         .fontFamily,
                     fontWeight: FontWeight.w700),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 20.h,
               ),
               Text(
                 'Please enter your email adress to request a password reset',
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontFamily: GoogleFonts
                         .roboto()
                         .fontFamily,
                     fontWeight: FontWeight.w400),
               ),
-              const SizedBox(
-                height: 40,
+              SizedBox(
+                height: 40.h,
               ),
               TextFormField(
                 cursorColor: KPrimarycolor,
@@ -55,11 +56,11 @@ class resetpassword extends StatelessWidget {
                 decoration: InputDecoration(
                   suffixIconColor: Klighttextcolor,
                   contentPadding:
-                 const  EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                   EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
                   suffixIcon:
-                    const  Icon(
+                      Icon(
                       Icons.email ,
-                      size: 24,
+                      size: 24.r,
                     ),
 
 
@@ -72,27 +73,27 @@ class resetpassword extends StatelessWidget {
                   ),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(11),
-                      gapPadding: 14,
+                      gapPadding: 14.w,
                       borderSide: const BorderSide(color: Ktextcolor)),
                   focusColor: KPrimarycolor,
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(11),
-                      gapPadding: 14,
-                      borderSide: const BorderSide(
+                      gapPadding: 14.w,
+                      borderSide:  BorderSide(
                         color: KPrimarycolor,
-                        width: 2,
+                        width: 2.w,
                       )),
                 ),
               ),
-              const SizedBox(
-                height: 50,
+               SizedBox(
+                height: 50.h,
               ),
-               const Padding(
-                 padding:  EdgeInsets.symmetric(horizontal: 40.0,vertical: 0),
-                 child: default_button(text: 'reset my password', x: 1.5, y: 13, button_color: KPrimarycolor),
+                Padding(
+                 padding:  EdgeInsets.symmetric(horizontal: 40.0.w,vertical: 0.h),
+                 child: const default_button(text: 'reset my password', x: 1.5, y: 13, button_color: KPrimarycolor),
                ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 20.h,
               )
             ],
           ),
