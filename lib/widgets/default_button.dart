@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants.dart';
 
@@ -21,9 +22,9 @@ class default_button extends StatelessWidget {
               borderRadius: BorderRadius.circular(50))),
       child:  Text(
         text,
-        style: const  TextStyle(
+        style:   TextStyle(
           fontStyle: FontStyle.normal,
-          fontSize: 20,
+          fontSize: 20.sp,
           color: Colors.white,
         ),
       ),

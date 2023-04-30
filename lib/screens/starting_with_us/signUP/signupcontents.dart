@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/widgets/default_button.dart';
@@ -21,30 +23,30 @@ class _Sign_up_contentState extends State<Sign_up_content> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
+        padding:  EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 0.h),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 40,
+               SizedBox(
+                height: 40.h,
               ),
               Text(
                 'Sign up',
                 style: TextStyle(
                     color: Ktextcolor,
-                    fontSize: 40,
+                    fontSize: 40.sp,
                     fontFamily: GoogleFonts.roboto().fontFamily,
                     fontWeight: FontWeight.w700),
               ),
-              const SizedBox(
-                height: 70,
+               SizedBox(
+                height: 70.h,
               ),
               TextFormField(
                 cursorColor: KPrimarycolor,
                 decoration: InputDecoration(
                   contentPadding:
-                     const  EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                       EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
                   suffixIconColor: Klighttextcolor,
                   suffixIcon: const Icon(
                     Icons.person,
@@ -59,21 +61,21 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   enabledBorder: OutlineInputBorder(
 
                       borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14,
+                      gapPadding: 14.w,
                       borderSide: const BorderSide(color: Ktextcolor )),
                   focusColor: KPrimarycolor,
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14,
-                      borderSide: const BorderSide(
+                      gapPadding: 14.w,
+                      borderSide:  BorderSide(
                         color: KPrimarycolor,
-                        width: 2,
+                        width: 2.w,
                       )),
                 ),
               ),
 
-              const SizedBox(
-                height: 40,
+              SizedBox(
+                height: 40.h,
               ),
               TextFormField(
                 cursorColor: KPrimarycolor,
@@ -81,7 +83,7 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                 decoration: InputDecoration(
                   suffixIconColor: Klighttextcolor,
                   contentPadding:
-                     const  EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                       EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
                   suffixIcon: const Icon(
                     Icons.email,
                   ),
@@ -94,20 +96,20 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   ),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14,
+                      gapPadding: 14.w,
                       borderSide: const BorderSide(color: Ktextcolor)),
                   focusColor: KPrimarycolor,
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14,
-                      borderSide: const BorderSide(
+                      gapPadding: 14.w,
+                      borderSide:  BorderSide(
                         color: KPrimarycolor,
-                        width: 2,
+                        width: 2.w,
                       )),
                 ),
               ),
-              const SizedBox(
-                height: 40,
+               SizedBox(
+                height: 40.h,
               ),
               TextFormField(
                 cursorColor: KPrimarycolor,
@@ -116,11 +118,11 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                 decoration: InputDecoration(
                   suffixIconColor: Klighttextcolor,
                   contentPadding:
-                      EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                      EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
                   suffixIcon: IconButton(
                     icon: Icon(
                       isvisible ? Icons.visibility : Icons.visibility_off,
-                      size: 24,
+                      size: 24.r,
                     ),
                     onPressed: () {
                       setState(() {
@@ -137,21 +139,21 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   ),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14,
+                      gapPadding: 14.w,
                       borderSide: const BorderSide(color: Ktextcolor)),
                   focusColor: KPrimarycolor,
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14,
-                      borderSide: const BorderSide(
+                      gapPadding: 14.w,
+                      borderSide: BorderSide(
                         color: KPrimarycolor,
-                        width: 2,
+                        width: 2.w,
                       )),
                 ),
               ),
 
-              const SizedBox(
-                height: 40,
+              SizedBox(
+                height: 40.h,
               ),
               TextFormField(
                 cursorColor: KPrimarycolor,
@@ -160,11 +162,11 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                 decoration: InputDecoration(
                   suffixIconColor: Klighttextcolor,
                   contentPadding:
-                  EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                  EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
                   suffixIcon: IconButton(
                     icon: Icon(
                       isvisible2 ? Icons.visibility : Icons.visibility_off,
-                      size: 24,
+                      size: 24.r,
                     ),
                     onPressed: () {
                       setState(() {
@@ -181,39 +183,40 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   ),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14,
+                      gapPadding: 14.w,
                       borderSide: const BorderSide(color: Ktextcolor)),
                   focusColor: KPrimarycolor,
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14,
-                      borderSide: const BorderSide(
+                      gapPadding: 14.w,
+                      borderSide:  BorderSide(
                         color: KPrimarycolor,
-                        width: 2,
+                        width: 2.w,
                       )),
                 ),
               ),
 
-              const SizedBox(
-                height: 60,
+               SizedBox(
+                height: 60.h,
               ),
 
-                const Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 40.0,vertical: 0),
-                  child: default_button(text: 'Sign up', x: 1.5, y: 13, button_color: KPrimarycolor),
+                 Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 40.0.w,vertical: 0.h),
+                  child:const default_button(text: 'Sign up', x: 1.5, y: 13, button_color: KPrimarycolor),
                 ) ,
-              const SizedBox(
-                height: 40,
+               SizedBox(
+                height: 40.h,
               ),
               Padding(
                 padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width / 6
+                    top: MediaQuery.of(context).size.width / 120
                 ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text('already have an account ? ',
                         style: TextStyle(
-                          fontSize: 13,
+                          fontSize: 13.sp,
                           color: Ktextcolor,
                           fontFamily: GoogleFonts.roboto().fontFamily,
                         )),
@@ -224,7 +227,7 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                       },
                       child:Text(' Sign in',
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 15.sp,
                             color: KPrimarycolor,
                             fontFamily: GoogleFonts.roboto().fontFamily,
                           )),
@@ -232,8 +235,8 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 40,
+              SizedBox(
+                height: 40.h,
               )
 
             ],

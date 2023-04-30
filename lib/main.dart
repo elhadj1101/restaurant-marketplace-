@@ -1,16 +1,19 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/drawer/sidemenu.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/home_page/home.dart';
+import 'package:restaurant_marketplace_h/screens/starting_with_us/verivication_code_page/verification_code_page.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/welcome.dart';
+import 'package:restaurant_marketplace_h/splash_screen_timer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 void main() {
-  runApp( MaterialApp(
-      theme: ThemeData(
-        fontFamily: GoogleFonts.roboto().fontFamily ,
-      ),
-      debugShowCheckedModeBanner: false,
-      home:  MyApp()));
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -18,33 +21,38 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 2), () {
-      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>welcome()));
-    });
 
+    return ScreenUtilInit(
+        designSize: const Size(392.72, 826.90),
+        minTextAdapt: true,
+        splitScreenMode: true,
+      builder : (context , child )  {
+        return  MultiProvider(
+          providers: [
+            ChangeNotifierProvider<Provider_Drawer>(create: (context) => Provider_Drawer()),
+            ChangeNotifierProvider<Provider_home>(create: (context) => Provider_home()),
 
-    return  
-
-     Scaffold(
-        backgroundColor: KPrimarycolor,
-        body: Stack(
-          children: [
-            Positioned(
-              right:0 ,
-              top: 0,
-              child: Image.asset(
-                'assets/images/pizzaintro.png'
-              ),
-            ),
-            Center(
-              child: Image.asset(
-                 'assets/images/intro.png'
-               ),
-            ),
           ],
-        ),
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home:  // splash_screen(),
+             const Home_screen(),
+            theme: ThemeData(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              fontFamily: GoogleFonts.poppins().fontFamily,
+              textTheme: GoogleFonts.poppinsTextTheme(),
+
+            ),
+      ),
     );
+
+
+
+      }
+    ) ;
+
+
+
   }
 }
-
-

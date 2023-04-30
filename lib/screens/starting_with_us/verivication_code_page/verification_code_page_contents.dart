@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../constants.dart';
 class Verification_Code_page_contents extends StatelessWidget {
@@ -10,39 +11,39 @@ class Verification_Code_page_contents extends StatelessWidget {
     int i = 1;
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
+        padding:  EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 0.h),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 60,
+               SizedBox(
+                height: 60.h,
               ),
               Text(
                 'Verification Code ',
                 style: TextStyle(
                     color: Ktextcolor,
-                    fontSize: 40,
+                    fontSize: 40.sp,
                     fontFamily: GoogleFonts
                         .roboto()
                         .fontFamily,
                     fontWeight: FontWeight.w700),
               ),
-              const SizedBox(
-                height: 20,
+               SizedBox(
+                height: 20.h,
               ),
               Text(
                 'Please type the verification code sent to  useradress@gmail.com ',
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontFamily: GoogleFonts
                         .roboto()
                         .fontFamily,
                     fontWeight: FontWeight.w400),
               ),
-              const SizedBox(
-                height: 40,
+               SizedBox(
+                height: 40.h,
               ),
               Form(
                   child: Row(
@@ -54,38 +55,32 @@ class Verification_Code_page_contents extends StatelessWidget {
                       Otp_form(i: 4),
                     ],
                   )),
-              const SizedBox(
-                height: 40,
+               SizedBox(
+                height: 40.h,
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 12),
-                child: Row(
-                  children: [
-                    Text('I don\'t receive a code !',
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('I don\'t receive a code !',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: Ktextcolor,
+                        fontFamily: GoogleFonts
+                            .roboto()
+                            .fontFamily,
+                      )),
+                  GestureDetector(
+
+                    child: Text(' Please Resend',
                         style: TextStyle(
-                          fontSize: 16,
-                          color: Ktextcolor,
+                          fontSize: 16.sp,
+                          color: KPrimarycolor,
                           fontFamily: GoogleFonts
                               .roboto()
                               .fontFamily,
                         )),
-                    GestureDetector(
-
-                      child: Text(' Please Resend',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: KPrimarycolor,
-                            fontFamily: GoogleFonts
-                                .roboto()
-                                .fontFamily,
-                          )),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
             ],
           ),
@@ -102,8 +97,8 @@ class Otp_form extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 75,
-      width: 68,
+      height: 75.h,
+      width: 68.w,
       child: TextField(
 
         onChanged: (value) {
@@ -135,15 +130,15 @@ class Otp_form extends StatelessWidget {
 
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(
+            borderSide:  BorderSide(
               color: Colors.black38,
-              width: 2,
+              width: 2.w,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(
-              width: 2,
+            borderSide: BorderSide(
+              width: 2.w,
               color: KPrimarycolor,
             ),
           ),

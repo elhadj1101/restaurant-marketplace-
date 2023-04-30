@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -12,43 +13,43 @@ class phoneregistration extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int i = 0 ;
+
 
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
+        padding:  EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 0.h),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 60,
+               SizedBox(
+                height: 60.h,
               ),
               Text(
                 'Phone registration ',
                 style: TextStyle(
                     color: Ktextcolor,
-                    fontSize: 37,
+                    fontSize: 37.sp,
                     fontFamily: GoogleFonts
                         .roboto()
                         .fontFamily,
                     fontWeight: FontWeight.w700),
               ),
-              const SizedBox(
-                height: 20,
+               SizedBox(
+                height: 20.h,
               ),
               Text(
                 'Enter your phone number to sign up with us ',
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontFamily: GoogleFonts
                         .roboto()
                         .fontFamily,
                     fontWeight: FontWeight.w400),
               ),
-              const SizedBox(
-                height: 40,
+               SizedBox(
+                height: 40.h,
               ),
               IntlPhoneField(
 
@@ -76,22 +77,22 @@ class phoneregistration extends StatelessWidget {
                       borderSide: const BorderSide(color: Ktextcolor)),
                   focusColor: KPrimarycolor,
                   focusedBorder: OutlineInputBorder(
-                      gapPadding: 10,
+                      gapPadding: 10.w,
                       borderRadius: BorderRadius.circular(11),
-                      borderSide: const BorderSide(color: KPrimarycolor, width: 2,)
+                      borderSide:  BorderSide(color: KPrimarycolor, width: 2.w,)
                   ),
                 ),
 
               ),
-              const SizedBox(
-                height: 50,
+              SizedBox(
+                height: 50.h,
               ),
-              const Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 40.0,vertical: 0),
+              Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 40.0.w,vertical: 0.h),
                 child: default_button(text: 'Sign up', x: 1.5, y: 13, button_color: KPrimarycolor),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 20.h,
               ),
 
             ],
