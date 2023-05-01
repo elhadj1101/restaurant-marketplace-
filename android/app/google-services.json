@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "90174131186",
+    "project_id": "restaurant-marketplace-60929",
+    "storage_bucket": "restaurant-marketplace-60929.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:90174131186:android:7cb32662610e9d4e6b796b",
+        "android_client_info": {
+          "package_name": "com.example.restaurant_marketplace_h"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "90174131186-3n9ipvmnnts9n5h1cantcdopsv1lq9je.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJrQ8ENJGjSP2LWqldFNOXN0Zo3Y54Tj0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "90174131186-3n9ipvmnnts9n5h1cantcdopsv1lq9je.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "90174131186-etd7peksvqeltkhqkidm86jiqb5f8jn0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.restaurantMarketplaceh"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

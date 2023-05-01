@@ -10,10 +10,16 @@ import 'package:restaurant_marketplace_h/screens/starting_with_us/verivication_c
 import 'package:restaurant_marketplace_h/screens/starting_with_us/welcome.dart';
 import 'package:restaurant_marketplace_h/splash_screen_timer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 
-void main() {
-  runApp( MyApp());
+Future <void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform
+);
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -35,16 +41,16 @@ class MyApp extends StatelessWidget {
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            home:  // splash_screen(),
-             const Home_screen(),
-            theme: ThemeData(
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              fontFamily: GoogleFonts.poppins().fontFamily,
-              textTheme: GoogleFonts.poppinsTextTheme(),
+            home:  splash_screen(),
+            //  const Home_screen(),
+            // theme: ThemeData(
+            //   splashColor: Colors.transparent,
+            //   highlightColor: Colors.transparent,
+            //   fontFamily: GoogleFonts.poppins().fontFamily,
+            //   textTheme: GoogleFonts.poppinsTextTheme(),
 
             ),
-      ),
+      // ),
     );
 
 
