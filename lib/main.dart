@@ -6,6 +6,8 @@ import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/drawer/sidemenu.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/home.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/home_page/item_card.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_card.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/verivication_code_page/verification_code_page.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/welcome.dart';
 import 'package:restaurant_marketplace_h/splash_screen_timer.dart';
@@ -31,6 +33,11 @@ class MyApp extends StatelessWidget {
           providers: [
             ChangeNotifierProvider<Provider_Drawer>(create: (context) => Provider_Drawer()),
             ChangeNotifierProvider<Provider_home>(create: (context) => Provider_home()),
+            ChangeNotifierProvider<Provider_Category>(create: (context) => Provider_Category()),
+            ChangeNotifierProvider<Provider_favorite>(create: (context) => Provider_favorite()),
+            ChangeNotifierProvider<Provider_favorite_item>(create: (context) => Provider_favorite_item()),
+
+
 
           ],
           child: MaterialApp(
