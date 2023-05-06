@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/models/fakeDATA.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/home_page/item_card.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_card.dart';
 
 import '../drawer/sidemenu.dart';
 
@@ -22,20 +25,20 @@ class Home extends StatelessWidget {
         toolbarHeight: 90.h,
       ),
       body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 18.0.w),
+        padding: EdgeInsets.symmetric(horizontal: 18.0.w),
         child: ListView(
           children: [
-             SizedBox(
+            SizedBox(
               height: 10.h,
             ),
-             Text(
+            Text(
               'What would you like to  \n order ',
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 30.sp,
               ),
             ),
-             SizedBox(
+            SizedBox(
               height: 20.h,
             ),
             Row(
@@ -44,29 +47,29 @@ class Home extends StatelessWidget {
                   flex: 4,
                   child: TextFormField(
                     cursorColor: KPrimarycolor,
-                    decoration:  InputDecoration(
+                    decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.search,
                           size: 28.r,
                           color: Colors.black54,
                         ),
                         hintText: 'find food or restaurant . . . ',
-                        enabledBorder: const  OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Klighttextcolor,
                             ),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(10))),
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: KPrimarycolor,
                               width: 2.w,
                             ),
                             borderRadius:
-                           const  BorderRadius.all(Radius.circular(10)))),
+                                const BorderRadius.all(Radius.circular(10)))),
                   ),
                 ),
-                 SizedBox(
+                SizedBox(
                   width: 20.w,
                 ),
                 GestureDetector(
@@ -95,27 +98,90 @@ class Home extends StatelessWidget {
                     ),
                   ),
                 ),
-                 SizedBox(
+                SizedBox(
                   width: 5.w,
                 ),
               ],
             ),
-             SizedBox(
-              height: 10.w,
+            SizedBox(
+              height: 10.h,
             ),
-             SizedBox(
+            SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 200.h,
               child: ListView.builder(
-
                 itemCount: mycategories.length,
                 scrollDirection: Axis.horizontal,
-                itemBuilder:(context, index) {
-                  return const  CategoryContainer()  ;
-                }
-                ,),
-            )
-
+                itemBuilder: (context, index) {
+                  bool isitnull = false;
+                  if (index == null) {
+                    isitnull = true;
+                  }
+                  return CategoryContainer(ii: isitnull ? 0 : index);
+                },
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Featured restaurant ',
+                  style:
+                      TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w500),
+                ),
+                GestureDetector(
+                  child: Row(
+                    children: [
+                      Text(
+                        'view all ',
+                        style: TextStyle(
+                            fontSize: 16.sp,
+                            color: KPrimarycolor,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      Icon(
+                        Icons.chevron_right,
+                        size: 15.w,
+                        color: KPrimarycolor,
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Container(
+              height: 260,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: myrestaurants.length,
+                itemBuilder: (context, index) {
+                  return restaurant_card();
+                },
+              ),
+            ),
+            Text(
+              'Popular items ',
+              style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w500),
+            ),
+            Container(
+              height: (mydishes.length % 2 ==0 ) ?  (mydishes.length/2)*280 : (1+(mydishes.length/2))*250 ,
+              child: GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 190,
+                    mainAxisExtent: 250,
+                    childAspectRatio: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10),
+                itemCount: mydishes.length,
+                itemBuilder: (context, index) {
+                  return item_card();
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -139,14 +205,11 @@ class RestaurantCard extends StatelessWidget {
             height: 100.h,
             width: 100.w,
           )
-
         ],
-
       ),
     );
   }
 }
-
 
 class AdressWidget extends StatelessWidget {
   const AdressWidget({Key? key, required this.adress}) : super(key: key);
@@ -165,7 +228,7 @@ class AdressWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-             Text(
+            Text(
               'Deliver to ',
               style: TextStyle(
                 color: Colors.grey,
@@ -180,7 +243,7 @@ class AdressWidget extends StatelessWidget {
           ]),
           Text(
             adresstoshow,
-            style:  TextStyle(
+            style: TextStyle(
               color: KPrimarycolor,
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
@@ -193,48 +256,133 @@ class AdressWidget extends StatelessWidget {
 }
 
 class CategoryContainer extends StatelessWidget {
-  const CategoryContainer({Key? key}) : super(key: key);
+  CategoryContainer({
+    Key? key,
+    required this.ii,
+  }) : super(key: key);
+
+  final int ii;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(100),
-          child: Container(
-            height: 150.h,
-            width: MediaQuery.of(context).size.width*0.205,
-            color: KPrimarycolor,
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Container(
-                    height: 70.h,
-                    width: 70.w,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle
-                    ),
-                    child: Image.asset(
-                      'assets/images/burger_category.png',height: 40.h , width: 40.w, fit: BoxFit.contain,
-                    ),
+    return Consumer<Provider_Category>(
+      builder: (context, Provider_Category, child) {
+        return GestureDetector(
+          onTap: () {
+            Provider_Category.selectcategory(ii);
+            Provider_Category.turnoff(ii);
+          },
+          child: Row(
+            children: [
+              AnimatedContainer(
+                duration: Duration(milliseconds: 250),
+                curve: Curves.slowMiddle,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: Provider_Category.isselected[ii] ?? false
+                        ? KPrimarycolor
+                        : Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Provider_Category.isselected[ii] ?? false
+                              ? KPrimarycolor.withOpacity(0.5)
+                              : Colors.grey.withOpacity(0.2),
+                          blurRadius: 10,
+                          spreadRadius: 7)
+                    ]),
+                height: 150.h,
+                width: MediaQuery.of(context).size.width * 0.205,
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0.r),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 70.r,
+                        width: 70.r,
+                        alignment: Alignment.center,
+                        decoration: const BoxDecoration(
+                            color: Colors.white, shape: BoxShape.circle),
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              left: 15.w,
+                              top: 25.h,
+                              child: Container(
+                                height: 30.h,
+                                width: 30.w,
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(100),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: KPrimarycolor.withOpacity(0.4),
+                                          blurRadius: 10.r,
+                                          spreadRadius: 7.r,
+                                          offset: Offset(2.w, 3.h))
+                                    ]),
+                              ),
+                            ),
+                            Container(
+                              height: 70.h,
+                              width: 70.w,
+                              child: Image.asset(
+                                mycategories[ii].image,
+                                height: 40.h,
+                                width: 40.w,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Text(
+                        mycategories[ii].name,
+                        style: TextStyle(
+                            color: Provider_Category.isselected[ii] ?? false
+                                ? Colors.white
+                                : Colors.black),
+                      )
+                    ],
                   ),
-                   SizedBox(
-                    height: 20.h,
-                  ) , 
-                  Text(mycategories[0].name)
-                ],
+                ),
               ),
-            ),
+              SizedBox(
+                width: 10.w,
+              ),
+            ],
           ),
-        ),
-         SizedBox(
-          width: 10.w,
-        ), 
+        );
+      },
+    );
+  }
+}
 
-      ],
-    ) ;
+class Provider_Category extends ChangeNotifier {
+  Map<int, bool> isselected = {
+    0: false,
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  };
+
+  void selectcategory(int i) {
+    isselected[i] = !isselected[i]!;
+
+    notifyListeners();
+  }
+
+  void turnoff(int i) {
+    for (int j = 0; j <= 4; j++) {
+      if (j == i) {
+        continue;
+      } else {
+        isselected[j] = false;
+      }
+    }
   }
 }

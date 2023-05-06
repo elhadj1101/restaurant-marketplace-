@@ -14,7 +14,7 @@ class splash_screen extends StatelessWidget {
     print(MediaQuery.of(context).size.height);
     print(MediaQuery.of(context).size.width);
     Timer(
-        const Duration(seconds: 0),
+        const Duration(seconds: 3),
         () => Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => const welcome(),
             )));

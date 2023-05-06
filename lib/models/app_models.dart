@@ -16,7 +16,7 @@ class review {
   final rest_id ;
   final user_id ;
   final String descreption ;
-  final int rating ;
+  final double rating ;
   final String created_date ;
 
   review(this.rest_id, this.user_id, this.descreption, this.rating, this.created_date);
@@ -76,5 +76,14 @@ class category {
   final String name ;
 
   category(this.image, this.name);
+
+}
+
+class tags{
+  final String tag1 ;
+  final String tag2 ;
+  final String tag3 ;
+
+  tags(this.tag1, this.tag2, this.tag3);
 
 }
