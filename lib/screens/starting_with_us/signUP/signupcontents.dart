@@ -54,7 +54,7 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   hintStyle: const TextStyle(
                     color: Kverylighttextcolor,
                   ),
-                  labelText: 'First name ',
+                  labelText: 'Full name ',
                   labelStyle: const TextStyle(
                     color: Klighttextcolor,
                   ),

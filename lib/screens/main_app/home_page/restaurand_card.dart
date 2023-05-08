@@ -11,13 +11,13 @@ class restaurant_card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Stack(
-      children: const [
-        restaurant_widget(),
-        review_widget(),
+      children:  [
+        const restaurant_widget(),
+        const review_widget(),
         Positioned(
-            left: 220,
-            top: 12,
-            child: favorite_widget()
+            left: 220.w,
+            top: 12.h,
+            child:const  favorite_widget()
         ),
       ],
     );
@@ -63,30 +63,30 @@ class restaurant_widget extends StatelessWidget {
                     SizedBox(
                       width: 7.w,
                     ),
-                    const Icon(
+                     Icon(
                       Icons.check_circle,
                       color: Color(0xFF029094),
-                      size: 16,
+                      size: 16.r,
                     ),
                   ],
                 ),
-                const Text.rich(TextSpan(children: [
+                 Text.rich(TextSpan(children: [
                   WidgetSpan(
                       child: Icon(
                         Icons.delivery_dining,
                         color: KPrimarycolor,
-                        size: 20,
+                        size: 20.r,
                       )),
-                  TextSpan(
+                  const TextSpan(
                     text: ' free delivery  ',
                   ),
-                  WidgetSpan(
+                   WidgetSpan(
                       child: Icon(
                         Icons.watch_later,
                         color: KPrimarycolor,
-                        size: 16,
+                        size: 16.r,
                       )),
-                  TextSpan(
+                  const TextSpan(
                     text: ' 10 - 15 min',
                   ),
                 ])),

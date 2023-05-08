@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/Rating_page.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/category/category_page.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/drawer/Add_new_adress.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/drawer/sidemenu.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/home.dart';
@@ -36,22 +39,30 @@ class MyApp extends StatelessWidget {
             ChangeNotifierProvider<Provider_Category>(create: (context) => Provider_Category()),
             ChangeNotifierProvider<Provider_favorite>(create: (context) => Provider_favorite()),
             ChangeNotifierProvider<Provider_favorite_item>(create: (context) => Provider_favorite_item()),
+            ChangeNotifierProvider<Provider_dropdown>(create: (context) => Provider_dropdown()),
+            ChangeNotifierProvider<Provider_scroll>(create: (context) => Provider_scroll()),
+            ChangeNotifierProvider<Provider_adress>(create: (context) => Provider_adress()),
+            ChangeNotifierProvider<Provider_rating>(create: (context) => Provider_rating()),
+
 
 
 
           ],
-          child: MaterialApp(
+          child:  MaterialApp(
             debugShowCheckedModeBanner: false,
-            home:  // splash_screen(),
-             const Home_screen(),
-            theme: ThemeData(
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              fontFamily: GoogleFonts.poppins().fontFamily,
-              textTheme: GoogleFonts.poppinsTextTheme(),
-
-            ),
-      ),
+              theme: ThemeData(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                fontFamily: GoogleFonts.poppins().fontFamily,
+                textTheme: GoogleFonts.poppinsTextTheme(),
+              ),
+            home:
+            // splash_screen(),
+             const  Home_screen(),
+            // Category_page() ,
+             //Add_new_adress(),
+             // const Rating_page()
+          ),
     );
 
 

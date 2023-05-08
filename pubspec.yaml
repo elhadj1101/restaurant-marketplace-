@@ -42,6 +42,10 @@ dependencies:
   rive: ^0.10.3
   provider: ^6.0.5
   flutter_screenutil: ^5.7.0
+  scroll_to_hide: ^1.0.5
+  country_state_city_picker: ^1.2.8
+  csc_picker: ^0.2.7
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:

@@ -13,7 +13,10 @@ class item_card extends StatelessWidget {
     return  Stack(
       children:  [
         item_widget(),
-        price_widget(),
+        Positioned(
+            left: 10.w,
+            top: 10.h,
+            child: price_widget()),
         Positioned(
             left: 138.w,
             top: 10.h,
@@ -102,34 +105,30 @@ class price_widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      left: 10.w,
-      top: 10.h,
-      child: Container(
-        alignment: Alignment.center,
-        height: 30.h,
-        width: 70.w,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.white,
-        ),
-        child: Text.rich(
-            TextSpan(
-                children: [
-                  TextSpan(
-                    text: mydishes[0].price.toString(),
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15.sp
+    return Container(
+      alignment: Alignment.center,
+      height: 30.h,
+      width: 70.w,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+      ),
+      child: Text.rich(
+          TextSpan(
+              children: [
+                TextSpan(
+                  text: mydishes[0].price.toString(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15.sp
 
-                    ),
                   ),
-                  const WidgetSpan(child: Icon(
-                    Icons.attach_money, color: KPrimarycolor, size: 20,)),
+                ),
+                const WidgetSpan(child: Icon(
+                  Icons.attach_money, color: KPrimarycolor, size: 20,)),
 
-                ]
-            )
-        ),
+              ]
+          )
       ),
     );
   }
