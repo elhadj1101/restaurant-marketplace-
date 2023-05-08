@@ -1,5 +1,4 @@
-
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +8,10 @@ import 'package:restaurant_marketplace_h/constants.dart';
 
 class Sidemenu extends StatelessWidget {
   const Sidemenu({Key? key}) : super(key: key);
+  // Future<void> _signOut() async {
+  //   print('khrej');
+  //   await FirebaseAuth.instance.signOut();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -26,25 +29,27 @@ class Sidemenu extends StatelessWidget {
                   const Info_card(
                       name: 'Faressi Elhadj ',
                       email: 'faressielhadj@gmail.com '),
-                   SizedBox(
+                  SizedBox(
                     height: 20.h,
                   ),
                   const Listoftiles(),
-                   SizedBox(
+                  SizedBox(
                     height: 40.h,
                   ),
                   Padding(
-                    padding:  EdgeInsets.fromLTRB(22.0.w, 0.h, 122.w, 0.h),
+                    padding: EdgeInsets.fromLTRB(22.0.w, 0.h, 122.w, 0.h),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            padding:  EdgeInsets.symmetric(
+                            padding: EdgeInsets.symmetric(
                                 horizontal: 10.w, vertical: 12.h),
                             shape: const RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(30))),
                             elevation: 5,
                             backgroundColor: KPrimarycolor),
-                        onPressed: () {},
+                        onPressed: () {
+                          // _signOut();
+                        },
                         child: Row(
                           children: [
                             Container(
@@ -57,10 +62,10 @@ class Sidemenu extends StatelessWidget {
                                 color: KPrimarycolor,
                               ),
                             ),
-                             SizedBox(
+                            SizedBox(
                               width: 10.w,
                             ),
-                             Text(
+                            Text(
                               'Log Out',
                               style: TextStyle(fontSize: 17.sp),
                             ),
@@ -87,7 +92,7 @@ class Info_card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.fromLTRB(26.0.w, 36.h, 0.w, 10.h),
+      padding: EdgeInsets.fromLTRB(26.0.w, 36.h, 0.w, 10.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -95,7 +100,7 @@ class Info_card extends StatelessWidget {
             alignment: Alignment.center,
             height: 100.h,
             width: 100.w,
-            decoration:  BoxDecoration(shape: BoxShape.circle, boxShadow: [
+            decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
               BoxShadow(
                   color: KLightcolor,
                   blurRadius: 20.r,
@@ -112,22 +117,22 @@ class Info_card extends StatelessWidget {
               ),
             ),
           ),
-           SizedBox(
+          SizedBox(
             height: 15.h,
           ),
           Text(
             name,
-            style:  TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20.sp,
             ),
           ),
-           SizedBox(
+          SizedBox(
             height: 5.h,
           ),
           Text(
             email,
-            style:  TextStyle(fontSize: 15.sp, color: Klighttextcolor),
+            style: TextStyle(fontSize: 15.sp, color: Klighttextcolor),
           ),
         ],
       ),
@@ -141,10 +146,9 @@ class Listoftiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding:  EdgeInsets.all(8.0.r),
+        padding: EdgeInsets.all(8.0.r),
         child: Column(
-
-          children:  [
+          children: [
             Listtilemodified(
                 tilenumber: 1,
                 myicon: Icons.my_library_books,
@@ -239,10 +243,9 @@ class Listtilemodified extends StatelessWidget {
             duration: const Duration(
               milliseconds: 300,
             ),
-            height: 57.h ,
-            width: Provider_Drawer.isselected[tilenumber]! ?  260.w : 0.w ,
+            height: 57.h,
+            width: Provider_Drawer.isselected[tilenumber]! ? 260.w : 0.w,
             child: Container(
-
               decoration: const BoxDecoration(
                 color: KPrimarycolor,
                 borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -250,9 +253,9 @@ class Listtilemodified extends StatelessWidget {
             ),
           ),
           ListTile(
-          visualDensity: VisualDensity(vertical: ( 0.013 * MediaQuery.of(context).size.height) - 11 )  ,
+            visualDensity: VisualDensity(
+                vertical: (0.013 * MediaQuery.of(context).size.height) - 11),
             shape: const RoundedRectangleBorder(
-
                 borderRadius: BorderRadius.all(Radius.circular(20))),
             leading: Icon(
               myicon,
@@ -264,7 +267,6 @@ class Listtilemodified extends StatelessWidget {
             title: Text(
               mytext,
               style: TextStyle(
-
                 color: Provider_Drawer.isselected[tilenumber]!
                     ? Colors.white
                     : Ktextcolor,
@@ -272,7 +274,6 @@ class Listtilemodified extends StatelessWidget {
               ),
             ),
             onTap: () {
-
               Provider_Drawer.selecttile(tilenumber);
               Provider_Drawer.turnoff(tilenumber);
             },
