@@ -30,10 +30,10 @@ List<restaurant> myrestaurants = [
 ] ;
 
 List<menu_item> mydishes = [
-  menu_item(1111111, 'tacos', 500, 'this tacos is delicious', 'photo_id', myadditions),
-  menu_item(1111111, 'pizza', 500, 'this tacos is delicious', 'photo_id', myadditions),
-  menu_item(1111111, 'sandwitch', 500, 'this tacos is delicious', 'photo_id', myadditions),
-  menu_item(1111111, 'marinee', 500, 'this tacos is delicious', 'photo_id', myadditions),
+  menu_item(1111111, 'Tacos', 500, 'this tacos is delicious', 'assets/images/mydish.png', myadditions),
+  menu_item(1111111, 'Pizza', 500, 'this tacos is delicious', 'assets/images/mydish.png', myadditions),
+  menu_item(1111111, 'Sandwich', 500, 'this tacos is delicious', 'assets/images/mydish.png', myadditions),
+  menu_item(1111111, 'Marinee', 500, 'this tacos is delicious', 'assets/images/mydish.png', myadditions),
 
 
 ] ;

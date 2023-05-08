@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,25 +17,71 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Consumer<Provider_Category>(builder: (context, Provider_Category, child) {
+        return  NavigationBar(
+            backgroundColor: Colors.white,
+            elevation: 20,
+            height: 70.h,
+            destinations: [
+              IconButton(
+                onPressed: () {
+                  Provider_Category.selectpage(0) ;
+                  Provider_Category.turnoffselectedpage(0) ;
+                },
+                icon: const Icon(Icons.explore),
+                color: Provider_Category.isitpressed[0]! ? KPrimarycolor : Colors.grey,
+              ),
+              IconButton(
+                onPressed: () {
+                  Provider_Category.selectpage(1) ;
+                  Provider_Category.turnoffselectedpage(1) ;
+                },
+                icon: const Icon(Icons.location_on),
+                color:  Provider_Category.isitpressed[1]! ? KPrimarycolor : Colors.grey,
+              ),
+              IconButton(
+                onPressed: () {
+                  Provider_Category.selectpage(2) ;
+                  Provider_Category.turnoffselectedpage(2) ;
+                },
+                icon: const Icon(Icons.shopping_bag),
+                color:  Provider_Category.isitpressed[2]! ? KPrimarycolor : Colors.grey,
+              ),
+              IconButton(
+                onPressed: () {
+                  Provider_Category.selectpage(3) ;
+                  Provider_Category.turnoffselectedpage(3) ;
+                },
+                icon: const Icon(Icons.favorite),
+                color: Provider_Category.isitpressed[3]! ? KPrimarycolor : Colors.grey,
+              ),
+              IconButton(
+                onPressed: () {
+                  Provider_Category.selectpage(4) ;
+                  Provider_Category.turnoffselectedpage(4) ;
+                },
+                icon: const Icon(Icons.notification_important_rounded),
+                color:   Provider_Category.isitpressed[4]! ? KPrimarycolor : Colors.grey,
+              ),
+            ]) ;
+      },)  ,
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: const AdressWidget(adress: '28 Rue de la Mosque , '),
-        centerTitle: true,
-        toolbarHeight: 90.h,
-      ),
+
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 18.0.w),
         child: ListView(
           children: [
+            Padding(
+              padding:  EdgeInsets.only(top: 20.h),
+              child: const AdressWidget(adress: '28 Rue de la Mosque , '),
+            ),
             SizedBox(
-              height: 10.h,
+              height: 20.h,
             ),
             Text(
               'What would you like to  \n order ',
               style: TextStyle(
-                fontWeight: FontWeight.w900,
+                fontWeight: FontWeight.w600,
                 fontSize: 30.sp,
               ),
             ),
@@ -154,11 +201,14 @@ class Home extends StatelessWidget {
             ),
             Container(
               height: 260,
+
               child: ListView.builder(
+                shrinkWrap: true,
+
                 scrollDirection: Axis.horizontal,
                 itemCount: myrestaurants.length,
                 itemBuilder: (context, index) {
-                  return restaurant_card();
+                  return const  restaurant_card();
                 },
               ),
             ),
@@ -167,15 +217,16 @@ class Home extends StatelessWidget {
               style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w500),
             ),
             Container(
-              height: (mydishes.length % 2 ==0 ) ?  (mydishes.length/2)*280 : (1+(mydishes.length/2))*250 ,
+
               child: GridView.builder(
+                shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 190,
-                    mainAxisExtent: 250,
+                gridDelegate:  SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 190.w,
+                    mainAxisExtent: 250.h,
                     childAspectRatio: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10),
+                    crossAxisSpacing: 10.w,
+                    mainAxisSpacing: 10.h),
                 itemCount: mydishes.length,
                 itemBuilder: (context, index) {
                   return item_card();
@@ -385,4 +436,28 @@ class Provider_Category extends ChangeNotifier {
       }
     }
   }
+  Map<int, bool> isitpressed = {
+    0: true,
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  };
+
+  void selectpage(int i) {
+    isitpressed[i] = true;
+
+    notifyListeners();
+  }
+
+  void turnoffselectedpage(int i) {
+    for (int j = 0; j <= 4; j++) {
+      if (j == i) {
+        continue;
+      } else {
+        isitpressed[j] = false;
+      }
+    }
+  }
+
 }
