@@ -8,10 +8,10 @@ import 'package:restaurant_marketplace_h/constants.dart';
 
 class Sidemenu extends StatelessWidget {
   const Sidemenu({Key? key}) : super(key: key);
-  // Future<void> _signOut() async {
-  //   print('khrej');
-  //   await FirebaseAuth.instance.signOut();
-  // }
+  Future<void> _signOut() async {
+    print('khrej');
+    await FirebaseAuth.instance.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class Sidemenu extends StatelessWidget {
                             elevation: 5,
                             backgroundColor: KPrimarycolor),
                         onPressed: () {
-                          // _signOut();
+                          _signOut();
                         },
                         child: Row(
                           children: [
