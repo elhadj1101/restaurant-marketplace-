@@ -133,7 +133,7 @@ class restaurant_widget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8)
                       ),
                       child: Text(
-                        mytags[0].tag3, style: TextStyle(fontSize: 15.sp),),
+                        mytags[0].tag3 , style: TextStyle(fontSize: 15.sp),),
                     ),
                   ],
                 ),
