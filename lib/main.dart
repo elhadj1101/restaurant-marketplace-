@@ -58,10 +58,10 @@ class MyApp extends StatelessWidget {
               ),
             home:
             // splash_screen(),
-             const  Home_screen(),
+             const // Home_screen(),
             // Category_page() ,
              //Add_new_adress(),
-             // const Rating_page()
+               Rating_page(),
           ),
     );
 
