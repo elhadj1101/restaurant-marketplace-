@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:restaurant_marketplace_h/Auth.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
 import '../../../constants.dart';
 import '../../../widgets/default_button.dart';
 import '../Reset_pass_page/reset_password_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Login_page_contents extends StatefulWidget {
   const Login_page_contents({Key? key}) : super(key: key);
@@ -15,6 +20,23 @@ class Login_page_contents extends StatefulWidget {
 
 class _Login_page_contentsState extends State<Login_page_contents> {
   bool isvisible = true;
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
+
+  Future signIn() async {
+    print("dkhel");
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim());
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +62,7 @@ class _Login_page_contentsState extends State<Login_page_contents> {
                 height: 70.h,
               ),
               TextFormField(
+                controller: _emailController,
                 cursorColor: KPrimarycolor,
                 onTap: () {},
                 decoration: InputDecoration(
@@ -74,6 +97,7 @@ class _Login_page_contentsState extends State<Login_page_contents> {
                 height: 40.h,
               ),
               TextFormField(
+                controller: _passwordController,
                 cursorColor: KPrimarycolor,
                 onTap: () {},
                 obscureText: !isvisible,
@@ -119,11 +143,24 @@ class _Login_page_contentsState extends State<Login_page_contents> {
               Padding(
                 padding:
                     EdgeInsets.symmetric(horizontal: 40.0.w, vertical: 0.h),
-                child: const default_button(
-                    text: 'Sign up',
-                    x: 1.5,
-                    y: 13,
-                    button_color: KPrimarycolor),
+                child: ElevatedButton(
+                    onPressed: () {
+                      signIn();
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: KPrimarycolor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 30, horizontal: 100)),
+                    child: Text(
+                      "Sign In".toUpperCase(),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400),
+                    )),
               ),
               SizedBox(
                 height: 40.h,
@@ -135,7 +172,7 @@ class _Login_page_contentsState extends State<Login_page_contents> {
                       builder: (context) => reset_password_page(),
                     ));
                   },
-                  child:  Text(
+                  child: Text(
                     'Forgot password ? ',
                     style: TextStyle(
                         fontSize: 15.sp,
@@ -144,7 +181,7 @@ class _Login_page_contentsState extends State<Login_page_contents> {
                   ),
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: 40.h,
               ),
               Row(
@@ -160,7 +197,7 @@ class _Login_page_contentsState extends State<Login_page_contents> {
                       ),
                     ),
                   ),
-                   Text(
+                  Text(
                     '   Sign in with    ',
                     style: TextStyle(
                         color: Klighttextcolor,
@@ -187,9 +224,9 @@ class _Login_page_contentsState extends State<Login_page_contents> {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {},
-                    icon:  Icon(
+                    icon: Icon(
                       Icons.facebook,
-                      color:const  Color(0xFF1877F2),
+                      color: const Color(0xFF1877F2),
                       size: 35.r,
                     ),
                     label: Text(
@@ -202,12 +239,12 @@ class _Login_page_contentsState extends State<Login_page_contents> {
                       onPressed: () {},
                       style: Primarybuttonstyle,
                       child: Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 10.w),
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
                         child: Row(
                           // Row of Google logo and text google
                           children: [
                             Image.asset("assets/images/google.png"),
-                             SizedBox(
+                            SizedBox(
                               width: 10.w,
                             ),
                             Text(
@@ -219,7 +256,7 @@ class _Login_page_contentsState extends State<Login_page_contents> {
                       ))
                 ],
               ),
-               SizedBox(
+              SizedBox(
                 height: 40.h,
               )
             ],

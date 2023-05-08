@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_marketplace_h/Auth.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/Rating_page.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/category/category_page.dart';
@@ -15,10 +16,15 @@ import 'package:restaurant_marketplace_h/screens/starting_with_us/verivication_c
 import 'package:restaurant_marketplace_h/screens/starting_with_us/welcome.dart';
 import 'package:restaurant_marketplace_h/splash_screen_timer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-
-void main() {
-  runApp( MyApp());
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+  
+Future <void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform
+);
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -56,14 +62,24 @@ class MyApp extends StatelessWidget {
                 fontFamily: GoogleFonts.poppins().fontFamily,
                 textTheme: GoogleFonts.poppinsTextTheme(),
               ),
-            home:
+            home:  Auth(),
             // splash_screen(),
-             const // Home_screen(),
+            //  const // Home_screen(),
             // Category_page() ,
              //Add_new_adress(),
-               Rating_page(),
+              //  Rating_page(),
           ),
-    );
+            
+            //  const Home_screen(),
+            // theme: ThemeData(
+            //   splashColor: Colors.transparent,
+            //   highlightColor: Colors.transparent,
+            //   fontFamily: GoogleFonts.poppins().fontFamily,
+            //   textTheme: GoogleFonts.poppinsTextTheme(),
+
+            );
+      // ),
+    
 
 
 

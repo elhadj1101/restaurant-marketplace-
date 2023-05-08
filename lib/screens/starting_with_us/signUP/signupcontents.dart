@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
 import 'package:restaurant_marketplace_h/widgets/default_button.dart';
 
 import '../login/Login_page.dart';
@@ -202,7 +203,23 @@ class _Sign_up_contentState extends State<Sign_up_content> {
 
                  Padding(
                   padding:  EdgeInsets.symmetric(horizontal: 40.0.w,vertical: 0.h),
-                  child:const default_button(text: 'Sign up', x: 1.5, y: 13, button_color: KPrimarycolor),
+                  child: ElevatedButton(
+                    onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>Login_page (),
+                      ));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: KPrimarycolor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                      padding: EdgeInsets.symmetric(vertical:30 ,horizontal:100 )
+                    ),
+                    child: Text(
+                      "Sign Up".toUpperCase(),
+                      style: TextStyle(color: Colors.white,fontSize: 18,fontWeight:FontWeight.w400),
+                    )),
                 ) ,
                SizedBox(
                 height: 40.h,
