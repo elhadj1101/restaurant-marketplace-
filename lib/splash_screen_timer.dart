@@ -22,6 +22,7 @@ class splash_screen extends StatelessWidget {
       backgroundColor: KPrimarycolor,
       body: Stack(
         children: [
+
           Positioned(
             right: 0,
             top: 0,
@@ -35,6 +36,7 @@ class splash_screen extends StatelessWidget {
           Center(
             child: Image.asset('assets/images/intro.png'),
           ),
+
         ],
       ),
     );
