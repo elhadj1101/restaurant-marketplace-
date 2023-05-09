@@ -35,6 +35,10 @@ class _Login_page_contentsState extends State<Login_page_contents> {
     await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim());
+      
+   Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => Auth(),
+                    ));
 
   }
 

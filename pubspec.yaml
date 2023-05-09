@@ -48,6 +48,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   firebase_core: ^2.10.0
   firebase_auth: ^4.4.2
+  cloud_firestore: ^4.6.0
 
 dev_dependencies:
   flutter_test:
