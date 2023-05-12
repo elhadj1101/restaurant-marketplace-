@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/Auth.dart';
-import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/Rating_page.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/category/category_page.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/drawer/Add_new_adress.dart';
@@ -12,9 +11,11 @@ import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/home.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/item_card.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_card.dart';
-import 'package:restaurant_marketplace_h/screens/starting_with_us/verivication_code_page/verification_code_page.dart';
-import 'package:restaurant_marketplace_h/screens/starting_with_us/welcome.dart';
-import 'package:restaurant_marketplace_h/splash_screen_timer.dart';
+// import 'package:restaurant_marketplace_h/screens/starting_with_us/verivication_code_page/verification_code_page.dart';
+// import 'package:restaurant_marketplace_h/screens/starting_with_us/welcome.dart';
+// import 'package:restaurant_marketplace_h/splash_screen_timer.dart';
+// import 'package:restaurant_marketplace_h/constants.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
