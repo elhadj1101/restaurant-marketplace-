@@ -4,8 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/Auth.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/Add_to_cart.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/Rating_page.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/category/category_page.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/category/food_details.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/category/reviews_page.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/drawer/Add_new_adress.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/drawer/sidemenu.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
@@ -49,10 +52,7 @@ class MyApp extends StatelessWidget {
             ChangeNotifierProvider<Provider_scroll>(create: (context) => Provider_scroll()),
             ChangeNotifierProvider<Provider_adress>(create: (context) => Provider_adress()),
             ChangeNotifierProvider<Provider_rating>(create: (context) => Provider_rating()),
-
-
-
-
+            ChangeNotifierProvider<Provider_numberofitems>(create: (context) => Provider_numberofitems()),
           ],
           child:  MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -62,12 +62,15 @@ class MyApp extends StatelessWidget {
                 fontFamily: GoogleFonts.poppins().fontFamily,
                 textTheme: GoogleFonts.poppinsTextTheme(),
               ),
-            home:  Auth(),
+            home:  //Auth(),
             // splash_screen(),
-            //  const // Home_screen(),
-            // Category_page() ,
+            // const  Home_screen(),
+              //Category_page() ,
              //Add_new_adress(),
               //  Rating_page(),
+             // Food_details() ,
+              //reviews_page() ,
+            const Add_to_cart(),
           ),
             
             //  const Home_screen(),

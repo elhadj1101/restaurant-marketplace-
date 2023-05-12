@@ -10,12 +10,12 @@ List<user> myusers = [
 ] ;
 
 List<order> myorders  = [
-  order(1, '01/01/2023', 2500, 'sidi bel abbes , rue 1111', 'cooking ', 101010101, 1010010101),
-  order(1, '01/01/2023', 2500, 'sidi bel abbes , arret wiam', 'delivered ', 101010101, 1010010101),
-  order(1, '01/01/2023', 2500, 'sidi bel abbes , maternite', 'cooking ', 101010101, 1010010101),
-  order(1, '01/01/2023', 2500, 'sidi bel abbes , residence 1000 lit ', 'delivered ', 101010101, 1010010101),
-  order(1, '01/01/2023', 2500, 'sidi bel abbes , rue 1234-2', 'cooking ', 101010101, 1010010101),
-  order(1, '01/01/2023', 2500, 'sidi bel abbes , cite 6', 'cooking ', 101010101, 1010010101),
+  order(1, '01/01/2023', 2500, 'sidi bel abbes , rue 1111', 'cooking ', 101010101, 1010010101 , 'assets/images/orderincart1.png'),
+  order(1, '01/01/2023', 2500, 'sidi bel abbes , arret wiam', 'delivered ', 101010101, 1010010101,'assets/images/orderincart2.png'),
+  order(1, '01/01/2023', 2500, 'sidi bel abbes , maternite', 'cooking ', 101010101, 1010010101 , 'assets/images/orderincart2.png'),
+  order(1, '01/01/2023', 2500, 'sidi bel abbes , residence 1000 lit ', 'delivered ', 101010101, 1010010101,'assets/images/orderincart2.png'),
+  order(1, '01/01/2023', 2500, 'sidi bel abbes , rue 1234-2', 'cooking ', 101010101, 1010010101,'assets/images/orderincart2.png'),
+  order(1, '01/01/2023', 2500, 'sidi bel abbes , cite 6', 'cooking ', 101010101, 1010010101,'assets/images/orderincart2.png'),
 
 
 ] ;
@@ -30,7 +30,7 @@ List<restaurant> myrestaurants = [
 ] ;
 
 List<menu_item> mydishes = [
-  menu_item(1111111, 'Tacos', 500, 'this tacos is delicious', 'assets/images/mydish.png', myadditions),
+  menu_item(1111111, 'Tacos', 500, 'Brown the beef better. Lean ground beef – I like to use 85% lean angus. Garlic – use fresh  chopped. Spices chili powder, cumin, onion powder.', 'assets/images/mydish.png', myadditions),
   menu_item(1111111, 'Pizza', 500, 'this tacos is delicious', 'assets/images/mydish.png', myadditions),
   menu_item(1111111, 'Sandwich', 500, 'this tacos is delicious', 'assets/images/mydish.png', myadditions),
   menu_item(1111111, 'Marinee', 500, 'this tacos is delicious', 'assets/images/mydish.png', myadditions),
@@ -39,18 +39,18 @@ List<menu_item> mydishes = [
 ] ;
 
 List<review> myreviews = [
-  review(111143502, 235035238, 'this is good restaurant ', 4.5, '23/5/2022'),
-  review(342343252, 342352352, 'this is good restaurant ', 3, '23/5/2022'),
-  review(352562362, 653745754, 'this is good restaurant ', 3, '23/5/2022'),
-  review(463456345, 453634634, 'this is good restaurant ', 3, '23/5/2022'),
+  review(111143502, 235035238, 'Really convenient and the points system helps benefit loyalty. Some mild glitches here and there, but nothing too egregious. Obviously needs to roll out to more remote. ', 4.5, '23/5/2022'),
+  review(342343252, 342352352, 'Been a life saver for keeping our sanity during the pandemic, although they could improve some of their ui and how they handle specials as it often is unclear how to use them or everything is sold out so fast it feels a bit bait and switch. Still I\'d be stir crazy and losing track of days without so... ', 3, '23/5/2022'),
+  review(352562362, 653745754, 'Got an intro offer of 50% off first order that did not work..... I have scaled the app to find a contact us button but only a spend with us button available. ', 3, '23/5/2022'),
+  review(463456345, 453634634, 'Got an intro offer of 50% off first order that did not work..... I have scaled the app to find a contact us button but only a spend with us button available. ', 3, '23/5/2022'),
 
 
 ] ;
 
 List<addition> myadditions = [
-  addition('mayonnaise', 100, 'descreption', 'photo_id'),
-  addition('ketchapp', 100, 'descreption', 'photo_id'),
-  addition('sauce algerienne', 100, 'descreption', 'photo_id'),
+  addition('mayonnaise', 100, 'descreption', 'assets/images/addition1.png'),
+  addition('ketchapp', 100, 'descreption', 'assets/images/addition2.png'),
+  addition('sauce algerienne', 100, 'descreption', 'assets/images/addition3.png'),
 
 
 

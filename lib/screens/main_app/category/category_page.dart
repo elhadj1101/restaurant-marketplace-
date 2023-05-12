@@ -130,7 +130,7 @@ class _Category_pageState extends State<Category_page> {
                               underline: const SizedBox(),
                               iconEnabledColor: Colors.black,
                               borderRadius: BorderRadius.circular(20),
-                              dropdownColor: KLightcolor,
+                              dropdownColor: Colors.white,
                               hint: Text(Provider_dropdown.choosedvalue),
                               icon: const Icon(
                                 CupertinoIcons.chevron_down,
@@ -178,19 +178,20 @@ class _Category_pageState extends State<Category_page> {
                         )
                       ],
                     ),
-                    Container(
-                        height: 30.r,
-                        width: 30.r,
-                        child: Image.asset(
-                          'assets/images/filter_icon.png',
-                        )),
+                    GestureDetector(
+                      child: Container(
+                          height: 30.r,
+                          width: 30.r,
+                          child: Image.asset(
+                            'assets/images/filter_icon.png',
+                          )),
+                    ),
                   ],
                 ),
                 SizedBox(
                     width: double.infinity,
                     child: ListView.builder(
                       shrinkWrap: true,
-
                       padding: const EdgeInsets.only(bottom: 20),
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: mydishes.length,
@@ -366,7 +367,7 @@ class favorite_widget3 extends StatelessWidget {
             ),
             child: Icon(
               Icons.favorite ,
-              color: Provider_favorite_item.isit_favorite ? KPrimarycolor : Colors.white, size: 20.r,
+              color: Provider_favorite_item.isit_favorite ? Colors.white : Colors.grey[400], size: 20.r,
             ),
           ),
         ),
