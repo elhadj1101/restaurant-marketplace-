@@ -1,13 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:restaurant_marketplace_h/Auth.dart';
-import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
 import '../../../constants.dart';
-import '../../../widgets/default_button.dart';
 import '../Reset_pass_page/reset_password_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -22,6 +20,8 @@ class _Login_page_contentsState extends State<Login_page_contents> {
   bool isvisible = true;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -30,16 +30,71 @@ class _Login_page_contentsState extends State<Login_page_contents> {
     _passwordController.dispose();
   }
 
+  Future<User?> signInWithFacebook() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+
+
+      if (result.status == LoginStatus.success) {
+        final AuthCredential credential =
+            FacebookAuthProvider.credential(result.accessToken!.token);
+        final UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        final User? user = userCredential.user;
+        return user;
+      } else {
+        print('Facebook sign-in failed');
+        return null;
+      }
+    } catch (error) {
+      print('Error signing in with Facebook: $error');
+      return null;
+    }
+  }
+
   Future signIn() async {
     print("dkhel");
     await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim());
-      
-   Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Auth(),
-                    ));
 
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => Auth(),
+    ));
+  }
+
+  Future<User?> signInWithGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn(
+      scopes: [
+        'https://www.googleapis.com/auth/drive',
+      ],
+    );
+
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleAuth =
+          await googleSignInAccount.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      try {
+        final UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        final User? user = userCredential.user;
+        return user;
+      } catch (error) {
+        print('Error signing in with Google: $error');
+        return null;
+      }
+    } else {
+      print('Google sign-in aborted');
+      return null;
+    }
   }
 
   @override
@@ -227,7 +282,9 @@ class _Login_page_contentsState extends State<Login_page_contents> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      signInWithFacebook();
+                    },
                     icon: Icon(
                       Icons.facebook,
                       color: const Color(0xFF1877F2),
@@ -240,7 +297,9 @@ class _Login_page_contentsState extends State<Login_page_contents> {
                     style: Primarybuttonstyle,
                   ),
                   ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        signInWithGoogle();
+                      },
                       style: Primarybuttonstyle,
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10.w),
