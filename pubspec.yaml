@@ -50,6 +50,8 @@ dependencies:
   cloud_firestore: ^4.6.0
   google_sign_in:  ^6.1.0
   flutter_facebook_auth: ^5.0.11 
+  rive: ^0.9.1
+  image_picker: ^0.8.7+5
 
 dev_dependencies:
   flutter_test:
