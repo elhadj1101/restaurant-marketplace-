@@ -18,6 +18,7 @@ import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_c
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/profile%20/profile.dart';
 import 'firebase_options.dart';
   
 Future <void> main() async{
@@ -63,7 +64,7 @@ class MyApp extends StatelessWidget {
                 fontFamily: GoogleFonts.poppins().fontFamily,
                 textTheme: GoogleFonts.poppinsTextTheme(),
               ),
-            home:  Auth(),
+            home: const profile() //Auth(),
             // splash_screen(),
             //  const // Home_screen(),
             // Category_page() ,
