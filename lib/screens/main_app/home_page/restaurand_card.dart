@@ -201,36 +201,38 @@ class favorite_widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<Provider_favorite>(builder: (context, Provider_favorite, child) {
-      return GestureDetector(
+      return  GestureDetector(
         onTap: () {
           Provider_favorite.make_favorite() ;
+
+
         },
         child: Container(
           height: 37.r,
           width: 37.r,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color:  KPrimarycolor  ,
+            borderRadius: BorderRadius.circular(100),
+            color:  KPrimarycolor  ,
 
           ),
           child: Container(
             decoration:  BoxDecoration(
-              boxShadow: [
-                BoxShadow(
+                boxShadow: [
+                  BoxShadow(
                     color: Colors.white.withOpacity(0.5),
                     blurRadius: 10,
                   )
-              ]
+                ]
             ),
             child: Icon(
               Icons.favorite ,
-              color: Provider_favorite.isit_favorite ? KPrimarycolor : Colors.white,
+              color: Provider_favorite.isit_favorite ? KPrimarycolor : Colors.white ,
             ),
           ),
         ),
-      );
-    },) ;
+      ) ;
+    },);
   }
 }
 

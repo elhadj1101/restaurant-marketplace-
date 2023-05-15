@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
-import 'package:restaurant_marketplace_h/screens/starting_with_us/email_or_phone_page.dart';
+import 'package:restaurant_marketplace_h/screens/starting_with_us/signUP/sign_up.dart';
 import 'login/Login_page.dart';
 
 class welcome extends StatelessWidget {
@@ -82,7 +82,7 @@ class welcome extends StatelessWidget {
                         endIndent: 17.w,
                       )),
                       const Text(
-                        " sign up with ",
+                        " sign in with ",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Color(0xFFFFFFFF),
@@ -99,20 +99,20 @@ class welcome extends StatelessWidget {
                       height: 18.h,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       // Row of facebook and google button
                       children:  [
-                        facebookbutton(),
                         SizedBox(
                           width: 30.w,
                         ),
                         googlebutton()
+
                       ],
+
                     ),
-                     SizedBox(
-                      height: 23.h,
+                    SizedBox(
+                      height: 18.h,
                     ),
-                    const email_or_phonebutton(),
+                    const register(),
                      SizedBox(
                       height: 30.h,
                     ),
@@ -169,7 +169,7 @@ class googlebutton extends StatelessWidget {
         onPressed: () {},
         style: Primarybuttonstyle,
         child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 10.w),
+          padding:  EdgeInsets.symmetric(horizontal: 92.w),
           child: Row(
             // Row of Google logo and text google
             children: [
@@ -178,7 +178,7 @@ class googlebutton extends StatelessWidget {
                 width: 10.w,
               ),
                Text(
-                "GOOGLE",
+                " GOOGLE",
                 style: welcometextstyle,
               ),
             ],
@@ -187,37 +187,16 @@ class googlebutton extends StatelessWidget {
   }
 }
 
-//facebook button
-class facebookbutton extends StatelessWidget {
-  const facebookbutton({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: () {},
-      icon:  Icon(
-        Icons.facebook,
-        color: const Color(0xFF1877F2),
-        size: 42.r,
-      ),
-      label:  Text(
-        "FACEBOOK",
-        style: welcometextstyle,
-      ),
-      style: Primarybuttonstyle,
-    );
-  }
-}
-
-class email_or_phonebutton extends StatelessWidget {
-  const email_or_phonebutton({super.key});
+class register extends StatelessWidget {
+  const register({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const  Email_or_phone(),
+          builder: (context) => const  Signup_page(),
         ));
       },
       style: ElevatedButton.styleFrom(
@@ -228,7 +207,7 @@ class email_or_phonebutton extends StatelessWidget {
         ),
         backgroundColor: Colors.grey.withOpacity(0.45),
       ),
-      child: const Text("Start with email or phone"),
+      child: const Text("Register Now !"),
     );
   }
 }

@@ -16,7 +16,7 @@ final ButtonStyle Primarybuttonstyle = ElevatedButton.styleFrom(
     foregroundColor: const Color(0xFF000000));
 var  welcometextstyle = TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 14.sp,
+    fontSize: 16.sp,
     fontFamily: "sofiapro",
     color: Color(0xFF000000));
 

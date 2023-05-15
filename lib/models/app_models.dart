@@ -66,8 +66,9 @@ class order  {
   final int total_price ;
   final String location ;
   final String status ;
+  final String image ;
 
-  order(this.order_id, this.created_date, this.total_price, this.location, this.status, this.rest_id, this.user_id);
+  order(this.order_id, this.created_date, this.total_price, this.location, this.status, this.rest_id, this.user_id, this.image);
 
 }
 

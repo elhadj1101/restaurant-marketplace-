@@ -21,6 +21,8 @@ class Sign_up_content extends StatefulWidget {
 }
 
 class _Sign_up_contentState extends State<Sign_up_content> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   bool isvisible = false;
   bool isvisible2 = false;
   bool istaped = false;
@@ -49,7 +51,7 @@ class _Sign_up_contentState extends State<Sign_up_content> {
         password: _password,
       );
       String uid = userCredential.user!.uid;
-      AddUser(_fullName, _email, _number,uid).addUser();
+      AddUser(_fullName, _email, _number, uid).addUser();
 
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
@@ -70,276 +72,404 @@ class _Sign_up_contentState extends State<Sign_up_content> {
       child: Padding(
         padding: EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 0.h),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 40.h,
-              ),
-              Text(
-                'Sign up',
-                style: TextStyle(
-                    color: Ktextcolor,
-                    fontSize: 40.sp,
-                    fontFamily: GoogleFonts.roboto().fontFamily,
-                    fontWeight: FontWeight.w700),
-              ),
-              SizedBox(
-                height: 70.h,
-              ),
-              TextFormField(
-                controller: _fullNameController,
-                cursorColor: KPrimarycolor,
-                decoration: InputDecoration(
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
-                  suffixIconColor: Klighttextcolor,
-                  suffixIcon: const Icon(
-                    Icons.person,
-                  ),
-                  hintStyle: const TextStyle(
-                    color: Kverylighttextcolor,
-                  ),
-                  labelText: 'Full name ',
-                  labelStyle: const TextStyle(
-                    color: Klighttextcolor,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14.w,
-                      borderSide: const BorderSide(color: Ktextcolor)),
-                  focusColor: KPrimarycolor,
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14.w,
-                      borderSide: BorderSide(
-                        color: KPrimarycolor,
-                        width: 2.w,
-                      )),
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 40.h,
                 ),
-              ),
-              SizedBox(
-                height: 40.h,
-              ),
-              TextFormField(
-                controller: _emailController,
-                cursorColor: KPrimarycolor,
-                onTap: () {},
-                decoration: InputDecoration(
-                  suffixIconColor: Klighttextcolor,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
-                  suffixIcon: const Icon(
-                    Icons.email,
-                  ),
-                  hintStyle: const TextStyle(
-                    color: Kverylighttextcolor,
-                  ),
-                  labelText: 'Email',
-                  labelStyle: const TextStyle(
-                    color: Klighttextcolor,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14.w,
-                      borderSide: const BorderSide(color: Ktextcolor)),
-                  focusColor: KPrimarycolor,
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14.w,
-                      borderSide: BorderSide(
-                        color: KPrimarycolor,
-                        width: 2.w,
-                      )),
+                Text(
+                  'Sign up',
+                  style: TextStyle(
+                      color: Ktextcolor,
+                      fontSize: 40.sp,
+                      fontFamily: GoogleFonts.roboto().fontFamily,
+                      fontWeight: FontWeight.w700),
                 ),
-              ),
-              SizedBox(
-                height: 40.h,
-              ),
-              TextFormField(
-                controller: _numberController,
-                cursorColor: KPrimarycolor,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(10),
-                ],
-                decoration: InputDecoration(
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
-                  suffixIconColor: Klighttextcolor,
-                  suffixIcon: const Icon(
-                    Icons.phone,
-                  ),
-                  hintStyle: const TextStyle(
-                    color: Kverylighttextcolor,
-                  ),
-                  labelText: 'Phone Number',
-                  labelStyle: const TextStyle(
-                    color: Klighttextcolor,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    gapPadding: 14.w,
-                    borderSide: const BorderSide(color: Ktextcolor),
-                  ),
-                  focusColor: KPrimarycolor,
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    gapPadding: 14.w,
-                    borderSide: BorderSide(
-                      color: KPrimarycolor,
-                      width: 2.w,
-                    ),
-                  ),
+                SizedBox(
+                  height: 70.h,
                 ),
-              ),
-              SizedBox(
-                height: 40.h,
-              ),
-              TextFormField(
-                controller: _passwordController,
-                cursorColor: KPrimarycolor,
-                onTap: () {},
-                obscureText: !isvisible,
-                decoration: InputDecoration(
-                  suffixIconColor: Klighttextcolor,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      isvisible ? Icons.visibility : Icons.visibility_off,
-                      size: 24.r,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        isvisible = !isvisible;
-                      });
-                    },
-                  ),
-                  hintStyle: const TextStyle(
-                    color: Kverylighttextcolor,
-                  ),
-                  labelText: 'Password',
-                  labelStyle: const TextStyle(
-                    color: Klighttextcolor,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14.w,
-                      borderSide: const BorderSide(color: Ktextcolor)),
-                  focusColor: KPrimarycolor,
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14.w,
-                      borderSide: BorderSide(
-                        color: KPrimarycolor,
-                        width: 2.w,
-                      )),
-                ),
-              ),
-              SizedBox(
-                height: 40.h,
-              ),
-              TextFormField(
-                cursorColor: KPrimarycolor,
-                onTap: () {},
-                obscureText: !isvisible2,
-                decoration: InputDecoration(
-                  suffixIconColor: Klighttextcolor,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      isvisible2 ? Icons.visibility : Icons.visibility_off,
-                      size: 24.r,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        isvisible2 = !isvisible2;
-                      });
-                    },
-                  ),
-                  hintStyle: const TextStyle(
-                    color: Kverylighttextcolor,
-                  ),
-                  labelText: 'Confirm your Password',
-                  labelStyle: const TextStyle(
-                    color: Klighttextcolor,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14.w,
-                      borderSide: const BorderSide(color: Ktextcolor)),
-                  focusColor: KPrimarycolor,
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14.w,
-                      borderSide: BorderSide(
-                        color: KPrimarycolor,
-                        width: 2.w,
-                      )),
-                ),
-              ),
-              SizedBox(
-                height: 60.h,
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 40.0.w, vertical: 0.h),
-                child: ElevatedButton(
-                    onPressed: () {
-                      signUp();
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: KPrimarycolor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            vertical: 30, horizontal: 100)),
-                    child: Text(
-                      "Sign Up".toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400),
-                    )),
-              ),
-              SizedBox(
-                height: 40.h,
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.width / 120),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('already have an account ? ',
-                        style: TextStyle(
-                          fontSize: 13.sp,
-                          color: Ktextcolor,
-                          fontFamily: GoogleFonts.roboto().fontFamily,
+                TextFormField(
+                  controller: _fullNameController,
+                  cursorColor: KPrimarycolor,
+                  validator: (value) {
+                    if (value!.isEmpty ||
+                        RegExp(r'^[a-zA-Z0-9_ ]*$').hasMatch(value)) {
+                      return 'enter valid name';
+                    } else {
+                      return null;
+                    }
+                  },
+
+                  decoration: InputDecoration(
+                    focusedErrorBorder:OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                          width: 2.w,
                         )),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Login_page(),
-                        ));
+                    errorBorder:  OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                          width: 2.w,
+                        )),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
+                    suffixIconColor: Klighttextcolor,
+                    suffixIcon: const Icon(
+                      Icons.person,
+                    ),
+                    hintStyle: const TextStyle(
+                      color: Kverylighttextcolor,
+                    ),
+                    labelText: 'Full name ',
+                    labelStyle: const TextStyle(
+                      color: Klighttextcolor,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: const BorderSide(color: Ktextcolor)),
+                    focusColor: KPrimarycolor,
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: BorderSide(
+                          color: KPrimarycolor,
+                          width: 2.w,
+                        )),
+                  ),
+                ),
+                SizedBox(
+                  height: 40.h,
+                ),
+                TextFormField(
+                  controller: _emailController,
+                  cursorColor: KPrimarycolor,
+                  validator: (value) {
+                    if (value!.isEmpty ||
+                        RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'enter valid email';
+                    } else {
+                      return null;
+                    }
+                  },
+                  onTap: () {},
+                  decoration: InputDecoration(
+                    focusedErrorBorder:OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                          width: 2.w,
+                        )),
+                    errorBorder:  OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                          width: 2.w,
+                        )),
+                    suffixIconColor: Klighttextcolor,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
+                    suffixIcon: const Icon(
+                      Icons.email,
+                    ),
+                    hintStyle: const TextStyle(
+                      color: Kverylighttextcolor,
+                    ),
+                    labelText: 'Email',
+                    labelStyle: const TextStyle(
+                      color: Klighttextcolor,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: const BorderSide(color: Ktextcolor)),
+                    focusColor: KPrimarycolor,
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: BorderSide(
+                          color: KPrimarycolor,
+                          width: 2.w,
+                        )),
+                  ),
+                ),
+                SizedBox(
+                  height: 40.h,
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty ||
+                        RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'enter valid phone number';
+                    } else {
+                      return null;
+                    }
+                  },
+                  controller: _numberController,
+                  cursorColor: KPrimarycolor,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(10),
+                  ],
+                  decoration: InputDecoration(
+                    focusedErrorBorder:OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                          width: 2.w,
+                        )),
+                    errorBorder:  OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                          width: 2.w,
+                        )),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
+                    suffixIconColor: Klighttextcolor,
+                    suffixIcon: const Icon(
+                      Icons.phone,
+                    ),
+                    hintStyle: const TextStyle(
+                      color: Kverylighttextcolor,
+                    ),
+                    labelText: 'Phone Number',
+                    labelStyle: const TextStyle(
+                      color: Klighttextcolor,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      gapPadding: 14.w,
+                      borderSide: const BorderSide(color: Ktextcolor),
+                    ),
+                    focusColor: KPrimarycolor,
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      gapPadding: 14.w,
+                      borderSide: BorderSide(
+                        color: KPrimarycolor,
+                        width: 2.w,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 40.h,
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty ||
+                        RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'enter valid password';
+                    } else {
+                      return null;
+                    }
+                  },
+                  controller: _passwordController,
+                  cursorColor: KPrimarycolor,
+                  onTap: () {},
+                  obscureText: !isvisible,
+                  decoration: InputDecoration(
+                    focusedErrorBorder:OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                          width: 2.w,
+                        )),
+                    errorBorder:  OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                          width: 2.w,
+                        )),
+                    suffixIconColor: Klighttextcolor,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        isvisible ? Icons.visibility : Icons.visibility_off,
+                        size: 24.r,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isvisible = !isvisible;
+                        });
                       },
-                      child: Text(' Sign in',
+                    ),
+                    hintStyle: const TextStyle(
+                      color: Kverylighttextcolor,
+                    ),
+                    labelText: 'Password',
+                    labelStyle: const TextStyle(
+                      color: Klighttextcolor,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: const BorderSide(color: Ktextcolor)),
+                    focusColor: KPrimarycolor,
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: BorderSide(
+                          color: KPrimarycolor,
+                          width: 2.w,
+                        )),
+                  ),
+                ),
+                SizedBox(
+                  height: 40.h,
+                ),
+                TextFormField(
+                  cursorColor: KPrimarycolor,
+                  validator: (value) {
+                    if (value!.isEmpty ||
+                        RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                      return 'enter valid Password';
+                    } else {
+                      return null;
+                    }
+                  },
+                  onTap: () {},
+                  obscureText: !isvisible2,
+                  decoration: InputDecoration(
+                    focusedErrorBorder:OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                          width: 2.w,
+                        )),
+                    errorBorder:  OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                          width: 2.w,
+                        )),
+                    suffixIconColor: Klighttextcolor,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        isvisible2 ? Icons.visibility : Icons.visibility_off,
+                        size: 24.r,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isvisible2 = !isvisible2;
+                        });
+                      },
+                    ),
+                    hintStyle: const TextStyle(
+                      color: Kverylighttextcolor,
+                    ),
+                    labelText: 'Confirm your Password',
+                    labelStyle: const TextStyle(
+                      color: Klighttextcolor,
+                    ),
+
+                    enabledBorder: OutlineInputBorder(
+
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: const BorderSide(color: Ktextcolor)),
+                    focusColor: KPrimarycolor,
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: BorderSide(
+                          color: KPrimarycolor,
+                          width: 2.w,
+                        )),
+                  ),
+                ),
+                SizedBox(
+                  height: 60.h,
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 0.h),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        signUp();
+                        if (formKey.currentState!.validate()) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                               SnackBar(
+                                 behavior: SnackBarBehavior.floating,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)) ,
+                                  backgroundColor: KPrimarycolor,
+                                  clipBehavior: Clip.none,
+                                 margin: EdgeInsets.symmetric(horizontal: 40.w , vertical: 20.h ),
+                                  content: const  Center(
+                                      child: Text('Submission Succeeded'))));
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: KPrimarycolor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 100)),
+                      child: Text(
+                        "Sign up".toUpperCase(),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400),
+                      )),
+                ),
+                SizedBox(
+                  height: 40.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.width / 120),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('already have an account ? ',
                           style: TextStyle(
-                            fontSize: 15.sp,
-                            color: KPrimarycolor,
+                            fontSize: 13.sp,
+                            color: Ktextcolor,
                             fontFamily: GoogleFonts.roboto().fontFamily,
                           )),
-                    )
-                  ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Login_page(),
+                          ));
+                        },
+                        child: Text(' Sign in',
+                            style: TextStyle(
+                              fontSize: 15.sp,
+                              color: KPrimarycolor,
+                              fontFamily: GoogleFonts.roboto().fontFamily,
+                            )),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 40.h,
-              )
-            ],
+                SizedBox(
+                  height: 40.h,
+                )
+              ],
+            ),
           ),
         ),
       ),
