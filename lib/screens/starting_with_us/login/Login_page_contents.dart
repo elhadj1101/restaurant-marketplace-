@@ -24,7 +24,8 @@ class _Login_page_contentsState extends State<Login_page_contents> {
   final _passwordController = TextEditingController();
   late final String? userName;
   late final String? userEmail;
-  late final UserInfos newUser = UserInfos(username:userName, useremail: userEmail);
+  late final UserInfos newUser =
+      UserInfos(username: userName, useremail: userEmail);
 
   @override
   void dispose() {
@@ -33,46 +34,24 @@ class _Login_page_contentsState extends State<Login_page_contents> {
     _emailController.dispose();
     _passwordController.dispose();
   }
-  void goHome(UserInfos user){
 
+  void goHome(UserInfos user) {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => Home_screen(),
     ));
-  }
-  Future<User?> signInWithFacebook() async {
-    try {
-      final LoginResult result = await FacebookAuth.instance.login();
-
-
-      if (result.status == LoginStatus.success) {
-        final AuthCredential credential =
-            FacebookAuthProvider.credential(result.accessToken!.token);
-        final UserCredential userCredential =
-            await FirebaseAuth.instance.signInWithCredential(credential);
-        final User? user = userCredential.user;
-
-
-      } else {
-        print('Facebook sign-in failed');
-        return null;
-      }
-    } catch (error) {
-      print('Error signing in with Facebook: $error');
-      return null;
-    }
   }
 
   Future signIn() async {
     print("dkhel");
     try {
-      final UserCredential userCredential =
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim());
+      final UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: _emailController.text.trim(),
+              password: _passwordController.text.trim());
       final User? user = userCredential.user;
 
-      userName=user?.displayName;
-      userEmail=user?.email;
+      userName = user?.displayName;
+      userEmail = user?.email;
       goHome(newUser);
     } catch (error) {
       // Handle sign-in errors here
@@ -80,7 +59,7 @@ class _Login_page_contentsState extends State<Login_page_contents> {
     }
   }
 
-  Future<User?> signInWithGoogle() async {
+  Future signInWithGoogle() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     final GoogleSignInAccount? googleSignInAccount =
         await googleSignIn.signIn();
@@ -99,8 +78,8 @@ class _Login_page_contentsState extends State<Login_page_contents> {
             await FirebaseAuth.instance.signInWithCredential(credential);
 
         final User? user = userCredential.user;
-        userName=user?.displayName;
-        userEmail=user?.email;
+        userName = user?.displayName;
+        userEmail = user?.email;
         goHome(newUser);
       } catch (error) {
         print('Error signing in with Google: $error');
@@ -297,24 +276,26 @@ class _Login_page_contentsState extends State<Login_page_contents> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
-                  onPressed: () {},
-            style: Primarybuttonstyle,
-            child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 92.w),
-              child: Row(
-                // Row of Google logo and text google
-                children: [
-                  Image.asset("assets/images/google.png"),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Text(
-                    " GOOGLE",
-                    style: welcometextstyle,
-                  ),
-                ],
-              ),
-            ))
+                      onPressed: () {
+                        signInWithGoogle();
+                      },
+                      style: Primarybuttonstyle,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 92.w),
+                        child: Row(
+                          // Row of Google logo and text google
+                          children: [
+                            Image.asset("assets/images/google.png"),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Text(
+                              " GOOGLE",
+                              style: welcometextstyle,
+                            ),
+                          ],
+                        ),
+                      ))
                 ],
               ),
               SizedBox(

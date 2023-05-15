@@ -39,7 +39,6 @@ dependencies:
   flutter_svg: ^2.0.4
   intl_phone_field: ^3.1.0
   font_awesome_flutter: ^10.4.0
-  rive: ^0.10.3
   provider: ^6.0.5
   flutter_screenutil: ^5.7.0
   scroll_to_hide: ^1.0.5

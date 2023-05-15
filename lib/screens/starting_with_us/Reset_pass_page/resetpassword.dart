@@ -8,7 +8,6 @@ import 'package:restaurant_marketplace_h/widgets/default_button.dart';
 import '../../../constants.dart';
 
 class resetpassword extends StatefulWidget {
-
   const resetpassword({Key? key}) : super(key: key);
 
   @override
@@ -23,21 +22,22 @@ class _resetpasswordState extends State<resetpassword> {
     super.dispose();
     _emailController.dispose();
   }
-  Future resetPassword() async{
+
+  Future resetPassword() async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(
-        email: _emailController.text.trim(),);
-    }on FirebaseAuthException catch (e){
-       print(e.message);
+        email: _emailController.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
     }
   }
+
   @override
   Widget build(BuildContext context) {
-
-
     return SafeArea(
       child: Padding(
-        padding:  EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 0.h),
+        padding: EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 0.h),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,9 +50,7 @@ class _resetpasswordState extends State<resetpassword> {
                 style: TextStyle(
                     color: Ktextcolor,
                     fontSize: 40.sp,
-                    fontFamily: GoogleFonts
-                        .roboto()
-                        .fontFamily,
+                    fontFamily: GoogleFonts.roboto().fontFamily,
                     fontWeight: FontWeight.w700),
               ),
               SizedBox(
@@ -63,9 +61,7 @@ class _resetpasswordState extends State<resetpassword> {
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 16.sp,
-                    fontFamily: GoogleFonts
-                        .roboto()
-                        .fontFamily,
+                    fontFamily: GoogleFonts.roboto().fontFamily,
                     fontWeight: FontWeight.w400),
               ),
               SizedBox(
@@ -75,18 +71,14 @@ class _resetpasswordState extends State<resetpassword> {
                 controller: _emailController,
                 cursorColor: KPrimarycolor,
                 onTap: () {},
-
                 decoration: InputDecoration(
                   suffixIconColor: Klighttextcolor,
                   contentPadding:
-                   EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
-                  suffixIcon:
-                      Icon(
-                      Icons.email ,
-                      size: 24.r,
-                    ),
-
-
+                      EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
+                  suffixIcon: Icon(
+                    Icons.email,
+                    size: 24.r,
+                  ),
                   hintStyle: const TextStyle(
                     color: Kverylighttextcolor,
                   ),
@@ -102,19 +94,37 @@ class _resetpasswordState extends State<resetpassword> {
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(11),
                       gapPadding: 14.w,
-                      borderSide:  BorderSide(
+                      borderSide: BorderSide(
                         color: KPrimarycolor,
                         width: 2.w,
                       )),
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: 50.h,
               ),
-                Padding(
-                 padding:  EdgeInsets.symmetric(horizontal: 40.0.w,vertical: 0.h),
-                 child: const default_button(text: 'reset my password', x: 1.5, y: 13, button_color: KPrimarycolor),
-               ),
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 0.h),
+                child: ElevatedButton(
+                    onPressed: () {
+                      resetPassword();
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: KPrimarycolor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 100)),
+                    child: Text(
+                      "Reset".toUpperCase(),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400),
+                    )),
+              ),
               SizedBox(
                 height: 20.h,
               )
@@ -125,4 +135,3 @@ class _resetpasswordState extends State<resetpassword> {
     );
   }
 }
-
