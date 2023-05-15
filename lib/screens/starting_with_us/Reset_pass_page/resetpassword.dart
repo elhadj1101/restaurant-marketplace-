@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,9 +7,30 @@ import 'package:restaurant_marketplace_h/widgets/default_button.dart';
 
 import '../../../constants.dart';
 
-class resetpassword extends StatelessWidget {
+class resetpassword extends StatefulWidget {
+
   const resetpassword({Key? key}) : super(key: key);
 
+  @override
+  State<resetpassword> createState() => _resetpasswordState();
+}
+
+class _resetpasswordState extends State<resetpassword> {
+  final _emailController = TextEditingController();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _emailController.dispose();
+  }
+  Future resetPassword() async{
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: _emailController.text.trim(),);
+    }on FirebaseAuthException catch (e){
+       print(e.message);
+    }
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -50,6 +72,7 @@ class resetpassword extends StatelessWidget {
                 height: 40.h,
               ),
               TextFormField(
+                controller: _emailController,
                 cursorColor: KPrimarycolor,
                 onTap: () {},
 

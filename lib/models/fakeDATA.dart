@@ -13,7 +13,7 @@ List<order> myorders  = [
   order(1, '01/01/2023', 2500, 'sidi bel abbes , rue 1111', 'cooking ', 101010101, 1010010101 , 'assets/images/orderincart1.png'),
   order(1, '01/01/2023', 2500, 'sidi bel abbes , arret wiam', 'delivered ', 101010101, 1010010101,'assets/images/orderincart2.png'),
   order(1, '01/01/2023', 2500, 'sidi bel abbes , maternite', 'cooking ', 101010101, 1010010101 , 'assets/images/orderincart2.png'),
-  order(1, '01/01/2023', 2500, 'sidi bel abbes , residence 1000 lit ', 'delivered ', 101010101, 1010010101,'assets/images/orderincart2.png'),
+  order(1, '01/01/2023', 2500, 'sidi bel abbes , residence 1000 lits ', 'delivered ', 101010101, 1010010101,'assets/images/orderincart2.png'),
   order(1, '01/01/2023', 2500, 'sidi bel abbes , rue 1234-2', 'cooking ', 101010101, 1010010101,'assets/images/orderincart2.png'),
   order(1, '01/01/2023', 2500, 'sidi bel abbes , cite 6', 'cooking ', 101010101, 1010010101,'assets/images/orderincart2.png'),
 
