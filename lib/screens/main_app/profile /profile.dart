@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:restaurant_marketplace_h/widgets/default_button.dart';
+import 'package:restaurant_marketplace_h/screens/starting_with_us/widgets/default_button.dart';
 import '../../../constants.dart';
 import '../category/category_page.dart';
 

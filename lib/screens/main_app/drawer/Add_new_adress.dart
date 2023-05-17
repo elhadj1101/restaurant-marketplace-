@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/category/category_page.dart';
 
 import '../../../constants.dart';
-import '../../../widgets/default_button.dart';
+import '../../starting_with_us/widgets/default_button.dart';
 
 class Add_new_adress extends StatelessWidget {
   const Add_new_adress({Key? key}) : super(key: key);

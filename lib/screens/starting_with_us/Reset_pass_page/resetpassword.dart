@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restaurant_marketplace_h/widgets/default_button.dart';
+import 'package:restaurant_marketplace_h/screens/starting_with_us/widgets/default_button.dart';
 
 import '../../../constants.dart';
 
