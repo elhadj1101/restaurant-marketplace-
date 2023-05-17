@@ -5,11 +5,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/profile%20/profile.dart';
 
-class Sidemenu extends StatelessWidget {
+import '../category/food_details.dart';
+
+class Sidemenu extends StatefulWidget {
   const Sidemenu({Key? key}) : super(key: key);
+
+  @override
+  State<Sidemenu> createState() => _SidemenuState();
+}
+
+class _SidemenuState extends State<Sidemenu> {
   Future<void> _signOut() async {
-    print('khrej');
     await FirebaseAuth.instance.signOut();
   }
 
@@ -26,9 +34,10 @@ class Sidemenu extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Info_card(
-                      name: 'Faressi Elhadj ',
-                      email: 'faressielhadj@gmail.com '),
+                  Info_card(
+                      name:
+                          FirebaseAuth.instance.currentUser?.displayName ?? '',
+                      email: FirebaseAuth.instance.currentUser?.email ?? ''),
                   SizedBox(
                     height: 20.h,
                   ),
