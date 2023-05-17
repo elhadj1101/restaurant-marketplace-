@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,9 +7,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
-import 'package:restaurant_marketplace_h/screens/main_app/profile%20/profile.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/drawer/working_on_page.dart';
 
-import '../category/food_details.dart';
+import 'Add_new_adress.dart';
+
+
 
 class Sidemenu extends StatefulWidget {
   const Sidemenu({Key? key}) : super(key: key);
@@ -209,6 +213,17 @@ class Provider_Drawer extends ChangeNotifier {
     7: false,
   };
 
+  Map<int , Widget > navigatormap = {
+    1: Working_on_it_page(),
+    2: Working_on_it_page(),
+    3: Add_new_adress(),
+    4: Working_on_it_page(),
+    5: Working_on_it_page(),
+    6: Working_on_it_page(),
+    7: Working_on_it_page(),
+
+  } ;
+
   void selecttile(int i) {
     isselected[i] = !isselected[i]!;
 
@@ -283,8 +298,15 @@ class Listtilemodified extends StatelessWidget {
               ),
             ),
             onTap: () {
+
               Provider_Drawer.selecttile(tilenumber);
               Provider_Drawer.turnoff(tilenumber);
+              Timer(const Duration(milliseconds: 250), () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Provider_Drawer.navigatormap[tilenumber]!),
+                );
+              });
             },
           ),
         ]);
