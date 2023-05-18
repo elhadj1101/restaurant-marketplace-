@@ -8,7 +8,6 @@ import 'package:restaurant_marketplace_h/screens/main_app/drawer/sidemenu.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/home.dart';
 
 import '../../../constants.dart';
-import '../../starting_with_us/login/userInfos.dart';
 
 class Home_screen extends StatefulWidget {
   const Home_screen({
@@ -50,6 +49,7 @@ class _Home_screenState extends State<Home_screen>
   }
 
   Widget build(BuildContext context) {
+  
     return Consumer<Provider_home>(
       builder: (context, Provider_home, child) {
         return Scaffold(

@@ -61,6 +61,7 @@ class _welcomeState extends State<welcome> {
                   valueColor: AlwaysStoppedAnimation(KPrimarycolor),
                 ),
               );
+             
             } else {
               return Stack(
                 children: [

@@ -4,10 +4,12 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/Auth.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/login/userInfos.dart';
 import '../../../constants.dart';
+import '../../../Providers/userProvider.dart';
 import '../Reset_pass_page/reset_password_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -22,10 +24,6 @@ class _Login_page_contentsState extends State<Login_page_contents> {
   bool isvisible = true;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  // late final String? userName;
-  // late final String? userEmail;
-  // late final UserInfos newUser =
-  //     UserInfos(username: userName, useremail: userEmail);
 
   @override
   void dispose() {
@@ -48,9 +46,12 @@ class _Login_page_contentsState extends State<Login_page_contents> {
           .signInWithEmailAndPassword(
               email: _emailController.text.trim(),
               password: _passwordController.text.trim());
-      final User? user = userCredential.user;
-
-      goHome();
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      await userProvider.getUserData();
+      if (userProvider.isLogged){
+         goHome();
+      }
+     
     } catch (error) {
       // Handle sign-in errors here
       print('Error signing in with email and password: $error');

@@ -43,7 +43,7 @@ class _Sign_up_contentState extends State<Sign_up_content> {
     try {
       String _email = _emailController.text.trim();
       String _fullName = _fullNameController.text.trim();
-      int _number = int.parse(_numberController.text.trim());
+      String _number = _numberController.text.trim();
       String _password = _passwordController.text.trim();
 
       final UserCredential userCredential =

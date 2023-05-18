@@ -52,6 +52,7 @@ dependencies:
   flutter_facebook_auth: ^5.0.11 
   rive: ^0.9.1
   image_picker: ^0.8.7+5
+  firebase_storage: ^11.2.1
 
 dev_dependencies:
   flutter_test:

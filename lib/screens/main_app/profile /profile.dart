@@ -1,17 +1,36 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/widgets/default_button.dart';
+import '../../../Providers/userProvider.dart';
 import '../../../constants.dart';
 import '../category/category_page.dart';
 
-class profile extends StatelessWidget {
+class profile extends StatefulWidget {
   const profile({Key? key}) : super(key: key);
+
+  @override
+  State<profile> createState() => _profileState();
+}
+
+class _profileState extends State<profile> {
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+
+    final _fullNameController =
+        TextEditingController(text: userProvider.username);
+    final _emailController = TextEditingController(text: userProvider.email);
+    final _NumberController = TextEditingController(text: userProvider.phone);
+    final username = _fullNameController.text.trim();
+    final email = _emailController.text.trim();
+    final phone = _NumberController.text.trim();
+
     return Scaffold(
       body: Stack(
         children: [
@@ -32,7 +51,7 @@ class profile extends StatelessWidget {
                 RichText(
                     text: TextSpan(children: [
                   TextSpan(
-                      text: "Name of the usr",
+                      text: userProvider.username,
                       style: TextStyle(
                           color: Ktextcolor,
                           fontWeight: FontWeight.w700,
@@ -48,6 +67,7 @@ class profile extends StatelessWidget {
                   height: 115.h,
                 ),
                 TextFormField(
+                  controller: _fullNameController,
                   cursorColor: KPrimarycolor,
                   decoration: InputDecoration(
                     contentPadding:
@@ -79,8 +99,11 @@ class profile extends StatelessWidget {
                   height: 40.h,
                 ),
                 TextFormField(
+                  controller: _emailController,
                   cursorColor: KPrimarycolor,
-                  onTap: () {},
+                  onTap: () {
+                    userProvider.updateDocument();
+                  },
                   decoration: InputDecoration(
                     suffixIconColor: Klighttextcolor,
                     contentPadding:
@@ -111,12 +134,14 @@ class profile extends StatelessWidget {
                   height: 40.h,
                 ),
                 TextFormField(
+                  controller: _NumberController,
                   cursorColor: KPrimarycolor,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
                     LengthLimitingTextInputFormatter(10),
                   ],
                   decoration: InputDecoration(
+                    hintText: phone,
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
                     suffixIconColor: Klighttextcolor,
@@ -146,11 +171,18 @@ class profile extends StatelessWidget {
                 SizedBox(
                   height: 30.h,
                 ),
-                const default_button(
-                  text: "SAVE",
-                  x: 2,
-                  y: 15,
-                  button_color: KPrimarycolor,
+                ElevatedButton(
+                  onPressed: () {
+                    userProvider.setUserData(username, email, phone);
+                    if(userProvider.imageUploaded){
+                    userProvider.updateDocument();
+                    }
+                  },
+                  style: Primarybuttonstyle,
+                  child: Text(
+                    " save",
+                    style: welcometextstyle,
+                  ),
                 )
               ],
             ),
@@ -165,64 +197,28 @@ class profile_avatar extends StatefulWidget {
   const profile_avatar({super.key});
 
   @override
-  State<profile_avatar> createState() => _profile_avatarState();
+  State<profile_avatar> createState() => profile_avatarState();
 }
 
-class _profile_avatarState extends State<profile_avatar> {
-  late XFile _imagefile;
-  final ImagePicker _picker = ImagePicker();
-  Widget bottomsheet(ctx) {
-    return Container(
-      height: 100.h,
-      width: MediaQuery.of(ctx).size.width,
-      margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-      child: Column(
-        children: [
-          const Text(
-            "Chosse a picture",
-            style: TextStyle(fontSize: 20.0),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton.icon(
-                  onPressed: () => takePhoto(ImageSource.camera),
-                  icon: const Icon(Icons.camera),
-                  label: const Text("Camera"),
-                  style: const ButtonStyle(
-                      foregroundColor: MaterialStatePropertyAll(Colors.black))),
-              TextButton.icon(
-                  onPressed: () => takePhoto(ImageSource.gallery),
-                  icon: const Icon(Icons.image),
-                  label: const Text("Gallery"),
-                  style: const ButtonStyle(
-                      foregroundColor: MaterialStatePropertyAll(Colors.black)))
-            ],
-          )
-        ],
-      ),
-    );
-  }
-var profile_picture;
-  void takePhoto(ImageSource source) async {
-    final pickedfile = await _picker.pickImage(
-      source: source,
-    );
-    setState(() {
-      _imagefile = pickedfile!;
-      profile_picture = (_imagefile == null)
-        ? const AssetImage('assets/images/default_avatar.png')
-        : FileImage(File(_imagefile.path)) as ImageProvider<Object>?;
-    });
-  }
+class profile_avatarState extends State<profile_avatar> {
 // var profile_picture = (_imagefile == null)
 //                   ? const AssetImage('assets/images/default_avatar.png')
 //                   : FileImage(File(_imagefile.path)) as ImageProvider<Object>?;
   @override
   Widget build(BuildContext context) {
+    final ImagePicker _picker = ImagePicker();
+    XFile _imagefile;
+    final userProvider = Provider.of<UserProvider>(context);
+    void takePhoto(ImageSource source) async {
+      final pickedfile = await _picker.pickImage(
+        source: source,
+      );
+      setState(() {
+        _imagefile = pickedfile!;
+        userProvider.uploadImage(userProvider.UserID, _imagefile.path);
+      });
+    }
+
     return Center(
       child: Stack(
         children: [
@@ -233,14 +229,13 @@ var profile_picture;
               shape: BoxShape.circle,
               border: Border.all(width: 7, color: Colors.white),
             ),
-            child: CircleAvatar(
-              radius: 48,
-               backgroundImage:profile_picture //imagefile == null
-              //     ? const AssetImage('assets/images/default_avatar.png')
-              //     : FileImage(File(_imagefile.path)) as ImageProvider<Object>?,
-
-              // backgroundImage: _imagefile==null?  const AssetImage('assets/images/default_avatar.png') : FileImage(File(_imagefile.path)) ,
-            ),
+            child:CircleAvatar(
+              radius: 50.r,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child: (!userProvider.imageUploaded)? Image.asset('assets/images/default_avatar.png'):Image.network(userProvider.image)
+                ),
+              ),
           ),
           Positioned(
             bottom: 0,
@@ -248,7 +243,46 @@ var profile_picture;
             child: GestureDetector(
               onTap: () => showModalBottomSheet(
                   context: context,
-                  builder: ((Builder) => bottomsheet(context)),
+                  builder: ((Builder) => Container(
+                        height: 100.h,
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.symmetric(
+                            horizontal: 20.w, vertical: 20.h),
+                        child: Column(
+                          children: [
+                            const Text(
+                              "Chosse a picture",
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                TextButton.icon(
+                                    onPressed: () =>
+                                        takePhoto(ImageSource.camera),
+                                    icon: const Icon(Icons.camera),
+                                    label: const Text("Camera"),
+                                    style: const ButtonStyle(
+                                        foregroundColor:
+                                            MaterialStatePropertyAll(
+                                                Colors.black))),
+                                TextButton.icon(
+                                    onPressed: () =>
+                                        takePhoto(ImageSource.gallery),
+                                    icon: const Icon(Icons.image),
+                                    label: const Text("Gallery"),
+                                    style: const ButtonStyle(
+                                        foregroundColor:
+                                            MaterialStatePropertyAll(
+                                                Colors.black)))
+                              ],
+                            )
+                          ],
+                        ),
+                      )),
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40.0),

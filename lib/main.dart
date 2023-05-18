@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/Auth.dart';
+import 'package:restaurant_marketplace_h/Providers/userProvider.dart';
 
 import 'package:restaurant_marketplace_h/screens/main_app/Rating_page.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/category/category_page.dart';
@@ -21,6 +22,8 @@ import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_c
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/profile%20/profile.dart';
+import 'package:restaurant_marketplace_h/splash_screen_timer.dart';
+import 'Providers/updateProfileProvider.dart';
 import 'firebase_options.dart';
   
 Future <void> main() async{
@@ -53,6 +56,8 @@ class MyApp extends StatelessWidget {
             ChangeNotifierProvider<Provider_scroll>(create: (context) => Provider_scroll()),
             ChangeNotifierProvider<Provider_adress>(create: (context) => Provider_adress()),
             ChangeNotifierProvider<Provider_rating>(create: (context) => Provider_rating()),
+            ChangeNotifierProvider<UserProvider>(create: (context) => UserProvider()),
+            ChangeNotifierProvider<UpdateProvider>(create: (context) => UpdateProvider()),
             ChangeNotifierProvider<Provider_numberofitems>(create: (context) => Provider_numberofitems()),
           ],
           child:  MaterialApp(
