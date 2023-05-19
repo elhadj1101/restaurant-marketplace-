@@ -27,9 +27,6 @@ class _profileState extends State<profile> {
         TextEditingController(text: userProvider.username);
     final _emailController = TextEditingController(text: userProvider.email);
     final _NumberController = TextEditingController(text: userProvider.phone);
-    final username = _fullNameController.text.trim();
-    final email = _emailController.text.trim();
-    final phone = _NumberController.text.trim();
 
     return Scaffold(
       body: Stack(
@@ -141,7 +138,6 @@ class _profileState extends State<profile> {
                     LengthLimitingTextInputFormatter(10),
                   ],
                   decoration: InputDecoration(
-                    hintText: phone,
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
                     suffixIconColor: Klighttextcolor,
@@ -173,10 +169,12 @@ class _profileState extends State<profile> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    userProvider.setUserData(username, email, phone);
-                    if(userProvider.imageUploaded){
-                    userProvider.updateDocument();
-                    }
+                    String username = _fullNameController.text.trim();
+                    String email = _emailController.text.trim();
+                    String phone = _NumberController.text.trim();
+                    String image = userProvider.image;
+                    userProvider.setUserData(username, email, phone, image);
+                      userProvider.updateDocument();
                   },
                   style: Primarybuttonstyle,
                   child: Text(
@@ -229,13 +227,14 @@ class profile_avatarState extends State<profile_avatar> {
               shape: BoxShape.circle,
               border: Border.all(width: 7, color: Colors.white),
             ),
-            child:CircleAvatar(
+            child: CircleAvatar(
               radius: 50.r,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: (!userProvider.imageUploaded)? Image.asset('assets/images/default_avatar.png'):Image.network(userProvider.image)
-                ),
-              ),
+                  borderRadius: BorderRadius.circular(50),
+                  child: (userProvider.image=="")
+                      ? Image.asset('assets/images/default_avatar.png')
+                      : Image.network(userProvider.image,fit: BoxFit.cover)),
+            ),
           ),
           Positioned(
             bottom: 0,

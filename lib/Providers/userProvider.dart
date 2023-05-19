@@ -10,16 +10,21 @@ class UserProvider extends ChangeNotifier {
   String username = '';
   String email = '';
   String phone = '';
-  String image = '';
+  String image = "";
   bool imageUploaded = false;
   bool isLogged = false;
   final UserID = FirebaseAuth.instance.currentUser?.uid ?? '';
 
-  void setUserData(String username, String email, String phone) {
+  void setUserData(String username, String email, String phone, String image) {
     this.username = username;
     this.email = email;
     this.phone = phone;
+    this.image = image;
     notifyListeners();
+  }
+
+  void setImage(String img) {
+    this.image = img;
   }
 
   Future<String> uploadImageToFirebase(String userId, File imageFile) async {
@@ -42,7 +47,7 @@ class UserProvider extends ChangeNotifier {
     File imageFile = File(imagePath); // Replace with the actual image file path
 
     String downloadURL = await uploadImageToFirebase(userID, imageFile);
-    image = downloadURL;
+    setImage(downloadURL);
     if (image != '') {
       imageUploaded = true;
     }
@@ -54,14 +59,12 @@ class UserProvider extends ChangeNotifier {
       final FirebaseFirestore firestore = FirebaseFirestore.instance;
       final DocumentReference documentRef =
           firestore.collection('users').doc(UserID);
-
       await documentRef.update({
         'name': username,
         'email': email,
         'number': phone,
         'image': image,
       });
-
       print('Document updated successfully.');
     } catch (e) {
       print('Error updating document: $e');
@@ -77,12 +80,15 @@ class UserProvider extends ChangeNotifier {
         Map<String, dynamic> userData =
             documentSnapshot.data() as Map<String, dynamic>;
         // Access user information
+
         username = userData['name'] ?? '';
         email = userData['email'] ?? '';
         phone = userData['number'] ?? '';
         image = userData['image'] ?? '';
+        setUserData(username, email, phone, image);
 
         if (username != '') {
+          print(image);
           isLogged = true;
         }
         // Do something with the user data
