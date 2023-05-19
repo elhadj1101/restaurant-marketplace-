@@ -8,7 +8,6 @@ import 'package:restaurant_marketplace_h/Auth.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/signUP/AddUser2Store.dart';
-import 'package:restaurant_marketplace_h/widgets/default_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../login/Login_page.dart';
@@ -30,6 +29,7 @@ class _Sign_up_contentState extends State<Sign_up_content> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _numberController = TextEditingController();
+  final _passwordController2 = TextEditingController() ;
 
   @override
   void dispose() {
@@ -43,8 +43,9 @@ class _Sign_up_contentState extends State<Sign_up_content> {
     try {
       String _email = _emailController.text.trim();
       String _fullName = _fullNameController.text.trim();
-      int _number = int.parse(_numberController.text.trim());
+      String _number = _numberController.text.trim();
       String _password = _passwordController.text.trim();
+
       final UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _email,
@@ -59,8 +60,34 @@ class _Sign_up_contentState extends State<Sign_up_content> {
         ),
       );
     } catch (e) {
+      String error  = 'error' ;
+      if (e is FirebaseAuthException) {
+        if (e.code.contains('email-already-in-use')){
+          error  = 'this email is alreay used ' ; 
+        }
+        else {
+          error = 'error' ;
+        }
+      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          behavior: SnackBarBehavior.floating,
+
+
+          clipBehavior: Clip.none,
+          margin: EdgeInsets.symmetric(horizontal : (error.length<20 ) ? 40 : 10 , vertical: 20 ),
+
+          content: Center(child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.error , color: Colors.white,),
+              SizedBox(
+                width: 10.w,
+              ),
+              Text('${error}' ,style: TextStyle(color: Colors.white), ),
+            ],
+          ))));
       // Handle the exception here
-      print('sign up failed: $e');
+
       // You can also throw the error to the calling code if needed
       throw e;
     }
@@ -96,22 +123,21 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   cursorColor: KPrimarycolor,
                   validator: (value) {
                     if (value!.isEmpty ||
-                        RegExp(r'^[a-zA-Z0-9_ ]*$').hasMatch(value)) {
+                        !RegExp(r'^[a-zA-Z \s]+$').hasMatch(value)) {
                       return 'enter valid name';
                     } else {
                       return null;
                     }
                   },
-
                   decoration: InputDecoration(
-                    focusedErrorBorder:OutlineInputBorder(
+                    focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         gapPadding: 14.w,
                         borderSide: BorderSide(
                           color: Colors.red,
                           width: 2.w,
                         )),
-                    errorBorder:  OutlineInputBorder(
+                    errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         gapPadding: 14.w,
                         borderSide: BorderSide(
@@ -153,7 +179,8 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   cursorColor: KPrimarycolor,
                   validator: (value) {
                     if (value!.isEmpty ||
-                        RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                        !RegExp(r'^[\w-]+(\.[\w-]+)*@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$')
+                            .hasMatch(value)) {
                       return 'enter valid email';
                     } else {
                       return null;
@@ -161,14 +188,14 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   },
                   onTap: () {},
                   decoration: InputDecoration(
-                    focusedErrorBorder:OutlineInputBorder(
+                    focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         gapPadding: 14.w,
                         borderSide: BorderSide(
                           color: Colors.red,
                           width: 2.w,
                         )),
-                    errorBorder:  OutlineInputBorder(
+                    errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         gapPadding: 14.w,
                         borderSide: BorderSide(
@@ -206,9 +233,9 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   height: 40.h,
                 ),
                 TextFormField(
+                  keyboardType: TextInputType.numberWithOptions(),
                   validator: (value) {
-                    if (value!.isEmpty ||
-                        RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                    if (value!.isEmpty) {
                       return 'enter valid phone number';
                     } else {
                       return null;
@@ -221,14 +248,14 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                     LengthLimitingTextInputFormatter(10),
                   ],
                   decoration: InputDecoration(
-                    focusedErrorBorder:OutlineInputBorder(
+                    focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         gapPadding: 14.w,
                         borderSide: BorderSide(
                           color: Colors.red,
                           width: 2.w,
                         )),
-                    errorBorder:  OutlineInputBorder(
+                    errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         gapPadding: 14.w,
                         borderSide: BorderSide(
@@ -269,8 +296,7 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                 ),
                 TextFormField(
                   validator: (value) {
-                    if (value!.isEmpty ||
-                        RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                    if (value!.isEmpty || (value!.length < 6)) {
                       return 'enter valid password';
                     } else {
                       return null;
@@ -281,14 +307,14 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   onTap: () {},
                   obscureText: !isvisible,
                   decoration: InputDecoration(
-                    focusedErrorBorder:OutlineInputBorder(
+                    focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         gapPadding: 14.w,
                         borderSide: BorderSide(
                           color: Colors.red,
                           width: 2.w,
                         )),
-                    errorBorder:  OutlineInputBorder(
+                    errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         gapPadding: 14.w,
                         borderSide: BorderSide(
@@ -317,7 +343,6 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                       color: Klighttextcolor,
                     ),
                     enabledBorder: OutlineInputBorder(
-
                         borderRadius: BorderRadius.circular(20),
                         gapPadding: 14.w,
                         borderSide: const BorderSide(color: Ktextcolor)),
@@ -346,15 +371,16 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   },
                   onTap: () {},
                   obscureText: !isvisible2,
+                  controller: _passwordController2,
                   decoration: InputDecoration(
-                    focusedErrorBorder:OutlineInputBorder(
+                    focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         gapPadding: 14.w,
                         borderSide: BorderSide(
                           color: Colors.red,
                           width: 2.w,
                         )),
-                    errorBorder:  OutlineInputBorder(
+                    errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         gapPadding: 14.w,
                         borderSide: BorderSide(
@@ -382,9 +408,7 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                     labelStyle: const TextStyle(
                       color: Klighttextcolor,
                     ),
-
                     enabledBorder: OutlineInputBorder(
-
                         borderRadius: BorderRadius.circular(20),
                         gapPadding: 14.w,
                         borderSide: const BorderSide(color: Ktextcolor)),
@@ -407,16 +431,8 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   child: ElevatedButton(
                       onPressed: () {
                         signUp();
-                        if (formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                               SnackBar(
-                                 behavior: SnackBarBehavior.floating,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)) ,
-                                  backgroundColor: KPrimarycolor,
-                                  clipBehavior: Clip.none,
-                                 margin: EdgeInsets.symmetric(horizontal: 40.w , vertical: 20.h ),
-                                  content: const  Center(
-                                      child: Text('Submission Succeeded'))));
+                        if (formKey.currentState!.validate()){
+
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -476,3 +492,4 @@ class _Sign_up_contentState extends State<Sign_up_content> {
     );
   }
 }
+

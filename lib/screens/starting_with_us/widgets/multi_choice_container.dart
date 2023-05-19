@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../constants.dart';
-import '../screens/main_app/favorites/button_provider.dart';
+import '../../../constants.dart';
+import '../../main_app/favorites/button_provider.dart';
+
 
 class multi_choice_container  extends StatelessWidget {
 multi_choice_container(this.item1,this.item2, {super.key});

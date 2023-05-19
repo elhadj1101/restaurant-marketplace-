@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class AddUser {
   final String fullName;
   final String email;
-  final int number;
+  final String number;
   final String Uid;
 
   AddUser(this.fullName, this.email, this.number, this.Uid);

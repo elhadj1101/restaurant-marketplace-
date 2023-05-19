@@ -3,22 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/Auth.dart';
+import 'package:restaurant_marketplace_h/Providers/userProvider.dart';
 
 import 'package:restaurant_marketplace_h/screens/main_app/Rating_page.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/category/category_page.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/category/food_details.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/drawer/Add_new_adress.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/drawer/sidemenu.dart';
-import 'package:restaurant_marketplace_h/screens/main_app/favorites/button_provider.dart';
-import 'package:restaurant_marketplace_h/screens/main_app/favorites/favorites.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/home.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/item_card.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_card.dart';
-// import 'package:restaurant_marketplace_h/screens/starting_with_us/verivication_code_page/verification_code_page.dart';
-// import 'package:restaurant_marketplace_h/screens/starting_with_us/welcome.dart';
-// import 'package:restaurant_marketplace_h/splash_screen_timer.dart';
-// import 'package:restaurant_marketplace_h/constants.dart';
+
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,8 +23,7 @@ import 'package:restaurant_marketplace_h/screens/main_app/order/cancel_order.dar
 import 'package:restaurant_marketplace_h/screens/main_app/order/my_orders.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/order/order_truck.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/profile%20/profile.dart';
-import 'package:restaurant_marketplace_h/widgets/circle_rounded_container.dart';
-import 'package:restaurant_marketplace_h/widgets/multi_choice_container.dart';
+import 'package:restaurant_marketplace_h/splash_screen_timer.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
   
@@ -62,6 +57,7 @@ class MyApp extends StatelessWidget {
             ChangeNotifierProvider<Provider_scroll>(create: (context) => Provider_scroll()),
             ChangeNotifierProvider<Provider_adress>(create: (context) => Provider_adress()),
             ChangeNotifierProvider<Provider_rating>(create: (context) => Provider_rating()),
+            ChangeNotifierProvider<UserProvider>(create: (context) => UserProvider()),
             ChangeNotifierProvider<Provider_numberofitems>(create: (context) => Provider_numberofitems()),
             // ChangeNotifierProvider<buttonState>(create: (context) => buttonState()),
           ],
@@ -73,7 +69,7 @@ class MyApp extends StatelessWidget {
                 fontFamily: GoogleFonts.poppins().fontFamily,
                 textTheme: GoogleFonts.poppinsTextTheme(), 
               ),
-            home:      Map(), //Auth(),
+            home:     Auth(),
             // splash_screen(),
             // const  Home_screen(), 
              // Category_page() ,

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/models/fakeDATA.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/category/category_page.dart';
-import 'package:restaurant_marketplace_h/widgets/default_button.dart';
+import 'package:restaurant_marketplace_h/screens/starting_with_us/widgets/default_button.dart';
 
 import '../../constants.dart';
 import 'category/food_details.dart';

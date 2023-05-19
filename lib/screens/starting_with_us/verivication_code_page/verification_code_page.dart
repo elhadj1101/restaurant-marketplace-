@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/verivication_code_page/verification_code_page_contents.dart';
 import '../../../constants.dart';
-import '../../../widgets/circle_container.dart';
+import '../widgets/circle_container.dart';
 
 class Verification_Code_page extends StatelessWidget {
   const Verification_Code_page({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../constants.dart';
+import '../../../constants.dart';
 
 class default_button extends StatelessWidget {
   const default_button({Key? key, required this.text, required this.x, required this.y, required this.button_color}) : super(key: key);

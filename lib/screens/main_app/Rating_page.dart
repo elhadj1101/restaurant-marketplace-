@@ -6,7 +6,7 @@ import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/models/fakeDATA.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/category/category_page.dart';
 
-import '../../widgets/default_button.dart';
+import '../starting_with_us/widgets/default_button.dart';
 
 class Rating_page extends StatelessWidget {
   const Rating_page({Key? key}) : super(key: key);

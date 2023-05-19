@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,17 +8,34 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
-import 'package:restaurant_marketplace_h/screens/main_app/profile%20/profile.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/drawer/working_on_page.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
 
-class Sidemenu extends StatelessWidget {
+import '../../../Providers/userProvider.dart';
+import '../profile /profile.dart';
+import 'Add_new_adress.dart';
+
+class Sidemenu extends StatefulWidget {
   const Sidemenu({Key? key}) : super(key: key);
+
+  @override
+  State<Sidemenu> createState() => _SidemenuState();
+}
+
+class _SidemenuState extends State<Sidemenu> {
   Future<void> _signOut() async {
-    print('khrej');
+    Provider.of<Provider_home>(context, listen: false).is_side_menu_opened =
+        false;
     await FirebaseAuth.instance.signOut();
   }
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    final username = userProvider.username;
+    final email = userProvider.email;
+    final image = userProvider.image;
+    final isUploaded = (userProvider.image!='')?false:true;
     return Scaffold(
       backgroundColor: KLightcolor,
       body: Container(
@@ -27,9 +47,11 @@ class Sidemenu extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Info_card(
-                      name: 'Faressi Elhadj ',
-                      email: 'faressielhadj@gmail.com '),
+                  Info_card(
+                      name: username,
+                      email: email,
+                      image: image,
+                      isUploaded: isUploaded),
                   SizedBox(
                     height: 20.h,
                   ),
@@ -84,11 +106,18 @@ class Sidemenu extends StatelessWidget {
 }
 
 class Info_card extends StatelessWidget {
-  const Info_card({Key? key, required this.name, required this.email})
+  const Info_card(
+      {Key? key,
+      required this.name,
+      required this.email,
+      required this.image,
+      required this.isUploaded})
       : super(key: key);
   final String name;
 
   final String email;
+  final String image;
+  final bool isUploaded;
 
   @override
   Widget build(BuildContext context) {
@@ -111,11 +140,10 @@ class Info_card extends StatelessWidget {
             child: CircleAvatar(
               radius: 50.r,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: Image.asset(
-                  'assets/images/faressielhadj.jpeg',
-                ),
-              ),
+                  borderRadius: BorderRadius.circular(50),
+                  child: (!isUploaded)
+                      ? Image.asset('assets/images/default_avatar.png')
+                      : Image.network(image)),
             ),
           ),
           SizedBox(
@@ -206,6 +234,16 @@ class Provider_Drawer extends ChangeNotifier {
     7: false,
   };
 
+  Map<int, Widget> navigatormap = {
+    1: Working_on_it_page(),
+    2: profile(),
+    3: Add_new_adress(),
+    4: Working_on_it_page(),
+    5: Working_on_it_page(),
+    6: Working_on_it_page(),
+    7: Working_on_it_page(),
+  };
+
   void selecttile(int i) {
     isselected[i] = !isselected[i]!;
 
@@ -282,6 +320,14 @@ class Listtilemodified extends StatelessWidget {
             onTap: () {
               Provider_Drawer.selecttile(tilenumber);
               Provider_Drawer.turnoff(tilenumber);
+              Timer(const Duration(milliseconds: 250), () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          Provider_Drawer.navigatormap[tilenumber]!),
+                );
+              });
             },
           ),
         ]);
