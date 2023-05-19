@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
                 fontFamily: GoogleFonts.poppins().fontFamily,
                 textTheme: GoogleFonts.poppinsTextTheme(), 
               ),
-            home:     Auth(),
+            home:     HomePage(),
             // splash_screen(),
             // const  Home_screen(), 
              // Category_page() ,

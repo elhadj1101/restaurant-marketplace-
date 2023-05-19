@@ -22,6 +22,8 @@ class AddUser {
         'name': fullName,
         'email': email,
         'number': number,
+        'image':"",
+        'imageUploaded':false,
       });
     } catch (e) {
       print('Error creating user: $e');

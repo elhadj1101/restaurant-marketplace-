@@ -228,13 +228,11 @@ class profile_avatarState extends State<profile_avatar> {
               shape: BoxShape.circle,
               border: Border.all(width: 7, color: Colors.white),
             ),
-            child: CircleAvatar(
-              radius: 50.r,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: (userProvider.image=="")
-                      ? Image.asset('assets/images/default_avatar.png')
-                      : Image.network(userProvider.image,fit: BoxFit.cover)),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: (!userProvider.imageUploaded)
+                  ? Image.asset('assets/images/default_avatar.png')
+                  : Image.network(userProvider.image,fit: BoxFit.cover),
             ),
           ),
           Positioned(

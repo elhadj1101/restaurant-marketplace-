@@ -1,108 +1,112 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-class map extends StatefulWidget {
-  const map({super.key});
+import 'package:restaurant_marketplace_h/constants.dart';
 
-  @override
-  State<map> createState() => _mapState();
+class HomePage extends StatefulWidget {
+const HomePage({Key? key}) : super(key: key);
+
+@override
+_HomePageState createState() => _HomePageState();
 }
 
-class _mapState extends State<map> {
-  static const LatLng sourceLocation = LatLng(37.33500926, -1223272188);
+class _HomePageState extends State<HomePage> {
+Completer<GoogleMapController> _controller = Completer();
+// on below line we have specified camera position
+static final CameraPosition _kGoogle = const CameraPosition(
+	target: LatLng(28, 4),
+	zoom: 14.4746,
+);
 
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: GoogleMap(initialCameraPosition: CameraPosition(target: sourceLocation,zoom: 13 ),mapType: MapType.normal,),
-    );
-  }
+// on below line we have created the list of markers
+final List<Marker> _markers = <Marker>[
+	const Marker(
+		markerId: MarkerId('1'),
+	position: LatLng(28, 3),
+	infoWindow: InfoWindow(
+		title: 'My Position',
+	),
+),
+const Marker(
+		markerId: MarkerId('2'),
+	position: LatLng(28, 4),
+	infoWindow: InfoWindow(
+		title: 'position 2',
+	),
+),
+];
+
+// created method for getting user current location
+Future<Position> getUserCurrentLocation() async {
+	await Geolocator.requestPermission().then((value){
+	}).onError((error, stackTrace) async {
+	await Geolocator.requestPermission();
+	print("ERROR"+error.toString());
+	});
+	return await Geolocator.getCurrentPosition();
 }
-// import 'dart:async';
 
-// import 'package:flutter/material.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
+@override
+Widget build(BuildContext context) {
+	return Scaffold(
+	appBar: AppBar(
+		backgroundColor: KPrimarycolor,
+		// on below line we have given title of app
+		title: const Text("Map"),
+	),
+	body: Container(
+		child: SafeArea(
+		// on below line creating google maps
+		child: GoogleMap(
+		// on below line setting camera position
+		initialCameraPosition: _kGoogle,
+		// on below line we are setting markers on the map
+		markers: Set<Marker>.of(_markers),
+		// on below line specifying map type.
+		mapType: MapType.normal,
+		// on below line setting user location enabled.
+		myLocationEnabled: true,
+		// on below line setting compass enabled.
+		compassEnabled: true,
+		// on below line specifying controller on map complete.
+		onMapCreated: (GoogleMapController controller){
+				_controller.complete(controller);
+			},
+		),
+		),
+	),
+	// on pressing floating action button the camera will take to user current location
+	// floatingActionButton: FloatingActionButton(
+	// 	onPressed: () async{
+	// 	getUserCurrentLocation().then((value) async {
+	// 		print(value.latitude.toString() +" "+value.longitude.toString());
 
-// class MapSample extends StatefulWidget {
-//   const MapSample({super.key});
+	// 		// marker added for current users location
+	// 		_markers.add(
+	// 			Marker(
+	// 			markerId: MarkerId("2"),
+	// 			position: LatLng(value.latitude, value.longitude),
+	// 			infoWindow: InfoWindow(
+	// 				title: 'My Current Location',
+	// 			),
+	// 			)
+	// 		);
 
-//   @override
-//   State<MapSample> createState() => MapSampleState();
-// }
+	// 		// specified current users location
+	// 		CameraPosition cameraPosition = new CameraPosition(
+	// 		target: LatLng(value.latitude, value.longitude),
+	// 		zoom: 14,
+	// 		);
 
-// class MapSampleState extends State<MapSample> {
-//   final Completer<GoogleMapController> _controller =
-//       Completer<GoogleMapController>();
-
-//   static const CameraPosition _kGooglePlex = CameraPosition(
-//     target: LatLng(37.42796133580664, -122.085749655962),
-//     zoom: 14.4746,
-//   );
-
-//   static const CameraPosition _kLake = CameraPosition(
-//       bearing: 192.8334901395799,
-//       target: LatLng(37.43296265331129, -122.08832357078792),
-//       tilt: 59.440717697143555,
-//       zoom: 19.151926040649414);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: GoogleMap(
-//         mapType: MapType.hybrid,
-//         initialCameraPosition: _kGooglePlex,
-//         onMapCreated: (GoogleMapController controller) {
-//           _controller.complete(controller);
-//         },
-//       ),
-//       floatingActionButton: FloatingActionButton.extended(
-//         onPressed: _goToTheLake,
-//         label: const Text('To the lake!'),
-//         icon: const Icon(Icons.directions_boat),
-//       ),
-//     );
-//   }
-
-//   Future<void> _goToTheLake() async {
-//     final GoogleMapController controller = await _controller.future;
-//     controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-//   }
-// }
-// import 'dart:async';
-
-// import 'package:flutter/material.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-
-// class MyApp1 extends StatefulWidget {
-//   @override
-//   _MyAppState createState() => _MyAppState();
-// }
-
-// class _MyAppState extends State<MyApp1> {
-//   Completer<GoogleMapController> _controller = Completer();
-
-//   static const LatLng _center = const LatLng(45.521563, -122.677433);
-
-//   void _onMapCreated(GoogleMapController controller) {
-//     _controller.complete(controller);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: Text('Maps Sample App'),
-//           backgroundColor: Colors.green[700],
-//         ),
-//         body: GoogleMap(
-//           onMapCreated: _onMapCreated,
-//           initialCameraPosition: CameraPosition(
-//             target: _center,
-//             zoom: 11.0,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+	// 		final GoogleMapController controller = await _controller.future;
+	// 		controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+	// 		setState(() {
+	// 		});
+	// 	});
+	// 	},
+	// 	child: Icon(Icons.local_activity),
+	// ),
+	);
+}
+}

@@ -23,9 +23,12 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setImage(String img) {
+  void setImage(String img,bool imageState) {
     this.image = img;
+    this.imageUploaded=imageState;
+    print(imageState);
   }
+
 
   Future<String> uploadImageToFirebase(String userId, File imageFile) async {
     // Create a reference to the location you want to upload to in Firebase Storage
@@ -47,10 +50,7 @@ class UserProvider extends ChangeNotifier {
     File imageFile = File(imagePath); // Replace with the actual image file path
 
     String downloadURL = await uploadImageToFirebase(userID, imageFile);
-    setImage(downloadURL);
-    if (image != '') {
-      imageUploaded = true;
-    }
+    setImage(downloadURL,true);
     print('Image uploaded. Download URL: $downloadURL');
   }
 
@@ -64,6 +64,7 @@ class UserProvider extends ChangeNotifier {
         'email': email,
         'number': phone,
         'image': image,
+        'imageUploaded':imageUploaded,
       });
       print('Document updated successfully.');
     } catch (e) {
@@ -85,6 +86,7 @@ class UserProvider extends ChangeNotifier {
         email = userData['email'] ?? '';
         phone = userData['number'] ?? '';
         image = userData['image'] ?? '';
+        imageUploaded=userData['imageUploaded']?? false;
         setUserData(username, email, phone, image);
 
         if (username != '') {
