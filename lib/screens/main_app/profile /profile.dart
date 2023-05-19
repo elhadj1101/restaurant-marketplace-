@@ -33,42 +33,41 @@ class _profileState extends State<profile> {
     final phone = _NumberController.text.trim();
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Image.asset("assets/images/profile.png",
-                width: MediaQuery.of(context).size.width, fit: BoxFit.cover),
-            const BackButton_customized(),
-            Padding(
-              padding: EdgeInsets.only(right: 16.w, left: 16.w),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 123.h,
-                  ),
-                  const profile_avatar(),
-                  const SizedBox(
-                    height: 19,
-                  ),
-                  RichText(
-                      text: TextSpan(children: [
-                    TextSpan(
-                        text: userProvider.username,
-                        style: TextStyle(
-                            color: Ktextcolor,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 20.sp)),
-                    TextSpan(
-                        text: "\n           Edit profile",
-                        style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w700,
-                            color: Kverylighttextcolor)),
-                  ])),
-                  SizedBox(
-                    height: 90.h,
-                  ),
-                  TextFormField(
+      body: Stack(
+        children: [
+          Image.asset("assets/images/profile.png",
+              width: MediaQuery.of(context).size.width, fit: BoxFit.cover),
+          const BackButton_customized(),
+          Padding(
+            padding: EdgeInsets.only(right: 16.w, left: 16.w),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 123.h,
+                ),
+                const profile_avatar(),
+                const SizedBox(
+                  height: 19,
+                ),
+                RichText(
+                    text: TextSpan(children: [
+                  TextSpan(
+                      text: userProvider.username,
+                      style: TextStyle(
+                          color: Ktextcolor,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20.sp)),
+                  TextSpan(
+                      text: "\n           Edit profile",
+                      style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Kverylighttextcolor)),
+                ])),
+                SizedBox(
+                  height: 115.h,
+                ),
+                TextFormField(
                   controller: _fullNameController,
                   cursorColor: KPrimarycolor,
                   decoration: InputDecoration(
