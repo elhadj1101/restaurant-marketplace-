@@ -4,11 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/category/category_page.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/profile%20/profile.dart';
-import 'package:restaurant_marketplace_h/widgets/default_button.dart';
 
 import '../../../models/fakeDATA.dart';
-import '../../../widgets/circle_rounded_container.dart';
-import '../../../widgets/multi_choice_container.dart';
+import '../../starting_with_us/widgets/multi_choice_container.dart';
 import '../home_page/item_card.dart';
 import '../home_page/restaurand_card.dart';
 

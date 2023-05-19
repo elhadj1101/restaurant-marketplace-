@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../widgets/multi_choice_container.dart';
+import '../../starting_with_us/widgets/multi_choice_container.dart';
 import '../category/category_page.dart';
 import '../profile /profile.dart';
 
