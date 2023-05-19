@@ -35,7 +35,6 @@ class _SidemenuState extends State<Sidemenu> {
     final username = userProvider.username;
     final email = userProvider.email;
     final image = userProvider.image;
-    final isUploaded = (userProvider.image!='')?false:true;
     return Scaffold(
       backgroundColor: KLightcolor,
       body: Container(
@@ -51,7 +50,7 @@ class _SidemenuState extends State<Sidemenu> {
                       name: username,
                       email: email,
                       image: image,
-                      isUploaded: isUploaded),
+                      ),
                   SizedBox(
                     height: 20.h,
                   ),
@@ -111,13 +110,12 @@ class Info_card extends StatelessWidget {
       required this.name,
       required this.email,
       required this.image,
-      required this.isUploaded})
+  })
       : super(key: key);
   final String name;
 
   final String email;
   final String image;
-  final bool isUploaded;
 
   @override
   Widget build(BuildContext context) {
@@ -141,9 +139,7 @@ class Info_card extends StatelessWidget {
               radius: 50.r,
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(50),
-                  child: (!isUploaded)
-                      ? Image.asset('assets/images/default_avatar.png')
-                      : Image.network(image)),
+                  child:  Image.network(image,fit: BoxFit.cover,)),
             ),
           ),
           SizedBox(
