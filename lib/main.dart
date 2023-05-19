@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/Auth.dart';
+import 'package:restaurant_marketplace_h/Providers/restaurant_provider.dart';
 import 'package:restaurant_marketplace_h/Providers/userProvider.dart';
 
 import 'package:restaurant_marketplace_h/screens/main_app/Rating_page.dart';
@@ -59,6 +60,8 @@ class MyApp extends StatelessWidget {
             ChangeNotifierProvider<Provider_rating>(create: (context) => Provider_rating()),
             ChangeNotifierProvider<UserProvider>(create: (context) => UserProvider()),
             ChangeNotifierProvider<Provider_numberofitems>(create: (context) => Provider_numberofitems()),
+
+            ChangeNotifierProvider<RestaurantProvider>(create: (context) => RestaurantProvider()),
             // ChangeNotifierProvider<buttonState>(create: (context) => buttonState()),
           ],
           child:  MaterialApp(

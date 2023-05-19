@@ -103,27 +103,11 @@ class _resetpasswordState extends State<resetpassword> {
               SizedBox(
                 height: 50.h,
               ),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 0.h),
-                child: ElevatedButton(
-                    onPressed: () {
-                      resetPassword();
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: KPrimarycolor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 100)),
-                    child: Text(
-                      "Reset".toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400),
-                    )),
+              Row(mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+
+                  default_button(text: 'RESET ', x: 2, y: 13, button_color: KPrimarycolor, function: resetPassword),
+                ],
               ),
               SizedBox(
                 height: 20.h,

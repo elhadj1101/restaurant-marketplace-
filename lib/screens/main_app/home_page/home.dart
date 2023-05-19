@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,70 +8,90 @@ import 'package:restaurant_marketplace_h/models/fakeDATA.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/item_card.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_card.dart';
 
+import '../../../Providers/restaurant_provider.dart';
 import '../drawer/sidemenu.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: Consumer<Provider_Category>(builder: (context, Provider_Category, child) {
-        return  NavigationBar(
-            backgroundColor: Colors.white,
-            elevation: 20,
-            height: 70.h,
-            destinations: [
-              IconButton(
-                onPressed: () {
-                  Provider_Category.selectpage(0) ;
-                  Provider_Category.turnoffselectedpage(0) ;
-                },
-                icon: const Icon(Icons.explore),
-                color: Provider_Category.isitpressed[0]! ? KPrimarycolor : Colors.grey,
-              ),
-              IconButton(
-                onPressed: () {
-                  Provider_Category.selectpage(1) ;
-                  Provider_Category.turnoffselectedpage(1) ;
-                },
-                icon: const Icon(Icons.location_on),
-                color:  Provider_Category.isitpressed[1]! ? KPrimarycolor : Colors.grey,
-              ),
-              IconButton(
-                onPressed: () {
-                  Provider_Category.selectpage(2) ;
-                  Provider_Category.turnoffselectedpage(2) ;
-                },
-                icon: const Icon(Icons.shopping_bag),
-                color:  Provider_Category.isitpressed[2]! ? KPrimarycolor : Colors.grey,
-              ),
-              IconButton(
-                onPressed: () {
-                  Provider_Category.selectpage(3) ;
-                  Provider_Category.turnoffselectedpage(3) ;
-                },
-                icon: const Icon(Icons.favorite),
-                color: Provider_Category.isitpressed[3]! ? KPrimarycolor : Colors.grey,
-              ),
-              IconButton(
-                onPressed: () {
-                  Provider_Category.selectpage(4) ;
-                  Provider_Category.turnoffselectedpage(4) ;
-                },
-                icon: const Icon(Icons.notification_important_rounded),
-                color:   Provider_Category.isitpressed[4]! ? KPrimarycolor : Colors.grey,
-              ),
-            ]) ;
-      },)  ,
-      backgroundColor: Colors.white,
+  State<Home> createState() => _HomeState();
+}
 
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+
+    final restaurantProvider = Provider.of<RestaurantProvider>(context);
+
+    return Scaffold(
+      bottomNavigationBar: Consumer<Provider_Category>(
+        builder: (context, Provider_Category, child) {
+          return NavigationBar(
+              backgroundColor: Colors.white,
+              elevation: 20,
+              height: 70.h,
+              destinations: [
+                IconButton(
+                  onPressed: () {
+                    Provider_Category.selectpage(0);
+                    Provider_Category.turnoffselectedpage(0);
+                  },
+                  icon: const Icon(Icons.explore),
+                  color: Provider_Category.isitpressed[0]!
+                      ? KPrimarycolor
+                      : Colors.grey,
+                ),
+                IconButton(
+                  onPressed: () {
+                    Provider_Category.selectpage(1);
+                    Provider_Category.turnoffselectedpage(1);
+                  },
+                  icon: const Icon(Icons.location_on),
+                  color: Provider_Category.isitpressed[1]!
+                      ? KPrimarycolor
+                      : Colors.grey,
+                ),
+                IconButton(
+                  onPressed: () {
+                    Provider_Category.selectpage(2);
+                    Provider_Category.turnoffselectedpage(2);
+                  },
+                  icon: const Icon(Icons.shopping_bag),
+                  color: Provider_Category.isitpressed[2]!
+                      ? KPrimarycolor
+                      : Colors.grey,
+                ),
+                IconButton(
+                  onPressed: () {
+                    Provider_Category.selectpage(3);
+                    Provider_Category.turnoffselectedpage(3);
+                  },
+                  icon: const Icon(Icons.favorite),
+                  color: Provider_Category.isitpressed[3]!
+                      ? KPrimarycolor
+                      : Colors.grey,
+                ),
+                IconButton(
+                  onPressed: () {
+                    Provider_Category.selectpage(4);
+                    Provider_Category.turnoffselectedpage(4);
+                  },
+                  icon: const Icon(Icons.notification_important_rounded),
+                  color: Provider_Category.isitpressed[4]!
+                      ? KPrimarycolor
+                      : Colors.grey,
+                ),
+              ]);
+        },
+      ),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 18.0.w),
         child: ListView(
           children: [
             Padding(
-              padding:  EdgeInsets.only(top: 20.h),
+              padding: EdgeInsets.only(top: 20.h),
               child: const AdressWidget(adress: '28 Rue de la Mosque , '),
             ),
             SizedBox(
@@ -201,15 +220,24 @@ class Home extends StatelessWidget {
             ),
             Container(
               height: 260,
+              child: FutureBuilder(
+                future: restaurantProvider.fetchRestaurants(),
+                builder: (context, snapshot) {
 
-              child: ListView.builder(
-                shrinkWrap: true,
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: restaurantProvider.restaurants.length,
+                      itemBuilder: (context, index) {
+                        return restaurant_card(
+                          name:  restaurantProvider.restaurants[index]["name"],
+                          image: restaurantProvider.restaurants[index]["photoId"],
+                          rating:restaurantProvider.restaurants[index]["rating"],
+                        );
+                      },
+                    );
+                  }
 
-                scrollDirection: Axis.horizontal,
-                itemCount: myrestaurants.length,
-                itemBuilder: (context, index) {
-                  return const  restaurant_card();
-                },
               ),
             ),
             Text(
@@ -217,11 +245,10 @@ class Home extends StatelessWidget {
               style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w500),
             ),
             Container(
-
               child: GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                gridDelegate:  SliverGridDelegateWithMaxCrossAxisExtent(
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 190.w,
                     mainAxisExtent: 250.h,
                     childAspectRatio: 2,
@@ -436,6 +463,7 @@ class Provider_Category extends ChangeNotifier {
       }
     }
   }
+
   Map<int, bool> isitpressed = {
     0: true,
     1: false,
@@ -459,5 +487,4 @@ class Provider_Category extends ChangeNotifier {
       }
     }
   }
-
 }

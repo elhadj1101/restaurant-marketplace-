@@ -13,7 +13,7 @@ class UserProvider extends ChangeNotifier {
   String image = "";
   bool imageUploaded = false;
   bool isLogged = false;
-  final UserID = FirebaseAuth.instance.currentUser?.uid ?? '';
+  String userID = "";
 
   void setUserData(String username, String email, String phone, String image) {
     this.username = username;
@@ -23,14 +23,13 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setImage(String img,bool imageState) {
-    this.image = img;
-    this.imageUploaded=imageState;
-    print(imageState);
+  void setImage(String img) {
+    image = img;
   }
 
 
-  Future<String> uploadImageToFirebase(String userId, File imageFile) async {
+  Future<String> uploadImageToFirebase(String userId, String imagePath) async {
+    File imageFile = File(imagePath);
     // Create a reference to the location you want to upload to in Firebase Storage
     Reference storageReference = FirebaseStorage.instance
         .ref()
@@ -42,23 +41,19 @@ class UserProvider extends ChangeNotifier {
     // Wait for the upload to complete and return the download URL
     TaskSnapshot storageTaskSnapshot = await uploadTask;
     String downloadURL = await storageTaskSnapshot.ref.getDownloadURL();
-
-    return downloadURL;
-  }
-
-  void uploadImage(String userID, String imagePath) async {
-    File imageFile = File(imagePath); // Replace with the actual image file path
-
-    String downloadURL = await uploadImageToFirebase(userID, imageFile);
-    setImage(downloadURL,true);
+    setImage(downloadURL);
+    if (image != '') {
+      imageUploaded = true;
+    }
     print('Image uploaded. Download URL: $downloadURL');
+    return downloadURL;
   }
 
   void updateDocument() async {
     try {
       final FirebaseFirestore firestore = FirebaseFirestore.instance;
       final DocumentReference documentRef =
-          firestore.collection('users').doc(UserID);
+          firestore.collection('users').doc(userID);
       await documentRef.update({
         'name': username,
         'email': email,
@@ -73,8 +68,9 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> getUserData() async {
+    userID=FirebaseAuth.instance.currentUser?.uid ?? '';
     final DocumentReference userDoc =
-        FirebaseFirestore.instance.collection('users').doc(UserID);
+        FirebaseFirestore.instance.collection('users').doc(userID);
     try {
       DocumentSnapshot documentSnapshot = await userDoc.get();
       if (documentSnapshot.exists) {
@@ -82,11 +78,10 @@ class UserProvider extends ChangeNotifier {
             documentSnapshot.data() as Map<String, dynamic>;
         // Access user information
 
-        username = userData['name'] ?? '';
-        email = userData['email'] ?? '';
-        phone = userData['number'] ?? '';
-        image = userData['image'] ?? '';
-        imageUploaded=userData['imageUploaded']?? false;
+        String username = userData['name'] ?? '';
+        String email = userData['email'] ?? '';
+        String phone = userData['number'] ?? '';
+        String image = userData['image'] ?? '';
         setUserData(username, email, phone, image);
 
         if (username != '') {

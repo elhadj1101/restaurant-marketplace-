@@ -54,7 +54,7 @@ class favorites extends StatelessWidget {
                       Stack(
                         children: [
                           const Dish_widget(),
-                          const review_widget(),
+                          const review_widget(rating: 0),
                           Positioned(
                             left: MediaQuery.of(context).size.width * 0.73,
                             top: 12.h,

@@ -77,7 +77,9 @@ class Add_to_cart extends StatelessWidget {
 
                         Padding(
                           padding:  EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 8),
-                          child: const default_button(text: 'Apply', x: 3.5, y: 12, button_color: KPrimarycolor),
+                          child:  default_button(text: 'Apply', x: 3.5, y: 12, button_color: KPrimarycolor , function: () {
+
+                          },),
                         ),
                       ],
                     ),
@@ -227,7 +229,9 @@ class Add_to_cart extends StatelessWidget {
                 ),
                Padding(
                  padding:  EdgeInsets.symmetric(horizontal: 68.0.w),
-                 child: const  default_button(text: 'Order Now', x: 1  , y: 13, button_color: KPrimarycolor),
+                 child:   default_button(text: 'Order Now', x: 1  , y: 13, button_color: KPrimarycolor , function: () {
+
+                 },),
                )
               ],
             ),

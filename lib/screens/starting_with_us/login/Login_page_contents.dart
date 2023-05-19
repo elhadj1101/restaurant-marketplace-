@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/Auth.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/login/userInfos.dart';
+import 'package:restaurant_marketplace_h/screens/starting_with_us/widgets/default_button.dart';
 import '../../../constants.dart';
 import '../../../Providers/userProvider.dart';
 import '../Reset_pass_page/reset_password_page.dart';
@@ -202,27 +203,11 @@ class _Login_page_contentsState extends State<Login_page_contents> {
                       SizedBox(
                         height: 60.h,
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 20.0.w, vertical: 0.h),
-                        child: ElevatedButton(
-                            onPressed: () {
-                              signIn();
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: KPrimarycolor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50.0),
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 100)),
-                            child: Text(
-                              "Sign In".toUpperCase(),
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400),
-                            )),
+                      Row(mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+
+                          default_button(text: 'Sign In ', x: 2, y: 13, button_color: KPrimarycolor, function: signIn),
+                        ],
                       ),
                       SizedBox(
                         height: 40.h,
