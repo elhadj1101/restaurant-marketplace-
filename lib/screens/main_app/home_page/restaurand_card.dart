@@ -6,14 +6,17 @@ import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/models/fakeDATA.dart';
 
 class restaurant_card extends StatelessWidget {
-  const restaurant_card({Key? key}) : super(key: key);
+  const restaurant_card({Key? key, required this.name, required this.image, required this.rating}) : super(key: key);
+  final String name ;
+  final String image ;
+  final double rating ;
 
   @override
   Widget build(BuildContext context) {
     return  Stack(
       children:  [
-        const restaurant_widget(),
-        const review_widget(),
+         restaurant_widget(name:name , photoId: image ),
+         review_widget(rating: rating,),
         Positioned(
             left: 220.w,
             top: 12.h,
@@ -25,7 +28,11 @@ class restaurant_card extends StatelessWidget {
 }
 
 class restaurant_widget extends StatelessWidget {
-  const restaurant_widget({Key? key}) : super(key: key);
+  const restaurant_widget({Key? key, required this.name, required this.photoId}) : super(key: key);
+  final String name ;
+
+  final String photoId ;
+
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +48,7 @@ class restaurant_widget extends StatelessWidget {
               topRight: Radius.circular(20),
               topLeft: Radius.circular(20),
             ),
-            child: Image.asset(myrestaurants[0].photo_id),
+            child: Image.network(photoId  , height: 150.h, width: 266.w, fit: BoxFit.cover,),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(20.w, 5, 0, 0),
@@ -53,7 +60,7 @@ class restaurant_widget extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      myrestaurants[0].restaurant_name,
+                      name,
                       style: TextStyle(
                         fontSize: 17.sp,
                         color: Colors.black,
@@ -151,7 +158,8 @@ class restaurant_widget extends StatelessWidget {
 
 
 class review_widget extends StatelessWidget {
-  const review_widget({Key? key}) : super(key: key);
+  const review_widget({Key? key, required this.rating}) : super(key: key);
+  final double rating  ;
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +178,7 @@ class review_widget extends StatelessWidget {
             TextSpan(
                 children: [
                   TextSpan(
-                    text: myreviews[0].rating.toString() + ' ',
+                    text: '$rating ',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15.sp

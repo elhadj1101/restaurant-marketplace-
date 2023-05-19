@@ -201,7 +201,7 @@ class _Category_pageState extends State<Category_page> {
                             Stack(
                                children: [
                                  const Dish_widget(),
-                                 const review_widget(),
+                                 const review_widget(rating: 0),
                                  Positioned(
                                      left: MediaQuery.of(context).size.width*0.73,
                                      top: 12.h,

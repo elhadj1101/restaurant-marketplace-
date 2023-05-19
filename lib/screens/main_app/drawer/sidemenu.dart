@@ -71,6 +71,7 @@ class _SidemenuState extends State<Sidemenu> {
                             backgroundColor: KPrimarycolor),
                         onPressed: () {
                           _signOut();
+
                         },
                         child: Row(
                           children: [
@@ -139,7 +140,9 @@ class Info_card extends StatelessWidget {
               radius: 50.r,
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(50),
-                  child:  Image.network(image,fit: BoxFit.cover,)),
+                  child:  (image=="")
+                      ? Image.asset('assets/images/default_avatar.png')
+                      : Image.network(image,fit: BoxFit.cover)),
             ),
           ),
           SizedBox(

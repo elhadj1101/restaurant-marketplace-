@@ -101,9 +101,13 @@ class order_truck extends StatelessWidget {
                      Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const default_button(text: "Cancel", x: 2.4, y: 15, button_color: Colors.grey),
+                         default_button(text: "Cancel", x: 2.4, y: 15, button_color: Colors.grey , function: () {
+
+                         },),
                         SizedBox(width: 32.w,),
-                        const default_button(text: "Call Driver", x: 2.4, y: 15, button_color: KPrimarycolor),
+                         default_button(text: "Call Driver", x: 2.4, y: 15, button_color: KPrimarycolor , function:  () {
+
+                         },),
                       ],
                     )
     ]),

@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/Auth.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/signUP/AddUser2Store.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../Providers/userProvider.dart';
 import '../login/Login_page.dart';
+import '../widgets/default_button.dart';
 
 class Sign_up_content extends StatefulWidget {
   const Sign_up_content({Key? key}) : super(key: key);
@@ -29,7 +32,7 @@ class _Sign_up_contentState extends State<Sign_up_content> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _numberController = TextEditingController();
-  final _passwordController2 = TextEditingController() ;
+  final _passwordController2 = TextEditingController();
 
   @override
   void dispose() {
@@ -54,36 +57,42 @@ class _Sign_up_contentState extends State<Sign_up_content> {
       String uid = userCredential.user!.uid;
       AddUser(_fullName, _email, _number, uid).addUser();
 
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => Auth(),
-        ),
-      );
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => Auth(),
+            )) ;
+
+
+
     } catch (e) {
-      String error  = 'error' ;
+      String error = 'error';
       if (e is FirebaseAuthException) {
-        if (e.code.contains('email-already-in-use')){
-          error  = 'this email is alreay used ' ; 
-        }
-        else {
-          error = 'error' ;
+        if (e.code.contains('email-already-in-use')) {
+          error = 'this email is alreay used ';
+        } else {
+          error = 'error';
         }
       }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           behavior: SnackBarBehavior.floating,
-
-
           clipBehavior: Clip.none,
-          margin: EdgeInsets.symmetric(horizontal : (error.length<20 ) ? 40 : 10 , vertical: 20 ),
-
-          content: Center(child: Row(
+          margin: EdgeInsets.symmetric(
+              horizontal: (error.length < 20) ? 40.w : 10.w, vertical: 20.h),
+          content: Center(
+              child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.error , color: Colors.white,),
+              const Icon(
+                Icons.error,
+                color: Colors.white,
+              ),
               SizedBox(
                 width: 10.w,
               ),
-              Text('${error}' ,style: TextStyle(color: Colors.white), ),
+              Text(
+                '${error}',
+                style: TextStyle(color: Colors.white),
+              ),
             ],
           ))));
       // Handle the exception here
@@ -93,19 +102,30 @@ class _Sign_up_contentState extends State<Sign_up_content> {
     }
   }
 
+  void finalsignup (){
+    if (formKey.currentState!.validate()) {}
+    if (_passwordController2.text == _passwordController.text){
+      signUp();
+
+    }
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 0.h),
-        child: SingleChildScrollView(
-          child: Form(
-            key: formKey,
+        padding: EdgeInsets.fromLTRB(30.w, 25.h, 30.w, 0.h),
+        child: Form(
+          key: formKey,
+          child: SingleChildScrollView(
+
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 40.h,
+                  height: 15.h,
                 ),
                 Text(
                   'Sign up',
@@ -116,7 +136,7 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                       fontWeight: FontWeight.w700),
                 ),
                 SizedBox(
-                  height: 70.h,
+                  height: 30.h,
                 ),
                 TextFormField(
                   controller: _fullNameController,
@@ -172,7 +192,7 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   ),
                 ),
                 SizedBox(
-                  height: 40.h,
+                  height: 30.h,
                 ),
                 TextFormField(
                   controller: _emailController,
@@ -230,7 +250,7 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   ),
                 ),
                 SizedBox(
-                  height: 40.h,
+                  height: 30.h,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.numberWithOptions(),
@@ -292,7 +312,7 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   ),
                 ),
                 SizedBox(
-                  height: 40.h,
+                  height: 30.h,
                 ),
                 TextFormField(
                   validator: (value) {
@@ -357,14 +377,23 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   ),
                 ),
                 SizedBox(
-                  height: 40.h,
+                  height: 30.h,
                 ),
                 TextFormField(
                   cursorColor: KPrimarycolor,
                   validator: (value) {
                     if (value!.isEmpty ||
-                        RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
-                      return 'enter valid Password';
+                        RegExp(r'^[a-z A-Z]+$').hasMatch(value) ||
+                        (_passwordController2.text != _passwordController.text)) {
+                      if ((_passwordController2.text !=
+                              _passwordController.text) &&
+                          !value!.isEmpty) {
+
+                        return 'passwords don\'t match ';
+                      } else if (value!.isEmpty ||
+                          RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                        return 'enter valid Password';
+                      }
                     } else {
                       return null;
                     }
@@ -425,30 +454,11 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                 SizedBox(
                   height: 60.h,
                 ),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 0.h),
-                  child: ElevatedButton(
-                      onPressed: () {
-                        signUp();
-                        if (formKey.currentState!.validate()){
+                Row(mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
 
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: KPrimarycolor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50.0),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 100)),
-                      child: Text(
-                        "Sign up".toUpperCase(),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400),
-                      )),
+                    default_button(text: 'Sign Up ', x: 2, y: 13, button_color: KPrimarycolor, function: finalsignup),
+                  ],
                 ),
                 SizedBox(
                   height: 40.h,

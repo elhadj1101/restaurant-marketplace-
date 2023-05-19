@@ -182,7 +182,9 @@ class Add_new_adress extends StatelessWidget {
 
                           Padding(
                             padding:  EdgeInsets.symmetric(horizontal: 40.0.w,vertical: 35.h),
-                            child:const default_button(text: 'Save', x: 1.5, y: 13, button_color: KPrimarycolor),
+                            child: default_button(text: 'Save', x: 1.5, y: 13, button_color: KPrimarycolor, function: () {
+
+                            },),
                           ) ,
 
 

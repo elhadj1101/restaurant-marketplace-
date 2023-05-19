@@ -214,7 +214,7 @@ class profile_avatarState extends State<profile_avatar> {
       );
       setState(() {
         _imagefile = pickedfile!;
-        userProvider.uploadImage(userProvider.UserID, _imagefile.path);
+        userProvider.uploadImageToFirebase(userProvider.userID, _imagefile.path);
       });
     }
 
