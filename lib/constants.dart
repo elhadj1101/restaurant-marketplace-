@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+const google_api_key = "AIzaSyAJEUmmEWYv3G5yOZBoeDOgms1aeZrO3a4";
 const Kiconcolor  = Color(0xFF9796A1);
 const KPrimarycolor = Color(0xFFFE724C);
 const KLightcolor = Color(0xFFFFECE7);

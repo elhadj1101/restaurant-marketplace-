@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/profile%20/profile.dart';
 
 class Sidemenu extends StatelessWidget {
   const Sidemenu({Key? key}) : super(key: key);
@@ -154,11 +155,16 @@ class Listoftiles extends StatelessWidget {
                 myicon: Icons.my_library_books,
                 mytext: 'My Orders',
                 myiconsize: 25.r),
-            Listtilemodified(
-                tilenumber: 2,
-                myicon: Icons.person,
-                mytext: 'My Profile',
-                myiconsize: 27.r),
+            GestureDetector(
+              onTap: () => Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => const profile()),),
+              child: Listtilemodified(
+                  tilenumber: 2,
+                  myicon: Icons.person,
+                  mytext: 'My Profile',
+                  myiconsize: 27.r),
+            ),
             Listtilemodified(
                 tilenumber: 3,
                 myicon: Icons.location_on,

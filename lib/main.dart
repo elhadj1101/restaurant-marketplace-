@@ -9,6 +9,8 @@ import 'package:restaurant_marketplace_h/screens/main_app/category/category_page
 import 'package:restaurant_marketplace_h/screens/main_app/category/food_details.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/drawer/Add_new_adress.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/drawer/sidemenu.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/favorites/button_provider.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/favorites/favorites.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/home.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/item_card.dart';
@@ -20,8 +22,15 @@ import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_c
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/map/map.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/order/cancel_order.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/order/my_orders.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/order/order_truck.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/profile%20/profile.dart';
+import 'package:restaurant_marketplace_h/widgets/circle_rounded_container.dart';
+import 'package:restaurant_marketplace_h/widgets/multi_choice_container.dart';
 import 'firebase_options.dart';
+import 'package:provider/provider.dart';
   
 Future <void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,6 +63,7 @@ class MyApp extends StatelessWidget {
             ChangeNotifierProvider<Provider_adress>(create: (context) => Provider_adress()),
             ChangeNotifierProvider<Provider_rating>(create: (context) => Provider_rating()),
             ChangeNotifierProvider<Provider_numberofitems>(create: (context) => Provider_numberofitems()),
+            // ChangeNotifierProvider<buttonState>(create: (context) => buttonState()),
           ],
           child:  MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -61,11 +71,11 @@ class MyApp extends StatelessWidget {
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 fontFamily: GoogleFonts.poppins().fontFamily,
-                textTheme: GoogleFonts.poppinsTextTheme(),
+                textTheme: GoogleFonts.poppinsTextTheme(), 
               ),
-            home: Auth(),
+            home:      Map(), //Auth(),
             // splash_screen(),
-            // const  Home_screen(),
+            // const  Home_screen(), 
              // Category_page() ,
              //Add_new_adress(),
               //  Rating_page(),
