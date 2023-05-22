@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:restaurant_marketplace_h/Providers/restaurant_class.dart';
 
 class RestaurantProvider with ChangeNotifier {
   List restaurants = [];
