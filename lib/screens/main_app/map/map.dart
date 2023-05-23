@@ -4,14 +4,14 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 
-class HomePage extends StatefulWidget {
-const HomePage({Key? key}) : super(key: key);
+class map extends StatefulWidget {
+const map({Key? key}) : super(key: key);
 
 @override
-_HomePageState createState() => _HomePageState();
+_mapState createState() => _mapState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _mapState extends State<map> {
 Completer<GoogleMapController> _controller = Completer();
 // on below line we have specified camera position
 static final CameraPosition _kGoogle = const CameraPosition(
@@ -28,13 +28,14 @@ final List<Marker> _markers = <Marker>[
 		title: 'My Position',
 	),
 ),
-const Marker(
+ const Marker(
 		markerId: MarkerId('2'),
 	position: LatLng(28, 4),
 	infoWindow: InfoWindow(
 		title: 'position 2',
 	),
 ),
+
 ];
 
 // created method for getting user current location

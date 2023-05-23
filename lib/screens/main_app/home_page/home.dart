@@ -7,6 +7,7 @@ import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/models/fakeDATA.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/item_card.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_card.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/map/map.dart';
 
 import '../../../Providers/restaurant_provider.dart';
 import '../drawer/sidemenu.dart';
@@ -46,6 +47,11 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     Provider_Category.selectpage(1);
                     Provider_Category.turnoffselectedpage(1);
+                    Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const map(),
+            )) ;
+
                   },
                   icon: const Icon(Icons.location_on),
                   color: Provider_Category.isitpressed[1]!

@@ -1,9 +1,11 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:restaurant_marketplace_h/Providers/restaurant_class.dart';
 
 class RestaurantProvider with ChangeNotifier {
   List restaurants = [];
+  List addresses =[];
 
   Future<void> fetchRestaurants() async {
     try {
@@ -15,12 +17,14 @@ class RestaurantProvider with ChangeNotifier {
       final data = await collection.get();
 
       data.docs.forEach((element) {
-        temp.add(element.data());
+        final g = element.data();
+        g.addAll({'id': element.id});
+        temp.add(g);
       });
       notifyListeners();
 
       restaurants = temp;
-
+      addresses = restaurants.map((restaurant) => {{'address':restaurant['mapAddress'] as String,'id':restaurant['id']}}).toList();
     } catch (error) {
       print('Error fetching restaurants: $error');
     }

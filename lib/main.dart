@@ -20,6 +20,7 @@ import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_c
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/map/map.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/map/map_screen.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/order/cancel_order.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/order/my_orders.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/order/order_truck.dart';
@@ -72,7 +73,7 @@ class MyApp extends StatelessWidget {
                 fontFamily: GoogleFonts.poppins().fontFamily,
                 textTheme: GoogleFonts.poppinsTextTheme(), 
               ),
-            home:     HomePage(),
+            home:      MapScreen(),
             // splash_screen(),
             // const  Home_screen(), 
              // Category_page() ,
