@@ -8,9 +8,10 @@ class AddUser {
   final String fullName;
   final String email;
   final String number;
-  final String Uid;
+  final String uid;
+  final String address;
 
-  AddUser(this.fullName, this.email, this.number, this.Uid);
+  AddUser(this.fullName, this.email, this.number, this.uid,this.address);
 
   // Create a CollectionReference called users that references the firestore collection
   CollectionReference users = FirebaseFirestore.instance.collection('users');
@@ -18,11 +19,13 @@ class AddUser {
   Future<void> addUser() async {
     try {
       // Add the user's data to Firestore with the same UID
-      await FirebaseFirestore.instance.collection('users').doc(Uid).set({
+      await FirebaseFirestore.instance.collection('users').doc(uid).set({
         'name': fullName,
         'email': email,
-        'number': number,
+        'number': "0$number",
         'image':"",
+        'address':address,
+        
       });
     } catch (e) {
       print('Error creating user: $e');

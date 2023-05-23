@@ -79,7 +79,7 @@ Future<void> addMarkers() async {
           _onMarkerTapped(MarkerId(element["id"]));
         },
         // Additional marker properties like icon, info window, etc. can be set here
-        icon: BitmapDescriptor.,
+        icon: BitmapDescriptor.defaultMarker,
       );
         markers.add(_marker);
     }

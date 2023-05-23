@@ -6,17 +6,21 @@ import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/models/fakeDATA.dart';
 
 class item_card extends StatelessWidget {
-  const item_card({Key? key}) : super(key: key);
+  const item_card({Key? key, required this.rest_name, required this.item_name, required this.item_photo, required this.item_price}) : super(key: key);
+  final String rest_name ;
+  final String item_name ;
+  final String item_photo ;
+  final int item_price ;
 
   @override
   Widget build(BuildContext context) {
     return  Stack(
       children:  [
-        item_widget(),
+        item_widget(image: item_photo  , item_name: item_name , rest_name: rest_name),
         Positioned(
             left: 10.w,
             top: 10.h,
-            child: price_widget()),
+            child: price_widget(price: item_price,)),
         Positioned(
             left: 138.w,
             top: 10.h,
@@ -28,7 +32,10 @@ class item_card extends StatelessWidget {
 }
 
 class item_widget extends StatelessWidget {
-  const item_widget({Key? key}) : super(key: key);
+  const item_widget({Key? key, required this.rest_name, required this.item_name, required this.image}) : super(key: key);
+  final String rest_name ;
+  final String item_name ;
+  final String image ;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +51,7 @@ class item_widget extends StatelessWidget {
               topRight: Radius.circular(20),
               topLeft: Radius.circular(20),
             ),
-            child: Image.asset('assets/images/item2.jpg', height: 170.h,width: 170.w,fit: BoxFit.cover, ),
+            child: Image.network( image ,  height: 170.h,width: 170.w,fit: BoxFit.cover,),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(10.w, 5.h, 0, 0),
@@ -53,7 +60,7 @@ class item_widget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  mydishes[0].name,
+                  (item_name.length >= 14) ? '${item_name.substring(0 , 13)}..' : item_name,
                   style: TextStyle(
                     fontSize: 17.sp,
                     color: Colors.black,
@@ -68,7 +75,7 @@ class item_widget extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      myrestaurants[0].restaurant_name,
+                      rest_name,
                       style: TextStyle(
                         fontSize: 13.sp,
                         color: Colors.black,
@@ -101,7 +108,8 @@ class item_widget extends StatelessWidget {
 
 
 class price_widget extends StatelessWidget {
-  const price_widget({Key? key}) : super(key: key);
+  const price_widget({Key? key, required this.price}) : super(key: key);
+  final int price ;
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +125,7 @@ class price_widget extends StatelessWidget {
           TextSpan(
               children: [
                 TextSpan(
-                  text: mydishes[0].price.toString(),
+                  text: price.toString(),
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 15.sp

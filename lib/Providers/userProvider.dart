@@ -11,22 +11,39 @@ class UserProvider extends ChangeNotifier {
   String email = '';
   String phone = '';
   String image = "";
+  String password = "";
+  String address = "";
   bool imageUploaded = false;
   bool isLogged = false;
   String userID = "";
 
-  void setUserData(String username, String email, String phone, String image) {
+  void setInitialData(String username, String email, String password) {
     this.username = username;
     this.email = email;
-    this.phone = phone;
+    this.password = password;
+    notifyListeners();
+  }
+
+  void setUserData(String username, String email, String image, String address,
+      String phone) {
+    this.username = username;
+    this.email = email;
     this.image = image;
+    this.address = address;
+    this.phone = phone;
     notifyListeners();
   }
 
   void setImage(String img) {
     image = img;
+    notifyListeners();
   }
 
+  void setRemainDate(String add, String phone) {
+    this.phone = phone;
+    address = add;
+    notifyListeners();
+  }
 
   Future<String> uploadImageToFirebase(String userId, String imagePath) async {
     File imageFile = File(imagePath);
@@ -68,7 +85,7 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> getUserData() async {
-    userID=FirebaseAuth.instance.currentUser?.uid ?? '';
+    userID = FirebaseAuth.instance.currentUser?.uid ?? '';
     final DocumentReference userDoc =
         FirebaseFirestore.instance.collection('users').doc(userID);
     try {
@@ -82,7 +99,9 @@ class UserProvider extends ChangeNotifier {
         String email = userData['email'] ?? '';
         String phone = userData['number'] ?? '';
         String image = userData['image'] ?? '';
-        setUserData(username, email, phone, image);
+        String address = userData['address'] ?? '';
+        print(phone);
+        setUserData(username, email, image, address, phone);
 
         if (username != '') {
           print(image);

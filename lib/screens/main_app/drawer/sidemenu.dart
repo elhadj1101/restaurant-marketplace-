@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_marketplace_h/Auth.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/drawer/working_on_page.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
@@ -27,6 +28,9 @@ class _SidemenuState extends State<Sidemenu> {
     Provider.of<Provider_home>(context, listen: false).is_side_menu_opened =
         false;
     await FirebaseAuth.instance.signOut();
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => Auth(),
+    ));
   }
 
   @override
@@ -195,11 +199,7 @@ class Listoftiles extends StatelessWidget {
                   mytext: 'My Profile',
                   myiconsize: 27.r),
             ),
-            Listtilemodified(
-                tilenumber: 3,
-                myicon: Icons.location_on,
-                mytext: 'Delivery Adress',
-                myiconsize: 27.r),
+          
             Listtilemodified(
                 tilenumber: 4,
                 myicon: Icons.wallet,
@@ -229,7 +229,6 @@ class Provider_Drawer extends ChangeNotifier {
   Map<int, bool> isselected = {
     1: false,
     2: false,
-    3: false,
     4: false,
     5: false,
     6: false,
@@ -239,7 +238,6 @@ class Provider_Drawer extends ChangeNotifier {
   Map<int, Widget> navigatormap = {
     1: Working_on_it_page(),
     2: profile(),
-    3: Add_new_adress(),
     4: Working_on_it_page(),
     5: Working_on_it_page(),
     6: Working_on_it_page(),

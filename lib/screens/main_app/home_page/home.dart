@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,12 +6,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/models/fakeDATA.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/category/food_details.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/item_card.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_card.dart';
-import 'package:restaurant_marketplace_h/screens/main_app/map/map.dart';
-
+import '../../../Providers/restaurant_items_provider.dart';
 import '../../../Providers/restaurant_provider.dart';
+import '../../../Providers/userProvider.dart';
+import '../../circleindicator.dart';
 import '../drawer/sidemenu.dart';
+import '../map/map_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -22,9 +26,11 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-
     final restaurantProvider = Provider.of<RestaurantProvider>(context);
-
+    final itemsProvider = Provider.of<ItemsProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
+    List a = userProvider.address.split('-');
+    String address = a[a.length - 1];
     return Scaffold(
       bottomNavigationBar: Consumer<Provider_Category>(
         builder: (context, Provider_Category, child) {
@@ -49,7 +55,7 @@ class _HomeState extends State<Home> {
                     Provider_Category.turnoffselectedpage(1);
                     Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => const map(),
+              builder: (context) =>  MapScreen(),
             )) ;
 
                   },
@@ -98,7 +104,7 @@ class _HomeState extends State<Home> {
           children: [
             Padding(
               padding: EdgeInsets.only(top: 20.h),
-              child: const AdressWidget(adress: '28 Rue de la Mosque , '),
+              child: AdressWidget(adress: address),
             ),
             SizedBox(
               height: 20.h,
@@ -225,47 +231,66 @@ class _HomeState extends State<Home> {
               height: 10.h,
             ),
             Container(
-              height: 260,
+              height: 260.h,
               child: FutureBuilder(
-                future: restaurantProvider.fetchRestaurants(),
-                builder: (context, snapshot) {
-
+                  future: restaurantProvider.fetchRestaurants(),
+                  builder: (context, snapshot) {
                     return ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemCount: restaurantProvider.restaurants.length,
                       itemBuilder: (context, index) {
                         return restaurant_card(
-                          name:  restaurantProvider.restaurants[index]["name"],
-                          image: restaurantProvider.restaurants[index]["photoId"],
-                          rating:restaurantProvider.restaurants[index]["rating"],
+                          name: restaurantProvider.restaurants[index]["name"],
+                          image: restaurantProvider.restaurants[index]
+                              ["photoId"],
+                          rating: restaurantProvider.restaurants[index]
+                              ["rating"],
                         );
                       },
                     );
-                  }
-
-              ),
+                  }),
             ),
             Text(
               'Popular items ',
               style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w500),
             ),
             Container(
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 190.w,
-                    mainAxisExtent: 250.h,
-                    childAspectRatio: 2,
-                    crossAxisSpacing: 10.w,
-                    mainAxisSpacing: 10.h),
-                itemCount: mydishes.length,
-                itemBuilder: (context, index) {
-                  return item_card();
-                },
-              ),
-            ),
+                child: FutureBuilder(
+              future: itemsProvider.fetchItems(),
+              builder: (context, snapshot) {
+                return GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 190.w,
+                      mainAxisExtent: 250.h,
+                      childAspectRatio: 2,
+                      crossAxisSpacing: 10.w,
+                      mainAxisSpacing: 10.h),
+                  itemCount: itemsProvider.items.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () async {
+                        await itemsProvider.getDocId(index);
+                        String id = itemsProvider.DocId;
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) {
+                            return Food_details(DOCID: id);
+                          },
+                        ));
+                      },
+                      child: item_card(
+                          rest_name: itemsProvider.items[index]["res_name"],
+                          item_name: itemsProvider.items[index]["name"],
+                          item_photo: itemsProvider.items[index]["photoId"],
+                          item_price: itemsProvider.items[index]["price"]),
+                    );
+                    ;
+                  },
+                );
+              },
+            )),
           ],
         ),
       ),

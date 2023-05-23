@@ -72,7 +72,7 @@ class favorites extends StatelessWidget {
                                         spreadRadius: 7.r,
                                         offset: Offset(2.w, 3.h))
                                   ]),
-                                  child: const price_widget())),
+                                  child: const price_widget(price: 00,))),
                         ],
                       ),
                       SizedBox(
