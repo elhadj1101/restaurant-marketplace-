@@ -6,6 +6,7 @@ class ItemsProvider with ChangeNotifier {
   String DocId = '';
 
   Map<String, dynamic> document = {};
+  
 
   Future<void> fetchItems() async {
     try {

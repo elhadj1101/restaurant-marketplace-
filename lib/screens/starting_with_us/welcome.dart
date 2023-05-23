@@ -1,9 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_marketplace_h/Auth.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/signUP/sign_up.dart';
+import '../../Providers/userProvider.dart';
+import '../main_app/drawer/Add_new_adress.dart';
 import '../main_app/home_page/Home_screen.dart';
 import 'login/Login_page.dart';
 
@@ -15,11 +20,6 @@ class welcome extends StatefulWidget {
 }
 
 class _welcomeState extends State<welcome> {
-  void goHome() {
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => Home_screen(),
-    ));
-  }
 
   Future signInWithGoogle() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -34,11 +34,32 @@ class _welcomeState extends State<welcome> {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-
+       
       try {
-        final UserCredential userCredential =
-            await FirebaseAuth.instance.signInWithCredential(credential);
-        goHome();
+        final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+             final userProvider = Provider.of<UserProvider>(context, listen: false);
+             final DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid);
+             bool exist = false;
+             try {
+                DocumentSnapshot documentSnapshot = await userDoc.get();
+                exist = documentSnapshot.exists;
+
+             } catch (e){
+                print(e);
+                exist = false;
+             }
+             if (exist){
+
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Auth(),
+                    ));
+             }else {
+              userProvider.setInitialData(userCredential.user!.displayName ?? "", userCredential.user!.email ?? "", "");
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Add_new_adress(),
+                    ));
+
+             }
       } catch (error) {
         print('Error signing in with Google: $error');
         return null;

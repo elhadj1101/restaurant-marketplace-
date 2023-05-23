@@ -12,6 +12,7 @@ import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_c
 
 import '../../../Providers/restaurant_items_provider.dart';
 import '../../../Providers/restaurant_provider.dart';
+import '../../../Providers/userProvider.dart';
 import '../../circleindicator.dart';
 import '../drawer/sidemenu.dart';
 
@@ -27,7 +28,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final restaurantProvider = Provider.of<RestaurantProvider>(context);
     final itemsProvider = Provider.of<ItemsProvider>(context);
-
+    final userProvider = Provider.of<UserProvider>(context);
+    List a = userProvider.address.split('-');
+    String address = a[a.length - 1];
     return Scaffold(
       bottomNavigationBar: Consumer<Provider_Category>(
         builder: (context, Provider_Category, child) {
@@ -96,7 +99,7 @@ class _HomeState extends State<Home> {
           children: [
             Padding(
               padding: EdgeInsets.only(top: 20.h),
-              child: const AdressWidget(adress: '28 Rue de la Mosque , '),
+              child: AdressWidget(adress: address),
             ),
             SizedBox(
               height: 20.h,
@@ -257,23 +260,20 @@ class _HomeState extends State<Home> {
                   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 190.w,
                       mainAxisExtent: 250.h,
-
                       childAspectRatio: 2,
                       crossAxisSpacing: 10.w,
                       mainAxisSpacing: 10.h),
                   itemCount: itemsProvider.items.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: ()  async{
-                         await itemsProvider.getDocId(index);
-                         String  id = itemsProvider.DocId ;
-                           Navigator.of(context).push(MaterialPageRoute(
-                             builder: (context) {
-                               return  Food_details(DOCID: id );
-                             },
-                           ));
-
-
+                      onTap: () async {
+                        await itemsProvider.getDocId(index);
+                        String id = itemsProvider.DocId;
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) {
+                            return Food_details(DOCID: id);
+                          },
+                        ));
                       },
                       child: item_card(
                           rest_name: itemsProvider.items[index]["res_name"],

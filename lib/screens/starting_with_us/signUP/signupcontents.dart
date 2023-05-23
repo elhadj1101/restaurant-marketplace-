@@ -12,6 +12,7 @@ import 'package:restaurant_marketplace_h/screens/starting_with_us/signUP/AddUser
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../Providers/userProvider.dart';
+import '../../main_app/drawer/Add_new_adress.dart';
 import '../login/Login_page.dart';
 import '../widgets/default_button.dart';
 
@@ -31,7 +32,6 @@ class _Sign_up_contentState extends State<Sign_up_content> {
   final _fullNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _numberController = TextEditingController();
   final _passwordController2 = TextEditingController();
 
   @override
@@ -42,11 +42,23 @@ class _Sign_up_contentState extends State<Sign_up_content> {
     _passwordController.dispose();
   }
 
+  goToAdrress() {
+    String _email = _emailController.text.trim();
+    String _fullName = _fullNameController.text.trim();
+    String _password = _passwordController.text.trim();
+
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    userProvider.setInitialData(_fullName, _email, _password);
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => Add_new_adress(),
+    ));
+  }
+
   Future signUp() async {
     try {
       String _email = _emailController.text.trim();
       String _fullName = _fullNameController.text.trim();
-      String _number = _numberController.text.trim();
+      // String _number = _numberController.text.trim();
       String _password = _passwordController.text.trim();
 
       final UserCredential userCredential =
@@ -55,15 +67,11 @@ class _Sign_up_contentState extends State<Sign_up_content> {
         password: _password,
       );
       String uid = userCredential.user!.uid;
-      AddUser(_fullName, _email, _number, uid).addUser();
+      // AddUser(_fullName, _email, _number, uid).addUser();
 
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => Auth(),
-            )) ;
-
-
-
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => Auth(),
+      ));
     } catch (e) {
       String error = 'error';
       if (e is FirebaseAuthException) {
@@ -102,14 +110,12 @@ class _Sign_up_contentState extends State<Sign_up_content> {
     }
   }
 
-  void finalsignup (){
-    if (formKey.currentState!.validate()) {}
-    if (_passwordController2.text == _passwordController.text){
-      signUp();
-
+  void finalsignup() {
+    if (formKey.currentState!.validate()) {
+      if (_passwordController2.text == _passwordController.text) {
+        goToAdrress();
+      }
     }
-
-
   }
 
   @override
@@ -120,7 +126,6 @@ class _Sign_up_contentState extends State<Sign_up_content> {
         child: Form(
           key: formKey,
           child: SingleChildScrollView(
-
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -253,68 +258,6 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   height: 30.h,
                 ),
                 TextFormField(
-                  keyboardType: TextInputType.numberWithOptions(),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'enter valid phone number';
-                    } else {
-                      return null;
-                    }
-                  },
-                  controller: _numberController,
-                  cursorColor: KPrimarycolor,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(10),
-                  ],
-                  decoration: InputDecoration(
-                    focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        gapPadding: 14.w,
-                        borderSide: BorderSide(
-                          color: Colors.red,
-                          width: 2.w,
-                        )),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        gapPadding: 14.w,
-                        borderSide: BorderSide(
-                          color: Colors.red,
-                          width: 2.w,
-                        )),
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
-                    suffixIconColor: Klighttextcolor,
-                    suffixIcon: const Icon(
-                      Icons.phone,
-                    ),
-                    hintStyle: const TextStyle(
-                      color: Kverylighttextcolor,
-                    ),
-                    labelText: 'Phone Number',
-                    labelStyle: const TextStyle(
-                      color: Klighttextcolor,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14.w,
-                      borderSide: const BorderSide(color: Ktextcolor),
-                    ),
-                    focusColor: KPrimarycolor,
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      gapPadding: 14.w,
-                      borderSide: BorderSide(
-                        color: KPrimarycolor,
-                        width: 2.w,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30.h,
-                ),
-                TextFormField(
                   validator: (value) {
                     if (value!.isEmpty || (value!.length < 6)) {
                       return 'enter valid password';
@@ -384,11 +327,11 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   validator: (value) {
                     if (value!.isEmpty ||
                         RegExp(r'^[a-z A-Z]+$').hasMatch(value) ||
-                        (_passwordController2.text != _passwordController.text)) {
+                        (_passwordController2.text !=
+                            _passwordController.text)) {
                       if ((_passwordController2.text !=
                               _passwordController.text) &&
                           !value!.isEmpty) {
-
                         return 'passwords don\'t match ';
                       } else if (value!.isEmpty ||
                           RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
@@ -454,10 +397,15 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                 SizedBox(
                   height: 60.h,
                 ),
-                Row(mainAxisAlignment: MainAxisAlignment.center,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-
-                    default_button(text: 'Sign Up ', x: 2, y: 13, button_color: KPrimarycolor, function: finalsignup),
+                    default_button(
+                        text: 'Next ',
+                        x: 2,
+                        y: 13,
+                        button_color: KPrimarycolor,
+                        function: finalsignup),
                   ],
                 ),
                 SizedBox(
@@ -502,4 +450,3 @@ class _Sign_up_contentState extends State<Sign_up_content> {
     );
   }
 }
-

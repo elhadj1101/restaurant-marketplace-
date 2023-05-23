@@ -69,31 +69,31 @@ class _profileState extends State<profile> {
                   cursorColor: KPrimarycolor,
                   decoration: InputDecoration(
                     contentPadding:
-                    EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
+                        EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
                     suffixIconColor: Klighttextcolor,
                     hintStyle: const TextStyle(
-                  color: Kverylighttextcolor,
+                      color: Kverylighttextcolor,
                     ),
                     labelText: 'Full name ',
                     labelStyle: const TextStyle(
-                  color: Klighttextcolor,
+                      color: Klighttextcolor,
                     ),
                     enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    gapPadding: 14.w,
-                    borderSide:
-                        const BorderSide(color: Kverylighttextcolor)),
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide:
+                            const BorderSide(color: Kverylighttextcolor)),
                     focusColor: KPrimarycolor,
                     focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    gapPadding: 14.w,
-                    borderSide: BorderSide(
-                      color: KPrimarycolor,
-                      width: 2.w,
-                    )),
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: BorderSide(
+                          color: KPrimarycolor,
+                          width: 2.w,
+                        )),
                   ),
-                  ),
-                  SizedBox(
+                ),
+                SizedBox(
                   height: 40.h,
                 ),
                 TextFormField(
@@ -105,30 +105,30 @@ class _profileState extends State<profile> {
                   decoration: InputDecoration(
                     suffixIconColor: Klighttextcolor,
                     contentPadding:
-                    EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
+                        EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
                     hintStyle: const TextStyle(
-                  color: Kverylighttextcolor,
+                      color: Kverylighttextcolor,
                     ),
                     labelText: 'Email',
                     labelStyle: const TextStyle(
-                  color: Klighttextcolor,
+                      color: Klighttextcolor,
                     ),
                     enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    gapPadding: 14.w,
-                    borderSide:
-                        const BorderSide(color: Kverylighttextcolor)),
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide:
+                            const BorderSide(color: Kverylighttextcolor)),
                     focusColor: KPrimarycolor,
                     focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    gapPadding: 14.w,
-                    borderSide: BorderSide(
-                      color: KPrimarycolor,
-                      width: 2.w,
-                    )),
+                        borderRadius: BorderRadius.circular(20),
+                        gapPadding: 14.w,
+                        borderSide: BorderSide(
+                          color: KPrimarycolor,
+                          width: 2.w,
+                        )),
                   ),
-                  ),
-                  SizedBox(
+                ),
+                SizedBox(
                   height: 40.h,
                 ),
                 TextFormField(
@@ -140,28 +140,28 @@ class _profileState extends State<profile> {
                   ],
                   decoration: InputDecoration(
                     contentPadding:
-                    EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
+                        EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
                     suffixIconColor: Klighttextcolor,
                     hintStyle: const TextStyle(
-                  color: Kverylighttextcolor,
+                      color: Kverylighttextcolor,
                     ),
                     labelText: 'Phone Number',
                     labelStyle: const TextStyle(
-                  color: Klighttextcolor,
+                      color: Klighttextcolor,
                     ),
                     enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  gapPadding: 14.w,
-                  borderSide: const BorderSide(color: Kverylighttextcolor),
+                      borderRadius: BorderRadius.circular(20),
+                      gapPadding: 14.w,
+                      borderSide: const BorderSide(color: Kverylighttextcolor),
                     ),
                     focusColor: KPrimarycolor,
                     focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  gapPadding: 14.w,
-                  borderSide: BorderSide(
-                    color: KPrimarycolor,
-                    width: 2.w,
-                  ),
+                      borderRadius: BorderRadius.circular(20),
+                      gapPadding: 14.w,
+                      borderSide: BorderSide(
+                        color: KPrimarycolor,
+                        width: 2.w,
+                      ),
                     ),
                   ),
                 ),
@@ -174,8 +174,15 @@ class _profileState extends State<profile> {
                     String email = _emailController.text.trim();
                     String phone = _NumberController.text.trim();
                     String image = userProvider.image;
-                    userProvider.setUserData(username, email, phone, image);
-                      userProvider.updateDocument();
+                    String address = userProvider.address;
+                    userProvider.setUserData(
+                      username,
+                      email,
+                      image,
+                      address,
+                      phone
+                    );
+                    userProvider.updateDocument();
                   },
                   style: Primarybuttonstyle,
                   child: Text(
@@ -207,14 +214,15 @@ class profile_avatarState extends State<profile_avatar> {
   Widget build(BuildContext context) {
     final ImagePicker _picker = ImagePicker();
     XFile _imagefile;
-    final userProvider = Provider.of<UserProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context,listen: true);
     void takePhoto(ImageSource source) async {
       final pickedfile = await _picker.pickImage(
         source: source,
       );
       setState(() {
         _imagefile = pickedfile!;
-        userProvider.uploadImageToFirebase(userProvider.userID, _imagefile.path);
+        userProvider.uploadImageToFirebase(
+            userProvider.userID, _imagefile.path);
       });
     }
 
@@ -232,9 +240,9 @@ class profile_avatarState extends State<profile_avatar> {
               radius: 50.r,
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(50),
-                  child: (userProvider.image=="")
+                  child: (userProvider.image == "")
                       ? Image.asset('assets/images/default_avatar.png')
-                      : Image.network(userProvider.image,fit: BoxFit.cover)),
+                      : Image.network(userProvider.image, fit: BoxFit.cover)),
             ),
           ),
           Positioned(

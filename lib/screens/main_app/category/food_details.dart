@@ -43,7 +43,7 @@ class Food_details extends StatelessWidget {
                                         color: KPrimarycolor,
                                       )))
                                   : Image.network(
-                                      itemProvider.document["photoId"],
+                                      photo,
                                       height: 225.h,
                                       width: 355.w,
                                       fit: BoxFit.cover,
@@ -191,9 +191,7 @@ class Food_details extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 75.w),
                         child: ElevatedButton(
-                            onPressed: () {
-
-                            },
+                            onPressed: () {},
                             style: ElevatedButton.styleFrom(
                                 fixedSize: Size(50.w, 60.h),
                                 elevation: 10,
@@ -240,7 +238,9 @@ class Food_details extends StatelessWidget {
                       vertical: 0.20 * MediaQuery.of(context).size.height - 92),
                   child: GestureDetector(
                     onTap: () {
-                      itemProvider.document = {} ;
+                      itemProvider.document = {};
+                      print(
+                          "-------------------${itemProvider.document}-------------");
                       Navigator.of(context).pop();
                     },
                     child: Container(
