@@ -10,6 +10,7 @@ import 'package:restaurant_marketplace_h/Auth.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/category/category_page.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
 
+import '../../../Providers/restaurant_items_provider.dart';
 import '../../../Providers/userProvider.dart';
 import '../../../constants.dart';
 import '../../starting_with_us/signUP/AddUser2Store.dart';
@@ -48,7 +49,8 @@ class _Add_new_adressState extends State<Add_new_adress> {
       } 
       String uid =FirebaseAuth.instance.currentUser!.uid;
       AddUser(_fullName, _email, _number, uid, address).addUser();
-
+      final itemProvider = Provider.of<ItemsProvider>(context ,listen: false);
+     itemProvider.getPromos();
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => Auth(),
       ));

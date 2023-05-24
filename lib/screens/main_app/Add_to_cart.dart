@@ -1,18 +1,40 @@
+import 'dart:ffi';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_marketplace_h/Providers/userProvider.dart';
 import 'package:restaurant_marketplace_h/models/fakeDATA.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/category/category_page.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/widgets/default_button.dart';
 
+import '../../Providers/restaurant_items_provider.dart';
 import '../../constants.dart';
 import 'category/food_details.dart';
 
-class Add_to_cart extends StatelessWidget {
+class Add_to_cart extends StatefulWidget {
   const Add_to_cart({Key? key}) : super(key: key);
 
   @override
+  State<Add_to_cart> createState() => _Add_to_cartState();
+}
+
+class _Add_to_cartState extends State<Add_to_cart> {
+  final _codeController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
+    final itemProvider = Provider.of<ItemsProvider>(context as BuildContext);
+
+    final NumberItems = Provider.of<Provider_numberofitems>(
+        context as BuildContext,
+        listen: true);
+    final userProvider = Provider.of<UserProvider>(context as BuildContext);
+    int ItemPrice = itemProvider.document["price"];
+    int DeliveryPrice = itemProvider.document["deliveryPrice"];
+ 
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -36,50 +58,62 @@ class Add_to_cart extends StatelessWidget {
                   height: 20.h,
                 ),
                 ListView.builder(
-                  itemCount: 2,
+                  itemCount: 1,
                   shrinkWrap: true,
-                  physics:const  NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                  return const Order_In_Cart_card();
-                },),
+                    return const Order_In_Cart_card();
+                  },
+                ),
                 SizedBox(
                   height: 30.h,
                 ),
                 Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 18.w),
-                  child:  Container(
+                  padding: EdgeInsets.symmetric(horizontal: 18.w),
+                  child: Container(
                     height: 70.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.white,
-                      border: Border.all(color: Colors.grey , width: 1 , )
-                    ) ,
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.white,
+                        border: Border.all(
+                          color: itemProvider.promoColor,
+                          width: 1,
+                        )),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding:  EdgeInsets.fromLTRB( 28.0.w  , 0 , 10 , 0 ),
+                          padding: EdgeInsets.fromLTRB(28.0.w, 0, 10, 0),
                           child: SizedBox(
-                            width: MediaQuery.of(context).size.width/2.6,
-                            child: TextFormField(
-                              maxLines: 1,
+                            width: MediaQuery.of(context).size.width / 2.6,
+                            child: TextField(
+                              controller: _codeController,
                               cursorColor: KPrimarycolor,
+                              onTap: () {},
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText: 'Promo code',
                               ),
                             ),
-                            ),
                           ),
-
-
+                        ),
                         Padding(
-                          padding:  EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 8),
-                          child:  default_button(text: 'Apply', x: 3.5, y: 12, button_color: KPrimarycolor , function: () {
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 8.0.w, vertical: 8),
+                          child: default_button(
+                            text: 'Apply',
+                            x: 3.5,
+                            y: 12,
+                            button_color: KPrimarycolor,
+                            function: () {
+                              String code = _codeController.text.trim();
+                              itemProvider.checkPromo(code);
 
-                          },),
+                              
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -89,11 +123,11 @@ class Add_to_cart extends StatelessWidget {
                   height: 30.h,
                 ),
                 Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 30.0.w),
+                  padding: EdgeInsets.symmetric(horizontal: 30.0.w),
                   child: Column(
                     children: [
                       Padding(
-                        padding:  EdgeInsets.symmetric(vertical: 8.0.h),
+                        padding: EdgeInsets.symmetric(vertical: 8.0.h),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -105,39 +139,32 @@ class Add_to_cart extends StatelessWidget {
                                 fontSize: 16.sp,
                               ),
                             ),
-                            Text.rich(
+                            Text.rich(TextSpan(children: [
                               TextSpan(
-                                children:[
-                                  TextSpan(
-                                    text: '${myorders[1].total_price * 2 } ',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16.sp,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: 'da',
-                                    style: TextStyle(
-                                      color: Colors.grey[600],
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16.sp,
-                                    ),
-                                  )
-                                ]
+                                text: '${ItemPrice * NumberItems.num} ',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16.sp,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'da',
+                                style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16.sp,
+                                ),
                               )
-
-                            ),
+                            ])),
                           ],
                         ),
                       ),
-
                       const Divider(
-
                         color: Colors.grey,
                       ),
                       Padding(
-                        padding:  EdgeInsets.symmetric(vertical: 8.0.h),
+                        padding: EdgeInsets.symmetric(vertical: 8.0.h),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -149,38 +176,61 @@ class Add_to_cart extends StatelessWidget {
                                 fontSize: 16.sp,
                               ),
                             ),
-                            Text.rich(
-                                TextSpan(
-                                    children:[
-                                      TextSpan(
-                                        text: '150 ',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16.sp,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text: 'da',
-                                        style: TextStyle(
-                                          color: Colors.grey[600],
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16.sp,
-                                        ),
-                                      )
-                                    ]
-                                )
-
-                            ),
+                            Text.rich(TextSpan(children: [
+                              TextSpan(
+                                text: '$DeliveryPrice',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16.sp,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'da',
+                                style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16.sp,
+                                ),
+                              )
+                            ])),
                           ],
                         ),
                       ),
-
                       const Divider(
                         color: Colors.grey,
                       ),
                       Padding(
-                        padding:   EdgeInsets.symmetric(vertical: 8.0.h),
+                        padding: EdgeInsets.symmetric(vertical: 8.0.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Discount',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                            Text.rich(TextSpan(children: [
+                              TextSpan(
+                                text: '${itemProvider.discount * 100} %',
+                                style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16.sp,
+                                ),
+                              )
+                            ])),
+                          ],
+                        ),
+                      ),
+                      const Divider(
+                        color: Colors.grey,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.0.h),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -192,47 +242,63 @@ class Add_to_cart extends StatelessWidget {
                                 fontSize: 16.sp,
                               ),
                             ),
-                            Text.rich(
-                                TextSpan(
-                                    children:[
-                                      TextSpan(
-                                        text: '${myorders[1].total_price * 2 +150} ',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16.sp,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text: 'da',
-                                        style: TextStyle(
-                                          color: Colors.grey[600],
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16.sp,
-                                        ),
-                                      )
-                                    ]
-                                )
-
-                            ),
+                            Text.rich(TextSpan(children: [
+                              TextSpan(
+                                text:
+                                    '${((ItemPrice * NumberItems.num) + DeliveryPrice) - ((ItemPrice * NumberItems.num) + DeliveryPrice) * itemProvider.discount} ',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16.sp,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'da',
+                                style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16.sp,
+                                ),
+                              )
+                            ])),
                           ],
                         ),
                       ),
-
-
-
                     ],
                   ),
                 ),
                 SizedBox(
                   height: 60.h,
                 ),
-               Padding(
-                 padding:  EdgeInsets.symmetric(horizontal: 68.0.w),
-                 child:   default_button(text: 'Order Now', x: 1  , y: 13, button_color: KPrimarycolor , function: () {
-
-                 },),
-               )
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 68.0.w),
+                  child: default_button(
+                    text: 'Order Now',
+                    x: 1,
+                    y: 13,
+                    button_color: KPrimarycolor,
+                    function: () async {
+                      try {
+                        await FirebaseFirestore.instance
+                            .collection('Orders')
+                            .add({
+                          'address': userProvider.address,
+                          'createdDate': DateTime.now(),
+                          'userId': userProvider.userID,
+                          'restaurentId': itemProvider.document["restaurentId"],
+                          'itemId': itemProvider.DocId,
+                          'status': "suspended",
+                          'numberOfItems': NumberItems.num,
+                          'totalPrice':
+                              ItemPrice * NumberItems.num + DeliveryPrice,
+                          'userPhone': userProvider.phone,
+                        });
+                      } catch (e) {
+                        print('Error creating user: $e');
+                      }
+                    },
+                  ),
+                )
               ],
             ),
           ),
@@ -248,6 +314,12 @@ class Order_In_Cart_card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final itemProvider = Provider.of<ItemsProvider>(context as BuildContext);
+    String photo = itemProvider.document["photoId"] ?? '';
+    String ItemName = itemProvider.document["name"] ?? '';
+    String ItemCategory = itemProvider.document["category"] ?? '';
+    String ItemPrice = itemProvider.document["price"].toString();
+
     return Card(
       color: Colors.white,
       elevation: 0,
@@ -255,8 +327,8 @@ class Order_In_Cart_card extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(15),
-            child: Image.asset(
-              myorders[1].image,
+            child: Image.network(
+              photo,
               height: 80.r,
               width: 80.r,
             ),
@@ -266,28 +338,27 @@ class Order_In_Cart_card extends StatelessWidget {
           ),
           Expanded(
             child: Column(
-              crossAxisAlignment:CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      mydishes[2].name,
+                      ItemName,
                       style: TextStyle(
                           fontSize: 22.sp,
                           color: Colors.black87,
                           fontWeight: FontWeight.w600),
                     ),
-                     Container(
-
-                      height: 22.r,
-                      width: 22.r,
-                      child: Image.asset('assets/images/cancelIcon.png'),
-                    )
+                    // Container(
+                    //   height: 22.r,
+                    //   width: 22.r,
+                    //   child: Image.asset('assets/images/cancelIcon.png'),
+                    // )
                   ],
                 ),
                 Text(
-                  'Spicy , chicken , beef',
+                  ItemCategory,
                   style: TextStyle(
                       fontSize: 15.sp,
                       color: Colors.grey,
@@ -296,12 +367,11 @@ class Order_In_Cart_card extends StatelessWidget {
                 SizedBox(
                   height: 10.h,
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                       '${mydishes[0].price} Da',
+                      '$ItemPrice Da',
                       style: TextStyle(
                           fontSize: 22.sp,
                           color: KPrimarycolor,
@@ -312,7 +382,8 @@ class Order_In_Cart_card extends StatelessWidget {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            const Add_container( size: 32,
+                            const Add_container(
+                              size: 32,
                               isitadd: false,
                             ),
                             SizedBox(
@@ -330,7 +401,10 @@ class Order_In_Cart_card extends StatelessWidget {
                             SizedBox(
                               width: 10.w,
                             ),
-                            const Add_container(isitadd: true , size: 32,),
+                            const Add_container(
+                              isitadd: true,
+                              size: 32,
+                            ),
                           ],
                         );
                       },

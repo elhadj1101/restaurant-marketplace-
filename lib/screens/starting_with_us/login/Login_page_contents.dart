@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_marketplace_h/Auth.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
-import 'package:restaurant_marketplace_h/screens/starting_with_us/login/userInfos.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/widgets/default_button.dart';
+import '../../../Providers/restaurant_items_provider.dart';
 import '../../../constants.dart';
 import '../../../Providers/userProvider.dart';
 import '../Reset_pass_page/reset_password_page.dart';
@@ -35,6 +33,8 @@ class _Login_page_contentsState extends State<Login_page_contents> {
   }
 
   void goHome() {
+            final itemProvider = Provider.of<ItemsProvider>(context ,listen: false);
+     itemProvider.getPromos();
     Navigator.of(context).pushReplacement(MaterialPageRoute(
       builder: (context) => Home_screen(),
     ));
@@ -49,10 +49,9 @@ class _Login_page_contentsState extends State<Login_page_contents> {
               password: _passwordController.text.trim());
       final userProvider = Provider.of<UserProvider>(context, listen: false);
       await userProvider.getUserData();
-      if (userProvider.isLogged){
-         goHome();
+      if (userProvider.isLogged) {
+        goHome();
       }
-     
     } catch (error) {
       // Handle sign-in errors here
       print('Error signing in with email and password: $error');
@@ -203,10 +202,15 @@ class _Login_page_contentsState extends State<Login_page_contents> {
                       SizedBox(
                         height: 60.h,
                       ),
-                      Row(mainAxisAlignment: MainAxisAlignment.center,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-
-                          default_button(text: 'Sign In ', x: 2, y: 13, button_color: KPrimarycolor, function: signIn),
+                          default_button(
+                              text: 'Sign In ',
+                              x: 2,
+                              y: 13,
+                              button_color: KPrimarycolor,
+                              function: signIn),
                         ],
                       ),
                       SizedBox(

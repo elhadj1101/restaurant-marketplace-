@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/models/fakeDATA.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/Add_to_cart.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/category/category_page.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_card.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/widgets/default_button.dart';
@@ -191,7 +192,12 @@ class Food_details extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 75.w),
                         child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                builder: (context) => Add_to_cart( ),
+                              ));
+                            },
                             style: ElevatedButton.styleFrom(
                                 fixedSize: Size(50.w, 60.h),
                                 elevation: 10,
@@ -239,8 +245,6 @@ class Food_details extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {
                       itemProvider.document = {};
-                      print(
-                          "-------------------${itemProvider.document}-------------");
                       Navigator.of(context).pop();
                     },
                     child: Container(

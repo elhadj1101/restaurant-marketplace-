@@ -6,11 +6,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/Auth.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/drawer/working_on_page.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
+import 'package:restaurant_marketplace_h/screens/starting_with_us/welcome.dart';
 
 import '../../../Providers/userProvider.dart';
 import '../profile /profile.dart';
@@ -25,12 +27,26 @@ class Sidemenu extends StatefulWidget {
 
 class _SidemenuState extends State<Sidemenu> {
   Future<void> _signOut() async {
-    Provider.of<Provider_home>(context, listen: false).is_side_menu_opened =
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+  try {
+    // Sign out from Google
+    await googleSignIn.signOut();
+    
+    // Sign out from Firebase
+    await firebaseAuth.signOut();
+        Provider.of<Provider_home>(context, listen: false).is_side_menu_opened =
         false;
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => Auth(),
+      builder: (context) => welcome(),
     ));
+
+  } catch (error) {
+    print('Error signing out: $error');
+  }
+
   }
 
   @override

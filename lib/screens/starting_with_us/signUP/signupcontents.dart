@@ -54,61 +54,6 @@ class _Sign_up_contentState extends State<Sign_up_content> {
     ));
   }
 
-  Future signUp() async {
-    try {
-      String _email = _emailController.text.trim();
-      String _fullName = _fullNameController.text.trim();
-      // String _number = _numberController.text.trim();
-      String _password = _passwordController.text.trim();
-
-      final UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _email,
-        password: _password,
-      );
-      String uid = userCredential.user!.uid;
-      // AddUser(_fullName, _email, _number, uid).addUser();
-
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => Auth(),
-      ));
-    } catch (e) {
-      String error = 'error';
-      if (e is FirebaseAuthException) {
-        if (e.code.contains('email-already-in-use')) {
-          error = 'this email is alreay used ';
-        } else {
-          error = 'error';
-        }
-      }
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          behavior: SnackBarBehavior.floating,
-          clipBehavior: Clip.none,
-          margin: EdgeInsets.symmetric(
-              horizontal: (error.length < 20) ? 40.w : 10.w, vertical: 20.h),
-          content: Center(
-              child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.error,
-                color: Colors.white,
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
-              Text(
-                '${error}',
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
-          ))));
-      // Handle the exception here
-
-      // You can also throw the error to the calling code if needed
-      throw e;
-    }
-  }
 
   void finalsignup() {
     if (formKey.currentState!.validate()) {

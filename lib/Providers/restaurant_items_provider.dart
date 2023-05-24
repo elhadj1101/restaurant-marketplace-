@@ -1,12 +1,18 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class ItemsProvider with ChangeNotifier {
   List items = [];
+  Color promoColor = Colors.grey;
+
+  List<Map<String, dynamic>> promos = [];
   String DocId = '';
+  double discount = 0.0;
 
   Map<String, dynamic> document = {};
-  
 
   Future<void> fetchItems() async {
     try {
@@ -42,13 +48,46 @@ class ItemsProvider with ChangeNotifier {
 
   Future<void> getDataFronID(String id) async {
     try {
-
       final doc =
           await FirebaseFirestore.instance.collection('Items').doc(id).get();
       document = doc.data()!;
       notifyListeners();
     } catch (error) {
       print('Error fetching DocId: $error');
+    }
+  }
+
+  Future<void> getPromos() async {
+    try {
+      final doc = await FirebaseFirestore.instance.collection('promos').get();
+
+      doc.docs.forEach((element) {
+        final g = element.data();
+        g.addAll({'id': element.id});
+        promos.add(g);
+      });
+      notifyListeners();
+    } catch (error) {
+      print('Error fetching DocId: $error');
+    }
+  }
+
+  void checkPromo(String code) {
+    print(promos);
+    int found = 0;
+
+    for (var element in promos) {
+      print(element["code"]);
+      if (element["code"] == code) {
+        found = element["percent"];
+      }
+    }
+    if (found == 0) {
+      promoColor = Colors.red;
+      discount = 0;
+    } else {
+      discount = found / 100;
+      promoColor = Colors.green;
     }
   }
 }
