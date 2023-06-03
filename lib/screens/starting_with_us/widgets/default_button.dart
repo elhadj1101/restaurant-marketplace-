@@ -4,16 +4,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../constants.dart';
 
 class default_button extends StatelessWidget {
-  const default_button(
+   default_button(
       {Key? key,
       required this.text,
       required this.x,
       required this.y,
       required this.button_color,
+      this.textsize,
       required this.function})
       : super(key: key);
   final String text;
-
+  double? textsize =20.sp;
   final double x, y;
 
   final Color button_color;
@@ -34,7 +35,7 @@ class default_button extends StatelessWidget {
         text,
         style: TextStyle(
           fontStyle: FontStyle.normal,
-          fontSize: 20.sp,
+          fontSize: textsize,
           color: Colors.white,
         ),
       ),
