@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/Providers/userProvider.dart';
 import 'package:restaurant_marketplace_h/models/fakeDATA.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/category/category_page.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/order/my_orders.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/widgets/default_button.dart';
 
 import '../../Providers/restaurant_items_provider.dart';
@@ -287,12 +289,30 @@ class _Add_to_cartState extends State<Add_to_cart> {
                           'userId': userProvider.userID,
                           'restaurentId': itemProvider.document["restaurentId"],
                           'itemId': itemProvider.DocId,
-                          'status': "suspended",
+                          'itemName': itemProvider.DocName,
+                          'itemImage': itemProvider.DocImage,
+                          'status': "pending",
                           'numberOfItems': NumberItems.num,
                           'totalPrice':
                               ItemPrice * NumberItems.num + DeliveryPrice,
                           'userPhone': userProvider.phone,
                         });
+                        DocumentReference documentRef = FirebaseFirestore.instance.collection('Restaurents').doc(itemProvider.document["restaurentId"]);
+                        DocumentSnapshot documentSnapshot = await documentRef.get();
+                        if (documentSnapshot.exists) {
+                          Map<String, dynamic> restData = documentSnapshot.data() as Map<String, dynamic>;
+                          // Access user information
+
+                          int pending = restData['pendingOrders'] +1 ?? 0;
+                          await documentRef.update({
+                              'pendingOrders':pending,
+                            });
+
+                          }
+                                                     Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                builder: (context) => my_orders(),
+                              ));
                       } catch (e) {
                         print('Error creating user: $e');
                       }

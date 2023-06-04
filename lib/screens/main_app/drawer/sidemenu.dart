@@ -12,6 +12,7 @@ import 'package:restaurant_marketplace_h/Auth.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/drawer/working_on_page.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/order/my_orders.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/welcome.dart';
 
 import '../../../Providers/userProvider.dart';
@@ -27,26 +28,24 @@ class Sidemenu extends StatefulWidget {
 
 class _SidemenuState extends State<Sidemenu> {
   Future<void> _signOut() async {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  try {
-    // Sign out from Google
-    await googleSignIn.signOut();
-    
-    // Sign out from Firebase
-    await firebaseAuth.signOut();
-        Provider.of<Provider_home>(context, listen: false).is_side_menu_opened =
-        false;
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => welcome(),
-    ));
+    try {
+      // Sign out from Google
+      await googleSignIn.signOut();
 
-  } catch (error) {
-    print('Error signing out: $error');
-  }
-
+      // Sign out from Firebase
+      await firebaseAuth.signOut();
+      Provider.of<Provider_home>(context, listen: false).is_side_menu_opened =
+          false;
+      await FirebaseAuth.instance.signOut();
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => welcome(),
+      ));
+    } catch (error) {
+      print('Error signing out: $error');
+    }
   }
 
   @override
@@ -71,8 +70,7 @@ class _SidemenuState extends State<Sidemenu> {
                       name: username,
                       email: email,
                       image: image,
-                      isUploaded: isUploaded
-                      ),
+                      isUploaded: isUploaded),
                   SizedBox(
                     height: 20.h,
                   ),
@@ -93,7 +91,6 @@ class _SidemenuState extends State<Sidemenu> {
                             backgroundColor: KPrimarycolor),
                         onPressed: () {
                           _signOut();
-
                         },
                         child: Row(
                           children: [
@@ -128,14 +125,13 @@ class _SidemenuState extends State<Sidemenu> {
 }
 
 class Info_card extends StatelessWidget {
-  const Info_card(
-      {Key? key,
-      required this.name,
-      required this.email,
-      required this.image, 
-      required this.isUploaded,
-  })
-      : super(key: key);
+  const Info_card({
+    Key? key,
+    required this.name,
+    required this.email,
+    required this.image,
+    required this.isUploaded,
+  }) : super(key: key);
   final String name;
   final bool isUploaded;
   final String email;
@@ -163,9 +159,9 @@ class Info_card extends StatelessWidget {
               radius: 50.r,
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(50),
-                  child:  (image=="")
+                  child: (image == "")
                       ? Image.asset('assets/images/default_avatar.png')
-                      : Image.network(image,fit: BoxFit.cover)),
+                      : Image.network(image, fit: BoxFit.cover)),
             ),
           ),
           SizedBox(
@@ -205,17 +201,11 @@ class Listoftiles extends StatelessWidget {
                 myicon: Icons.my_library_books,
                 mytext: 'My Orders',
                 myiconsize: 25.r),
-            GestureDetector(
-              onTap: () => Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => const profile()),),
-              child: Listtilemodified(
-                  tilenumber: 2,
-                  myicon: Icons.person,
-                  mytext: 'My Profile',
-                  myiconsize: 27.r),
-            ),
-          
+            Listtilemodified(
+                tilenumber: 2,
+                myicon: Icons.person,
+                mytext: 'My Profile',
+                myiconsize: 27.r),
             Listtilemodified(
                 tilenumber: 4,
                 myicon: Icons.wallet,
@@ -226,11 +216,7 @@ class Listoftiles extends StatelessWidget {
                 myicon: Icons.email,
                 mytext: 'Contact Us',
                 myiconsize: 25.r),
-            Listtilemodified(
-                tilenumber: 6,
-                myicon: Icons.settings,
-                mytext: 'Settings',
-                myiconsize: 25.r),
+
             Listtilemodified(
                 tilenumber: 7,
                 myicon: Icons.help,
@@ -247,16 +233,14 @@ class Provider_Drawer extends ChangeNotifier {
     2: false,
     4: false,
     5: false,
-    6: false,
     7: false,
   };
 
   Map<int, Widget> navigatormap = {
-    1: Working_on_it_page(),
+    1: my_orders(),
     2: profile(),
     4: Working_on_it_page(),
     5: Working_on_it_page(),
-    6: Working_on_it_page(),
     7: Working_on_it_page(),
   };
 

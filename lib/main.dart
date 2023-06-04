@@ -20,14 +20,11 @@ import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_c
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:restaurant_marketplace_h/screens/main_app/map/map_screen.dart';
-import 'package:restaurant_marketplace_h/screens/main_app/order/cancel_order.dart';
-import 'package:restaurant_marketplace_h/screens/main_app/order/my_orders.dart';
-import 'package:restaurant_marketplace_h/screens/main_app/order/order_truck.dart';
-import 'package:restaurant_marketplace_h/screens/main_app/profile%20/profile.dart';
-import 'package:restaurant_marketplace_h/splash_screen_timer.dart';
+
+import 'Providers/orders_provider.dart';
 import 'firebase_options.dart';
-import 'package:provider/provider.dart';
+
+import 'screens/main_app/favorites/button_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -73,9 +70,11 @@ class MyApp extends StatelessWidget {
 
               ChangeNotifierProvider<RestaurantProvider>(
                   create: (context) => RestaurantProvider()),
+                  ChangeNotifierProvider<OrdersProvider>(
+                  create: (context) => OrdersProvider()),
               ChangeNotifierProvider<ItemsProvider>(
                   create: (context) => ItemsProvider()),
-              // ChangeNotifierProvider<buttonState>(create: (context) => buttonState()),
+              ChangeNotifierProvider<buttonState>(create: (context) => buttonState()),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,

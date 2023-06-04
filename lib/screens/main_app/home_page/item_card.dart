@@ -1,9 +1,9 @@
-import 'package:flutter/foundation.dart';
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
-import 'package:restaurant_marketplace_h/models/fakeDATA.dart';
 
 class item_card extends StatelessWidget {
   const item_card({Key? key, required this.rest_name, required this.item_name, required this.item_photo, required this.item_price}) : super(key: key);
@@ -24,7 +24,7 @@ class item_card extends StatelessWidget {
         Positioned(
             left: 138.w,
             top: 10.h,
-            child: favorite_widget()
+            child: const favorite_widget()
         ),
       ],
     );
@@ -132,8 +132,15 @@ class price_widget extends StatelessWidget {
 
                   ),
                 ),
-                const WidgetSpan(child: Icon(
-                  Icons.attach_money, color: KPrimarycolor, size: 20,)),
+                                TextSpan(
+                  text: "DA",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15.sp,
+                      color: KPrimarycolor
+
+                  ),
+                ),
 
               ]
           )

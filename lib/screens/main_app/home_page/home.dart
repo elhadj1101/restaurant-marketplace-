@@ -53,7 +53,7 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     Provider_Category.selectpage(1);
                     Provider_Category.turnoffselectedpage(1);
-                    Navigator.of(context).pushReplacement(
+                    Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) =>  MapScreen(),
             )) ;

@@ -10,6 +10,8 @@ class ItemsProvider with ChangeNotifier {
 
   List<Map<String, dynamic>> promos = [];
   String DocId = '';
+  String DocName = '';
+  String DocImage = '';
   double discount = 0.0;
 
   Map<String, dynamic> document = {};
@@ -21,7 +23,6 @@ class ItemsProvider with ChangeNotifier {
           .orderBy('numOfOrders', descending: true);
       List<Map<String, dynamic>> temp = [];
       final data = await collection.get();
-
       data.docs.forEach((element) {
         temp.add(element.data());
       });
@@ -40,6 +41,8 @@ class ItemsProvider with ChangeNotifier {
           .orderBy('numOfOrders', descending: true);
       final data = await collection.get();
       DocId = data.docs[index].reference.id;
+      DocName = data.docs[index].data()["name"];
+      DocImage = data.docs[index].data()["photoId"];
       notifyListeners();
     } catch (error) {
       print('Error fetching DocId: $error');

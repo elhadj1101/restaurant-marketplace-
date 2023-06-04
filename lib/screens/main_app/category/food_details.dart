@@ -38,9 +38,9 @@ class Food_details extends StatelessWidget {
                                   ? Container(
                                       height: 225.h,
                                       width: 355.w,
-                                      child: Center(
+                                      child: const Center(
                                           child:
-                                              const CircularProgressIndicator(
+                                              CircularProgressIndicator(
                                         color: KPrimarycolor,
                                       )))
                                   : Image.network(
@@ -59,7 +59,7 @@ class Food_details extends StatelessWidget {
                         height: 8.h,
                       ),
                       Text(
-                        mydishes[2].name,
+                        itemProvider.document["name"] ?? '',
                         style: TextStyle(
                           fontSize: 30.sp,
                           fontWeight: FontWeight.w500,
@@ -77,33 +77,9 @@ class Food_details extends StatelessWidget {
                           width: 8.w,
                         )),
                         TextSpan(
-                            text: myreviews[0].rating.toString(),
+                            text:itemProvider.document["rating"].toString() ,
                             style: TextStyle(
                                 fontSize: 17.sp, fontWeight: FontWeight.w700)),
-                        WidgetSpan(
-                            child: SizedBox(
-                          width: 8.w,
-                        )),
-                        TextSpan(
-                            text: '(+30)',
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w700)),
-                        WidgetSpan(
-                            child: SizedBox(
-                          width: 8.w,
-                        )),
-                        WidgetSpan(
-                            child: GestureDetector(
-                          child: Text(
-                            'see review',
-                            style: TextStyle(
-                                color: KPrimarycolor,
-                                fontSize: 14.sp,
-                                decoration: TextDecoration.underline),
-                          ),
-                        )),
                       ])),
                       SizedBox(
                         height: 10.h,
@@ -112,7 +88,7 @@ class Food_details extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            mydishes[0].price.toString() + ' Da',
+                           '${itemProvider.document["price"]} Da',
                             style: TextStyle(
                                 fontSize: 26.sp,
                                 color: KPrimarycolor,
@@ -154,7 +130,7 @@ class Food_details extends StatelessWidget {
                         height: 10.h,
                       ),
                       Text(
-                        mydishes[0].descreption,
+                        itemProvider.document["description"] ?? '',
                         style: TextStyle(
                             fontSize: 15.sp, color: const Color(0xFF858992)),
                       ),

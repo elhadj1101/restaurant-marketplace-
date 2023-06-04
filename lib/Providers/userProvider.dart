@@ -69,15 +69,15 @@ class UserProvider extends ChangeNotifier {
   void updateDocument() async {
     try {
       final FirebaseFirestore firestore = FirebaseFirestore.instance;
-      final DocumentReference documentRef =
-          firestore.collection('users').doc(userID);
-      await documentRef.update({
-        'name': username,
-        'email': email,
-        'number': phone,
-        'image': image,
-        'imageUploaded':imageUploaded,
-      });
+        final DocumentReference documentRef =
+            firestore.collection('users').doc(userID);
+        await documentRef.update({
+          'name': username,
+          'email': email,
+          'number': phone,
+          'image': image,
+          'imageUploaded':imageUploaded,
+        });
       print('Document updated successfully.');
     } catch (e) {
       print('Error updating document: $e');
