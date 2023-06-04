@@ -11,10 +11,12 @@ class default_button extends StatelessWidget {
       required this.y,
       required this.button_color,
       this.textsize,
+      this.fontcolor,
       required this.function})
       : super(key: key);
   final String text;
   double? textsize =20.sp;
+  Color? fontcolor = Colors.white;
   final double x, y;
 
   final Color button_color;
@@ -36,7 +38,7 @@ class default_button extends StatelessWidget {
         style: TextStyle(
           fontStyle: FontStyle.normal,
           fontSize: textsize,
-          color: Colors.white,
+          color: fontcolor,
         ),
       ),
     );

@@ -68,7 +68,7 @@ class my_orders extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("Price"),
-                          Text("status")
+                          Text("status",style: TextStyle(),)
                         ],
                       ),
                       title: Container(margin: EdgeInsets.only(top: 10.h),child: const Text("Name of the dish",)),
@@ -88,11 +88,11 @@ class my_orders extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("Price"),
-                          Text("status")
                         ],
                       ),
                       title: const Text("Name of the dish"),
-                      trailing:   default_button(text: "Cancel",x: 5,textsize: 10.sp, y: 25, button_color: KPrimarycolor, function: (){})
+                      // here you have to set condition order canceled or completed 
+                      trailing: true ? const Icon(Icons.check,color: Colors.green) : const Icon(Icons.cancel,color: Colors.red) 
                     ),
                   ) ;
                 }
