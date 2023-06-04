@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:restaurant_marketplace_h/screens/starting_with_us/widgets/default_button.dart';
 
 import '../../../constants.dart';
 import '../../../models/fakeDATA.dart';
+import '../category/category_page.dart';
 
 class cancel_order extends StatelessWidget {
   const cancel_order({super.key});
@@ -22,6 +24,10 @@ class cancel_order extends StatelessWidget {
                     child: Stack(
                       children: [
                         Image.asset('assets/images/Rating.png'),
+                        Positioned(
+                          bottom: 90.h,
+                          right: 290.w,
+                          child: const BackButton_customized()),
                         Padding(
                           padding: EdgeInsets.only(top: -0.105*MediaQuery.of(context).size.height + 192 ),
                           child: Row(
@@ -101,6 +107,15 @@ class cancel_order extends StatelessWidget {
                       hintText: "Write a reason why"
                     ),
                   ),
+                ),
+                SizedBox(height: 40.h,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    default_button(text: "Cancel", x: 3, y: 15,fontcolor: KPrimarycolor,textsize: 14.sp, button_color: Colors.white, function: (){}),
+                    default_button(text: "Send", x: 3, y: 15,textsize: 14.sp, button_color: KPrimarycolor, function: (){}),
+
+                  ],
                 )
             ]),
         ),

@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_marketplace_h/Providers/restaurant_items_provider.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/models/fakeDATA.dart';
 
+import '../../../Providers/category_provider.dart';
 import '../home_page/item_card.dart';
 import '../home_page/restaurand_card.dart';
+import 'food_details.dart';
 
 class Category_page extends StatefulWidget {
-  const Category_page({Key? key}) : super(key: key);
-
+  const Category_page({Key? key, required this.categoryId}) : super(key: key);
+  final String  categoryId  ;
   @override
   State<Category_page> createState() => _Category_pageState();
 }
@@ -20,6 +23,7 @@ class _Category_pageState extends State<Category_page> {
   final sc = ScrollController();
 
   double b = 1 ;
+
 
   @override
   void initState() {
@@ -42,6 +46,8 @@ class _Category_pageState extends State<Category_page> {
 
   @override
   Widget build(BuildContext context) {
+    final categoryProvider = Provider.of<CategoryProvider>(context);
+    final itemsProvider = Provider.of<ItemsProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -190,42 +196,62 @@ class _Category_pageState extends State<Category_page> {
                 ),
                 SizedBox(
                     width: double.infinity,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.only(bottom: 20),
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: mydishes.length,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            Stack(
-                               children: [
-                                 const Dish_widget(),
-                                 const review_widget(rating: 0),
-                                 Positioned(
-                                     left: MediaQuery.of(context).size.width*0.73,
-                                     top: 12.h,
-                                     child: const favorite_widget3() ,
-                                 ),
-                                 Positioned(
-                                      left: 15.w,
-                                      top: -0.07 * MediaQuery.of(context).size.height + 208 ,
-                                     child: Container(
-                                         decoration:  BoxDecoration(
-                                             boxShadow: [
-                                               BoxShadow(
-                                                   color: Colors.grey.withOpacity(0.5),
-                                                   blurRadius: 10.r,
-                                                   spreadRadius: 7.r,
-                                                   offset: Offset(2.w, 3.h))
-                                             ]),
-                                         child: const price_widget(price: 22,))),
-                               ],),
-                            SizedBox(
-                              height: 10.h,
-                            )
-                          ],
-                        );
+                    child: FutureBuilder(
+                      future : categoryProvider.fetchcategoryItems(widget.categoryId) ,
+                      builder: (context, snapshot) {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.only(bottom: 20),
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: categoryProvider.items.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: ()  async{
+                                await categoryProvider.getDocId(index , widget.categoryId);
+                                String  id = categoryProvider.DocId ;
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return  Food_details(DOCID: id );
+                                  },
+                                ));
+
+
+                              },
+                              child: Column(
+                                children: [
+                                  Stack(
+                                    children: [
+                                      const Dish_widget(),
+                                      const review_widget(rating: 0),
+                                      Positioned(
+                                        left: MediaQuery.of(context).size.width*0.73,
+                                        top: 12.h,
+                                        child: const favorite_widget3() ,
+                                      ),
+                                      Positioned(
+                                          left: 15.w,
+                                          top: -0.07 * MediaQuery.of
+
+                                            (context).size.height + 208 ,
+                                          child: Container(
+                                              decoration:  BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey.withOpacity(0.5),
+                                                        blurRadius: 10.r,
+                                                        spreadRadius: 7.r,
+                                                        offset: Offset(2.w, 3.h))
+                                                  ]),
+                                              child: const price_widget(price: 22,))),
+                                    ],),
+                                  SizedBox(
+                                    height: 10.h,
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        ) ;
                       },
                     )),
               ],

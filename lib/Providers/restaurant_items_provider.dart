@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 class ItemsProvider with ChangeNotifier {
   List items = [];
+  List onerest_items = [];
   Color promoColor = Colors.grey;
 
   List<Map<String, dynamic>> promos = [];
@@ -91,6 +92,25 @@ class ItemsProvider with ChangeNotifier {
     } else {
       discount = found / 100;
       promoColor = Colors.green;
+    }
+  }
+
+  Future<void> fetchItemsId(String fieldValue) async {
+    try {
+      final collection = FirebaseFirestore.instance
+          .collection('Items')
+          .where('restaurentId', isEqualTo: fieldValue);
+      List<Map<String, dynamic>> temp = [];
+      final data = await collection.get();
+
+      data.docs.forEach((element) {
+        temp.add(element.data());
+      });
+      onerest_items = temp;
+
+      notifyListeners();
+    } catch (error) {
+      print('Error fetching restaurants: $error');
     }
   }
 }

@@ -6,6 +6,8 @@ import 'dart:convert';
 class RestaurantProvider with ChangeNotifier {
   List restaurants = [];
   List addresses = [];
+    String restId = '';
+  Map<String, dynamic> one_rest_document = {};
   final url = 'https://rest-recommander-sba.onrender.com/recommend?keyword';
   String res = '';
   Future<void> fetchRestaurants() async {
@@ -49,5 +51,30 @@ class RestaurantProvider with ChangeNotifier {
       jsRes = 'Error: ${rests.statusCode}';
     }
     return jsRes;
+  }
+    Future<void> getDocId(int index) async {
+    try {
+
+      final collection = FirebaseFirestore.instance
+          .collection('Restaurents')
+          .orderBy('rating', descending: true);
+      final data = await collection.get();
+      restId = data.docs[index].reference.id;
+      notifyListeners();
+    } catch (error) {
+      print('Error fetching DocId: $error');
+    }
+  }
+
+  Future<void> getDataFronID(String id) async {
+    try {
+
+      final doc =
+      await FirebaseFirestore.instance.collection('Restaurents').doc(id).get();
+      one_rest_document = doc.data()!;
+      notifyListeners();
+    } catch (error) {
+      print('Error fetching data with DocId: $error');
+    }
   }
 }

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,10 +11,10 @@ import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_c
 import '../../../Providers/restaurant_items_provider.dart';
 import '../../../Providers/restaurant_provider.dart';
 import '../../../Providers/userProvider.dart';
-import '../../circleindicator.dart';
-import '../drawer/sidemenu.dart';
 import '../map/map_screen.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/restaurants_page/restaurant_page.dart';
 
+import '../restaurants_page/all_restaurants.dart';
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -208,6 +207,13 @@ class _HomeState extends State<Home> {
                       TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w500),
                 ),
                 GestureDetector(
+                   onTap: (){
+                     Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) {
+                                return  const all_restauratns();
+                              },
+                            ));
+                  },
                   child: Row(
                     children: [
                       Text(
@@ -240,12 +246,26 @@ class _HomeState extends State<Home> {
                       scrollDirection: Axis.horizontal,
                       itemCount: restaurantProvider.restaurants.length,
                       itemBuilder: (context, index) {
-                        return restaurant_card(
-                          name: restaurantProvider.restaurants[index]["name"],
-                          image: restaurantProvider.restaurants[index]
-                              ["photoId"],
-                          rating: restaurantProvider.restaurants[index]
-                              ["rating"],
+                        return GestureDetector(
+                           onTap: ()  async{
+                            await restaurantProvider.getDocId(index);
+                            String  id = restaurantProvider.restId ;
+
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) {
+                                return  restaurant_page(restId: id );
+                              },
+                            ));
+
+
+                          },
+                          child: restaurant_card(
+                            name: restaurantProvider.restaurants[index]["name"],
+                            image: restaurantProvider.restaurants[index]
+                                ["photoId"],
+                            rating: restaurantProvider.restaurants[index]
+                                ["rating"],
+                          ),
                         );
                       },
                     );
