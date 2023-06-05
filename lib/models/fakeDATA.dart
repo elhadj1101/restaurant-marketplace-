@@ -59,7 +59,7 @@ List<addition> myadditions = [
 List<category> mycategories = [
  category('assets/images/burger1.png', 'burger') ,
   category('assets/images/pizza1.png', 'pizza ') ,
-  category('assets/images/sandwich1.png', 'mexican') ,
+  category('assets/images/sandwich1.png', 'tacos') ,
   category('assets/images/cheese1.png', 'cheese') ,
   category('assets/images/donut1.png', 'donut') ,
 

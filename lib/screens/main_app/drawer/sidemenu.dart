@@ -77,7 +77,7 @@ class _SidemenuState extends State<Sidemenu> {
                   ),
                   const Listoftiles(),
                   SizedBox(
-                    height: 40.h,
+                    height: 160.h,
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(22.0.w, 0.h, 122.w, 0.h),

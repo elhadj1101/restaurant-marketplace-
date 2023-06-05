@@ -82,10 +82,11 @@ class restaurant_widget extends StatelessWidget {
                       child: Icon(
                         Icons.delivery_dining,
                         color: KPrimarycolor,
+
                         size: 20.r,
                       )),
                   const TextSpan(
-                    text: ' free delivery  ',
+                    text: 'delivery  ',
                   ),
                    WidgetSpan(
                       child: Icon(
@@ -235,7 +236,7 @@ class favorite_widget extends StatelessWidget {
             ),
             child: Icon(
               Icons.favorite ,
-              color: Provider_favorite.isit_favorite ? KPrimarycolor : Colors.white ,
+              color:  Colors.white ,
             ),
           ),
         ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,9 +10,12 @@ import 'package:restaurant_marketplace_h/models/fakeDATA.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/category/food_details.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/item_card.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_card.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/order/my_orders.dart';
+import '../../../Providers/category_provider.dart';
 import '../../../Providers/restaurant_items_provider.dart';
 import '../../../Providers/restaurant_provider.dart';
 import '../../../Providers/userProvider.dart';
+import '../category/category_page.dart';
 import '../map/map_screen.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/restaurants_page/restaurant_page.dart';
 
@@ -29,6 +34,9 @@ class _HomeState extends State<Home> {
     final restaurantProvider = Provider.of<RestaurantProvider>(context);
     final itemsProvider = Provider.of<ItemsProvider>(context);
     final userProvider = Provider.of<UserProvider>(context);
+
+
+
     List a = userProvider.address.split('-');
     String address = a[a.length - 1];
     return Scaffold(
@@ -51,9 +59,6 @@ class _HomeState extends State<Home> {
                 ),
                 IconButton(
                   onPressed: () {
-                    Provider_Category.selectpage(1);
-                    Provider_Category.turnoffselectedpage(1);
-                    
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => MapScreen(),
                     ));
@@ -68,6 +73,9 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     Provider_Category.selectpage(2);
                     Provider_Category.turnoffselectedpage(2);
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => my_orders(),
+                    ));
                   },
                   icon: const Icon(Icons.shopping_bag),
                   color: Provider_Category.isitpressed[2]!
@@ -116,74 +124,7 @@ class _HomeState extends State<Home> {
                 fontSize: 30.sp,
               ),
             ),
-            SizedBox(
-              height: 20.h,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  flex: 4,
-                  child: TextFormField(
-                    cursorColor: KPrimarycolor,
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.search,
-                          size: 28.r,
-                          color: Colors.black54,
-                        ),
-                        hintText: 'find food or restaurant . . . ',
-                        enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Klighttextcolor,
-                            ),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: KPrimarycolor,
-                              width: 2.w,
-                            ),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)))),
-                  ),
-                ),
-                SizedBox(
-                  width: 20.w,
-                ),
-                GestureDetector(
-                  child: Container(
-                    height: 54.w,
-                    width: 54.w,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(13),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.4),
-                            blurRadius: 2.r,
-                            spreadRadius: 2.r,
-                          )
-                        ]),
-                    alignment: Alignment.center,
-                    child: Container(
-                      color: Colors.white,
-                      width: 25.w,
-                      height: 25.w,
-                      child: SvgPicture.asset(
-                        fit: BoxFit.cover,
-                        'assets/images/filter.svg',
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 5.w,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
+
             SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 200.h,
@@ -195,7 +136,9 @@ class _HomeState extends State<Home> {
                   if (index == null) {
                     isitnull = true;
                   }
-                  return CategoryContainer(ii: isitnull ? 0 : index);
+
+                  return    CategoryContainer(ii: isitnull ? 0 : index) ;
+                  print('-----------------aa') ;
                 },
               ),
             ),
@@ -411,12 +354,30 @@ class CategoryContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categoryprovider = Provider.of<CategoryProvider>(context);
     return Consumer<Provider_Category>(
       builder: (context, Provider_Category, child) {
         return GestureDetector(
           onTap: () {
             Provider_Category.selectcategory(ii);
             Provider_Category.turnoff(ii);
+
+
+            Map<int, String> food = {
+              0: 'Humburger',
+              1: 'Pizza',
+              2: 'Tacos',
+              3: 'cheese',
+              4: 'donut',
+            };
+
+            categoryprovider.fetchcategoryItems(food[ii]!) ;
+
+           Timer(Duration(milliseconds: 250), () {
+             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+               return Category_page() ;
+             },));
+           });
           },
           child: Row(
             children: [

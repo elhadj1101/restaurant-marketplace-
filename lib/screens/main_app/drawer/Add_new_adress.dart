@@ -140,9 +140,10 @@ class _Add_new_adressState extends State<Add_new_adress> {
                               ),
                             ),
                             IntlPhoneField(
-                              validator: (value) {
+                              validator: (value) {print('----------------------------${value}') ;
                                 if (value!.toString().isEmpty) {
-                                  return 'enter valid password';
+
+                                  return 'enter valid phone';
                                 } else {
                                   return null;
                                 }
@@ -222,9 +223,31 @@ class _Add_new_adressState extends State<Add_new_adress> {
                               ])),
                             ),
                             TextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'enter valid street name';
+                                } else {
+                                  return null;
+                                }
+                              },
                               controller: _StreetController,
                               cursorColor: KPrimarycolor,
                               decoration: InputDecoration(
+
+                                focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    gapPadding: 14.w,
+                                    borderSide: BorderSide(
+                                      color: Colors.red,
+                                      width: 2.w,
+                                    )),
+                                errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    gapPadding: 14.w,
+                                    borderSide: BorderSide(
+                                      color: Colors.red,
+                                      width: 2.w,
+                                    )),
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 25.w, vertical: 20.h),
                                 suffixIconColor: Klighttextcolor,

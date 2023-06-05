@@ -3,9 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_marketplace_h/constants.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/category/category_page.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/category/reviews_page.dart';
 
 import '../../../Providers/restaurant_items_provider.dart';
 import '../../../Providers/restaurant_provider.dart';
+import '../../../Providers/reviews_Provider.dart';
+import '../../../Providers/reviews_Provider.dart';
+import '../../../Providers/reviews_Provider.dart';
 import '../category/food_details.dart';
 import '../home_page/item_card.dart';
 
@@ -61,6 +65,7 @@ class restaurantcontents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final itemsProvider = Provider.of<ItemsProvider>(context);
+    final Reviewsprovider = Provider.of<reviewsprovider>(context);
 
     return SingleChildScrollView(
         child: Center(
@@ -100,10 +105,10 @@ class restaurantcontents extends StatelessWidget {
                               width: 95.r,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
-                                color: const Color(0xFFFFC529),
+                                color: KPrimarycolor,
                                 boxShadow: [
                                   BoxShadow(
-                                      color: const Color(0xFFFFC529)
+                                      color: KPrimarycolor
                                           .withOpacity(0.4),
                                       blurRadius: 10.r,
                                       spreadRadius: 4.r,
@@ -112,7 +117,7 @@ class restaurantcontents extends StatelessWidget {
                               ),
                               alignment: Alignment.center,
                               child: Image.asset(
-                                'assets/images/logo.png',
+                                'assets/images/logooo.png',
                                 height: 70.h,
                                 width: 70.w,
                               )),
@@ -171,6 +176,14 @@ class restaurantcontents extends StatelessWidget {
             )),
             WidgetSpan(
                 child: GestureDetector(
+                  onTap: () async{
+                    Reviewsprovider.fetchItemsId(restId) ;
+
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                      return reviews_page() ;
+
+                    },));
+                  },
               child: Text(
                 'see review',
                 style: TextStyle(

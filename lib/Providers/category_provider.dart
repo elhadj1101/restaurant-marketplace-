@@ -12,7 +12,7 @@ class CategoryProvider with ChangeNotifier {
     try {
       final collection = FirebaseFirestore.instance
           .collection('Items')
-          .where('categoryId', isEqualTo: fieldValue) ;
+          .where('category', isEqualTo: fieldValue) ;
       List<Map<String, dynamic>> temp = [];
       final data = await collection.get();
 
@@ -32,7 +32,7 @@ class CategoryProvider with ChangeNotifier {
   Future<void> getDocId(int index , fieldValue) async {
     try {      final collection = FirebaseFirestore.instance
         .collection('Items')
-        .where('categoryId', isEqualTo: fieldValue) ;
+        .where('category', isEqualTo: fieldValue) ;
       final data = await collection.get();
       DocId = data.docs[index].reference.id;
       notifyListeners();
