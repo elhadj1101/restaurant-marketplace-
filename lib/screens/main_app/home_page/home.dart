@@ -53,9 +53,11 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     Provider_Category.selectpage(1);
                     Provider_Category.turnoffselectedpage(1);
+                    
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => MapScreen(),
                     ));
+
                   },
                   icon: const Icon(Icons.location_on),
                   color: Provider_Category.isitpressed[1]!
@@ -296,6 +298,7 @@ class _HomeState extends State<Home> {
                     return GestureDetector(
                       onTap: () async {
                         await itemsProvider.getDocId(index);
+                        
                         String id = itemsProvider.DocId;
                           String image =
                             itemsProvider.items[index]["photoId"];
@@ -307,7 +310,7 @@ class _HomeState extends State<Home> {
                             itemsProvider.items[index]["description"];
                                 String DeleveryPrice =
                             itemsProvider.items[index]["deliveryPrice"];
-                        itemsProvider.getPromos();
+                         itemsProvider.getPromos();
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) {
                             return Food_details(DOCID: id, description:description , image: image, name: name, price: price,DelPrice:DeleveryPrice);

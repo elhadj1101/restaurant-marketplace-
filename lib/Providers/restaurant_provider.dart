@@ -7,6 +7,7 @@ class RestaurantProvider with ChangeNotifier {
   List restaurants = [];
   List addresses = [];
   String restId = '';
+  List AiRest=[];
   Map<String, dynamic> one_rest_document = {};
   final url = 'https://rest-recommander-sba.onrender.com/recommend?keyword';
   String res = '';
@@ -17,7 +18,7 @@ class RestaurantProvider with ChangeNotifier {
           .orderBy('rating', descending: true);
       List<Map<String, dynamic>> temp = [];
       final data = await collection.get();
-      print(SearchRestaurents("burger"));
+      // print(SearchRestaurents("burger"));
       data.docs.forEach((element) {
         final g = element.data();
         g.addAll({'id': element.id});
@@ -38,19 +39,22 @@ class RestaurantProvider with ChangeNotifier {
       print('Error fetching restaurants: $error');
     }
   }
-
-  Future<dynamic> SearchRestaurents(String name) async {
+  Future<void> SearchRestaurents(String name) async {
     final rests = await http.get(Uri.parse('$url=$name'));
-    dynamic jsRes = '';
 
     if (rests.statusCode == 200) {
       // Request was successful
-      jsRes = json.decode(rests.body);
+      if (rests.body.contains("we did not find")){
+        AiRest=[];
+      }else{
+       List names = json.decode(rests.body).map((r) => r["name"]).toList();
+      AiRest = restaurants.where((e) => names.contains(e["name"].toString().toLowerCase()) ).toList();
+      }
+      
     } else {
       // Request failed
-      jsRes = 'Error: ${rests.statusCode}';
+      // jsRes = 'Error: ${rests.statusCode}';
     }
-    return jsRes;
   }
 
   Future<void> getDocId(int index) async {

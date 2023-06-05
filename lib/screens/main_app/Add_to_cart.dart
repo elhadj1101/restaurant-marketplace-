@@ -16,8 +16,15 @@ import '../../constants.dart';
 import 'category/food_details.dart';
 
 class Add_to_cart extends StatelessWidget {
-   Add_to_cart({Key? key, required this.DOCID, required this.name, required this.price, required this.image, required this.DelPrice}) : super(key: key);
-    final String DOCID;
+  Add_to_cart(
+      {Key? key,
+      required this.DOCID,
+      required this.name,
+      required this.price,
+      required this.image,
+      required this.DelPrice})
+      : super(key: key);
+  final String DOCID;
   final String name;
   final String price;
   final String image;
@@ -32,9 +39,8 @@ class Add_to_cart extends StatelessWidget {
         context as BuildContext,
         listen: true);
     final userProvider = Provider.of<UserProvider>(context as BuildContext);
-    double ItemPrice =double.parse(price) ;
+    double ItemPrice = double.parse(price);
     double DeliveryPrice = double.parse(DelPrice);
- 
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -58,16 +64,14 @@ class Add_to_cart extends StatelessWidget {
                 SizedBox(
                   height: 20.h,
                 ),
-                // ListView.builder(
-                //   itemCount: 1,
-                //   shrinkWrap: true,
-                //   physics: const NeverScrollableScrollPhysics(),
-                //   itemBuilder: (context, index) {
-                //     return  Order_In_Cart_card(DOCID: DOCID, image: image, name: name, price: price,DelPrice:DelPrice);
-                //   },
-                // ),
+                Order_In_Cart_card(
+                    DOCID: DOCID,
+                    image: image,
+                    name: name,
+                    price: price,
+                    DelPrice: DelPrice),
                 SizedBox(
-                  height: 120.h,
+                  height: 30.h,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 18.w),
@@ -111,8 +115,6 @@ class Add_to_cart extends StatelessWidget {
                             function: () {
                               String code = _codeController.text.trim();
                               itemProvider.checkPromo(code);
-
-                              
                             },
                           ),
                         ),
@@ -296,22 +298,25 @@ class Add_to_cart extends StatelessWidget {
                               ItemPrice * NumberItems.num + DeliveryPrice,
                           'userPhone': userProvider.phone,
                         });
-                        DocumentReference documentRef = FirebaseFirestore.instance.collection('Restaurents').doc(itemProvider.document["restaurentId"]);
-                        DocumentSnapshot documentSnapshot = await documentRef.get();
+                        DocumentReference documentRef = FirebaseFirestore
+                            .instance
+                            .collection('Restaurents')
+                            .doc(itemProvider.document["restaurentId"]);
+                        DocumentSnapshot documentSnapshot =
+                            await documentRef.get();
                         if (documentSnapshot.exists) {
-                          Map<String, dynamic> restData = documentSnapshot.data() as Map<String, dynamic>;
+                          Map<String, dynamic> restData =
+                              documentSnapshot.data() as Map<String, dynamic>;
                           // Access user information
 
-                          int pending = restData['pendingOrders'] +1 ?? 0;
+                          int pending = restData['pendingOrders'] + 1 ?? 0;
                           await documentRef.update({
-                              'pendingOrders':pending,
-                            });
-
-                          }
-                                                     Navigator.of(context)
-                                  .pushReplacement(MaterialPageRoute(
-                                builder: (context) => my_orders(),
-                              ));
+                            'pendingOrders': pending,
+                          });
+                        }
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => my_orders(),
+                        ));
                       } catch (e) {
                         print('Error creating user: $e');
                       }
@@ -329,8 +334,15 @@ class Add_to_cart extends StatelessWidget {
 }
 
 class Order_In_Cart_card extends StatelessWidget {
-  const Order_In_Cart_card({Key? key, required this.DOCID, required this.name, required this.price, required this.image, required this.DelPrice}) : super(key: key);
-   final String DOCID;
+  const Order_In_Cart_card(
+      {Key? key,
+      required this.DOCID,
+      required this.name,
+      required this.price,
+      required this.image,
+      required this.DelPrice})
+      : super(key: key);
+  final String DOCID;
   final String name;
   final String price;
   final String image;

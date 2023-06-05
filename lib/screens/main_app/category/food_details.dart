@@ -28,6 +28,7 @@ class Food_details extends StatelessWidget {
   final String image;
   @override
   Widget build(BuildContext context) {
+     final itemsProvider = Provider.of<ItemsProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -145,7 +146,8 @@ class Food_details extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 75.w),
                   child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async{
+                        await itemsProvider.getDataFronID(DOCID);
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => Add_to_cart(DOCID: DOCID, image: image, name: name, price: price,DelPrice:DelPrice
                             

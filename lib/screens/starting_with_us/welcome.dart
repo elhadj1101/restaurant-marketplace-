@@ -138,7 +138,7 @@ class _welcomeState extends State<welcome> {
                       Padding(
                         padding: EdgeInsets.only(left: 20.w),
                         child: Text(
-                          "Your favourite foods delivered \nfast at your door.",
+                          "Explore Local Restaurants Gems \nOn Tabaki.",
                           style: TextStyle(
                               color: Color(0xFF30384F),
                               fontSize: 18.sp,

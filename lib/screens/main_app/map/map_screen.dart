@@ -6,6 +6,7 @@
   import 'package:google_maps_flutter/google_maps_flutter.dart';
   import 'package:provider/provider.dart';
   import 'package:restaurant_marketplace_h/constants.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/category/category_page.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/restaurants_page/restaurant_page.dart';
   import 'package:restaurant_marketplace_h/screens/starting_with_us/widgets/default_button.dart';
 
@@ -25,7 +26,7 @@ import 'package:restaurant_marketplace_h/screens/main_app/restaurants_page/resta
       super.initState();
       // addMarkers();
     }
-    void _onMarkerTapped(MarkerId markerId,String rat,String src) {
+    void _onMarkerTapped(MarkerId markerId,String rat,String src,String id) {
       Marker selectedMarker =
           markers.firstWhere((marker) => marker.markerId == markerId);
       showModalBottomSheet(
@@ -65,9 +66,9 @@ import 'package:restaurant_marketplace_h/screens/main_app/restaurants_page/resta
                     width: 250.w,
                     child: ElevatedButton(
                       onPressed: () {
-                        //  Navigator.of(context).push(MaterialPageRoute(
-                        //   builder: (context) {
-                        //     return restaurant_page(restId: restId, restName: restName, restAddress: restAddress, restRating: restRating, restImage: restImage) }));
+                         Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) {
+                            return restaurant_page(restId: id, restName: selectedMarker.infoWindow.title.toString(), restAddress: selectedMarker.infoWindow.snippet.toString(), restRating: double.parse(rat), restImage: src) ;}));
                       },
                       style:  ElevatedButton.styleFrom(backgroundColor: KPrimarycolor,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),),
                       child: const Text(
@@ -87,6 +88,7 @@ import 'package:restaurant_marketplace_h/screens/main_app/restaurants_page/resta
     Future<void> addMarkers() async {
       ImageConfiguration configuration = createLocalImageConfiguration(context);
       final RestaurantProvider1 = Provider.of<RestaurantProvider>(context);
+      RestaurantProvider1.fetchRestaurants();
     // Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       List restaurants = RestaurantProvider1.restaurants;
       for (var element in restaurants) {
@@ -101,7 +103,7 @@ import 'package:restaurant_marketplace_h/screens/main_app/restaurants_page/resta
             infoWindow: InfoWindow(
                 title: element["name"], snippet: element["mapAddress"]),
             onTap: () {
-              _onMarkerTapped(MarkerId(element["id"]),element["rating"].toString(),element["photoId"]);
+              _onMarkerTapped(MarkerId(element["id"]),element["rating"].toString(),element["photoId"],element["id"]);
             },
             // Additional marker properties like icon, info window, etc. can be set here
             icon: await BitmapDescriptor.fromAssetImage(configuration, 'assets/images/intro.png')
@@ -135,27 +137,31 @@ mapController.animateCamera(
     @override
     Widget build(BuildContext context) {
       final RestaurantProvider1 = Provider.of<RestaurantProvider>(context);
-      addMarkers();
       return Scaffold(
         body: FutureBuilder(
-            future: RestaurantProvider1.fetchRestaurants(),
+            future: addMarkers(),
             builder: (context, snapshot) {
-              return GoogleMap(
-                onMapCreated: (GoogleMapController controller) {
-                  mapController = controller;
-                },
-
-                myLocationEnabled: true,
-                myLocationButtonEnabled: false,
-                markers: Set<Marker>.of(markers),
-                initialCameraPosition:  const CameraPosition(
-                  target: LatLng(28.0339, 1.6596), // Set the initial position of the map.
-                  zoom: 6, // Set the initial zoom level of the map.
+              return Stack(
+                children: [
+                  GoogleMap(
+                  onMapCreated: (GoogleMapController controller) {
+                    mapController = controller;
+                    _goToMyLocation();
+                  },
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: false,
+                  markers: Set<Marker>.of(markers),
+                  initialCameraPosition:  const CameraPosition(
+                    target: LatLng(28.0339, 1.6596), // Set the initial position of the map.
+                    zoom: 6, // Set the initial zoom level of the map.
+                  ),
                 ),
+                BackButton_customized()
+                ]
               );
             }),
             floatingActionButton: Padding(
-              padding:  EdgeInsets.only(left: 20.w,bottom: 20.h),
+              padding:  EdgeInsets.only(left: 30.w,bottom: 20.h),
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: FloatingActionButton(onPressed: _goToMyLocation,

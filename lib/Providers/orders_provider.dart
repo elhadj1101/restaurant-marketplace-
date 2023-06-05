@@ -11,13 +11,14 @@ class OrdersProvider with ChangeNotifier {
       List<Map<String, dynamic>> temp2 = [];
       FirebaseFirestore.instance.collection("Orders").where("userId", isEqualTo: FirebaseAuth.instance.currentUser?.uid ?? '').get().then(
   (querySnapshot) {
-    print("Successfully completed");
     for (var element in querySnapshot.docs) {
       final g = element.data();
         g.addAll({'id': element.id});
-        temp.add(g);
+        
         if (g["status"] == "completed" || g["status"] == "canceled") {
           temp2.add(g);
+        }else{
+         temp.add(g);
         }
     }
       orders = temp;
@@ -31,4 +32,5 @@ class OrdersProvider with ChangeNotifier {
       print("Failed to get orders $error ");
     }
   }
+
 }

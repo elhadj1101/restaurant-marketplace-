@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,13 @@ import 'cancel_order.dart';
 import '../../../Providers/orders_provider.dart';
 
 class my_orders extends StatelessWidget {
+  Color textColor(String status){
+      if (status=="active") {
+        return Colors.blue;
+      } else {
+        return KPrimarycolor;
+      }
+     }
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
@@ -78,7 +86,7 @@ class my_orders extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(orders[index]["totalPrice"].toString()),
-                                Text(orders[index]["status"])
+                                Text(orders[index]["status"],style: TextStyle(color: orders[index]["status"]=="completed"? Colors.green : textColor(orders[index]["status"])),)
                               ],
                             ),
                             title: Container(
@@ -92,10 +100,19 @@ class my_orders extends StatelessWidget {
                                 textsize: 10.sp,
                                 y: 25,
                                 button_color: KPrimarycolor,
-                                function: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const cancel_order(),
-                                  ));
+                                function: () async{
+                                  try {
+      final FirebaseFirestore firestore = FirebaseFirestore.instance;
+        final DocumentReference documentRef =
+            firestore.collection('Orders').doc(orders[index]["id"]);
+        await documentRef.update({
+          'status': "cancled",
+
+        });
+      print('Document updated successfully.');
+    } catch (e) {
+      print('Error updating document: $e');
+    }
                                 })),
                       );
                     } else {
