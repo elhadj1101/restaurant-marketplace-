@@ -17,7 +17,6 @@ class RestaurantProvider with ChangeNotifier {
           .orderBy('rating', descending: true);
       List<Map<String, dynamic>> temp = [];
       final data = await collection.get();
-      print(SearchRestaurents("burger"));
       data.docs.forEach((element) {
         final g = element.data();
         g.addAll({'id': element.id});

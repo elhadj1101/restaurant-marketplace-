@@ -179,7 +179,7 @@ class favorite_widget extends StatelessWidget {
             ),
             child: Icon(
               Icons.favorite ,
-              color: Provider_favorite_item.isit_favorite ? KPrimarycolor : Colors.white, size: 20.r,
+              color:Colors.white, size: 20.r,
             ),
           ),
         ),

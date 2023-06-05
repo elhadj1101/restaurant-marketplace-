@@ -23,6 +23,7 @@ class my_orders extends StatelessWidget {
     final completedOrders = ordersprovider.completedOrders;
     final button_provider = Provider.of<buttonState>(context);
     return Scaffold(
+
         body: Column(children: [
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

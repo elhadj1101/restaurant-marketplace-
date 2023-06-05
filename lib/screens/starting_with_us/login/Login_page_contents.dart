@@ -52,9 +52,40 @@ class _Login_page_contentsState extends State<Login_page_contents> {
       if (userProvider.isLogged) {
         goHome();
       }
-    } catch (error) {
+    } catch (e) {
       // Handle sign-in errors here
-      print('Error signing in with email and password: $error');
+
+      String error = 'error';
+      if (e is FirebaseAuthException) {
+        error = 'email or password incorrect' ;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          behavior: SnackBarBehavior.floating,
+          clipBehavior: Clip.none,
+          backgroundColor: Colors.red,
+          margin: EdgeInsets.symmetric(
+              horizontal: (error.length < 20) ? 40.w : 10.w, vertical: 20.h),
+          content: Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.error,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Text(
+                    '${error}',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ))));
+      // Handle the exception here
+
+      // You can also throw the error to the calling code if needed
+      throw error;
     }
   }
 

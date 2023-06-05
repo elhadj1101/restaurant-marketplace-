@@ -21,7 +21,9 @@ import 'package:restaurant_marketplace_h/screens/main_app/home_page/restaurand_c
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'Providers/category_provider.dart';
 import 'Providers/orders_provider.dart';
+import 'Providers/reviews_Provider.dart';
 import 'firebase_options.dart';
 
 import 'screens/main_app/favorites/button_provider.dart';
@@ -75,6 +77,11 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider<ItemsProvider>(
                   create: (context) => ItemsProvider()),
               ChangeNotifierProvider<buttonState>(create: (context) => buttonState()),
+              ChangeNotifierProvider<CategoryProvider>(
+                  create: (context) => CategoryProvider()),
+
+              ChangeNotifierProvider<reviewsprovider>(
+                  create: (context) => reviewsprovider()),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
