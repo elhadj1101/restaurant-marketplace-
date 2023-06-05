@@ -139,9 +139,9 @@ mapController.animateCamera(
                 onMapCreated: (GoogleMapController controller) {
                   mapController = controller;
                 },
-                padding: EdgeInsets.only(top:40.h),
+
                 myLocationEnabled: true,
-                myLocationButtonEnabled: true,
+                myLocationButtonEnabled: false,
                 markers: Set<Marker>.of(markers),
                 initialCameraPosition:  const CameraPosition(
                   target: LatLng(28.0339, 1.6596), // Set the initial position of the map.
@@ -149,15 +149,15 @@ mapController.animateCamera(
                 ),
               );
             }),
-            // floatingActionButton: Padding(
-            //   padding:  EdgeInsets.only(left: 20.w,bottom: 20.h),
-            //   child: Align(
-            //     alignment: Alignment.bottomLeft,
-            //     child: FloatingActionButton(onPressed: _goToMyLocation,
-            //     child:  const Icon(Icons.my_location,color: Colors.white,),
-            //     ),
-            //   ),
-            // ) ,
+            floatingActionButton: Padding(
+              padding:  EdgeInsets.only(left: 20.w,bottom: 20.h),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: FloatingActionButton(onPressed: _goToMyLocation,
+                child: const Icon(Icons.my_location,color: Colors.white,),
+                ),
+              ),
+            ) ,
       );
     }
   }
