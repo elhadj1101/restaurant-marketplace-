@@ -19,7 +19,7 @@ class my_orders extends StatelessWidget {
     final user_image = userProvider.image;
     final ordersprovider = Provider.of<OrdersProvider>(context);
     final orders = ordersprovider.orders;
-     final itemsProvider = Provider.of<ItemsProvider>(context);
+    final itemsProvider = Provider.of<ItemsProvider>(context);
     final completedOrders = ordersprovider.completedOrders;
     final button_provider = Provider.of<buttonState>(context);
     return Scaffold(
@@ -56,8 +56,9 @@ class my_orders extends StatelessWidget {
               future: ordersprovider.getOrders(),
               builder: (context, snapshot) {
                 return ListView.separated(
-                  itemCount:
-                      button_provider.container1Color ? orders.length : completedOrders.length,
+                  itemCount: button_provider.container1Color
+                      ? orders.length
+                      : completedOrders.length,
                   shrinkWrap: true,
                   itemBuilder: ((context, index) {
                     if (button_provider.container1Color) {
@@ -68,19 +69,22 @@ class my_orders extends StatelessWidget {
                         child: ListTile(
                             leading: ClipOval(
                                 child: Image.network(
-                               orders[index]["itemImage"],
+                              orders[index]["itemImage"],
                               fit: BoxFit.cover,
                               height: 50.h,
                               width: 50.w,
                             )),
-                            subtitle:  Column(
+                            subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [Text(orders[index]["totalPrice"].toString()), Text(orders[index]["status"])],
+                              children: [
+                                Text(orders[index]["totalPrice"].toString()),
+                                Text(orders[index]["status"])
+                              ],
                             ),
                             title: Container(
                                 margin: EdgeInsets.only(top: 10.h),
-                                child:  Text(
-                                  orders[index]["itemName"] ,
+                                child: Text(
+                                  orders[index]["itemName"],
                                 )),
                             trailing: default_button(
                                 text: "Cancel",
@@ -101,17 +105,21 @@ class my_orders extends StatelessWidget {
                         elevation: 10,
                         child: ListTile(
                             leading: ClipOval(
-                                child:  Image.network(
-                               completedOrders[index]["itemImage"],
+                                child: Image.network(
+                              completedOrders[index]["itemImage"],
                               fit: BoxFit.cover,
                               height: 50.h,
                               width: 50.w,
                             )),
-                            subtitle:  Column(
+                            subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [Text(completedOrders[index]["totalPrice"].toString()), Text(completedOrders[index]["status"])],
+                              children: [
+                                Text(completedOrders[index]["totalPrice"]
+                                    .toString()),
+                                Text(completedOrders[index]["status"])
+                              ],
                             ),
-                            title:  completedOrders[index]["itemName"],
+                            title: Text(completedOrders[index]["itemName"]),
                             trailing: default_button(
                                 text: "Cancel",
                                 x: 5,

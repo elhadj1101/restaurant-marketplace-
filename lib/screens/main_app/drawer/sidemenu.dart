@@ -14,6 +14,7 @@ import 'package:restaurant_marketplace_h/screens/main_app/drawer/working_on_page
 import 'package:restaurant_marketplace_h/screens/main_app/home_page/Home_screen.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/order/my_orders.dart';
 import 'package:restaurant_marketplace_h/screens/starting_with_us/welcome.dart';
+import 'package:restaurant_marketplace_h/splash_screen_timer.dart';
 
 import '../../../Providers/userProvider.dart';
 import '../profile /profile.dart';
@@ -41,7 +42,7 @@ class _SidemenuState extends State<Sidemenu> {
           false;
       await FirebaseAuth.instance.signOut();
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => welcome(),
+        builder: (context) => splash_screen(),
       ));
     } catch (error) {
       print('Error signing out: $error');

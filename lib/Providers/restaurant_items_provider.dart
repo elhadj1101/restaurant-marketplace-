@@ -19,9 +19,7 @@ class ItemsProvider with ChangeNotifier {
 
   Future<void> fetchItems() async {
     try {
-      final collection = FirebaseFirestore.instance
-          .collection('Items')
-          .orderBy('numOfOrders', descending: true);
+      final collection = FirebaseFirestore.instance.collection('Items');
       List<Map<String, dynamic>> temp = [];
       final data = await collection.get();
       data.docs.forEach((element) {
@@ -37,9 +35,7 @@ class ItemsProvider with ChangeNotifier {
 
   Future<void> getDocId(int index) async {
     try {
-      final collection = FirebaseFirestore.instance
-          .collection('Items')
-          .orderBy('numOfOrders', descending: true);
+      final collection = FirebaseFirestore.instance.collection('Items');
       final data = await collection.get();
       DocId = data.docs[index].reference.id;
       DocName = data.docs[index].data()["name"];
@@ -77,11 +73,9 @@ class ItemsProvider with ChangeNotifier {
   }
 
   void checkPromo(String code) {
-    print(promos);
     int found = 0;
 
     for (var element in promos) {
-      print(element["code"]);
       if (element["code"] == code) {
         found = element["percent"];
       }

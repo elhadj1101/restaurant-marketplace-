@@ -6,6 +6,7 @@
   import 'package:google_maps_flutter/google_maps_flutter.dart';
   import 'package:provider/provider.dart';
   import 'package:restaurant_marketplace_h/constants.dart';
+import 'package:restaurant_marketplace_h/screens/main_app/restaurants_page/restaurant_page.dart';
   import 'package:restaurant_marketplace_h/screens/starting_with_us/widgets/default_button.dart';
 
   import '../../../Providers/restaurant_provider.dart';
@@ -63,7 +64,11 @@
                     height: 50.h,
                     width: 250.w,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        //  Navigator.of(context).push(MaterialPageRoute(
+                        //   builder: (context) {
+                        //     return restaurant_page(restId: restId, restName: restName, restAddress: restAddress, restRating: restRating, restImage: restImage) }));
+                      },
                       style:  ElevatedButton.styleFrom(backgroundColor: KPrimarycolor,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),),
                       child: const Text(
                         "Go to Restaurant",

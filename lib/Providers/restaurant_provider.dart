@@ -6,18 +6,18 @@ import 'dart:convert';
 class RestaurantProvider with ChangeNotifier {
   List restaurants = [];
   List addresses = [];
-    String restId = '';
+  String restId = '';
   Map<String, dynamic> one_rest_document = {};
   final url = 'https://rest-recommander-sba.onrender.com/recommend?keyword';
   String res = '';
   Future<void> fetchRestaurants() async {
     try {
-      final collection = FirebaseFirestore.instance.collection('Restaurents');
-      dynamic resss = await SearchRestaurents('PANINO');
-      print(resss);
+      final collection = FirebaseFirestore.instance
+          .collection('Restaurents')
+          .orderBy('rating', descending: true);
       List<Map<String, dynamic>> temp = [];
       final data = await collection.get();
-
+      print(SearchRestaurents("burger"));
       data.docs.forEach((element) {
         final g = element.data();
         g.addAll({'id': element.id});
@@ -52,9 +52,9 @@ class RestaurantProvider with ChangeNotifier {
     }
     return jsRes;
   }
-    Future<void> getDocId(int index) async {
-    try {
 
+  Future<void> getDocId(int index) async {
+    try {
       final collection = FirebaseFirestore.instance
           .collection('Restaurents')
           .orderBy('rating', descending: true);
@@ -68,9 +68,10 @@ class RestaurantProvider with ChangeNotifier {
 
   Future<void> getDataFronID(String id) async {
     try {
-
-      final doc =
-      await FirebaseFirestore.instance.collection('Restaurents').doc(id).get();
+      final doc = await FirebaseFirestore.instance
+          .collection('Restaurents')
+          .doc(id)
+          .get();
       one_rest_document = doc.data()!;
       notifyListeners();
     } catch (error) {

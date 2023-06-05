@@ -209,9 +209,19 @@ class _Category_pageState extends State<Category_page> {
                               onTap: ()  async{
                                 await categoryProvider.getDocId(index , widget.categoryId);
                                 String  id = categoryProvider.DocId ;
+                                 String image =
+                            itemsProvider.onerest_items[index]["photoId"];
+                        String name =
+                            itemsProvider.onerest_items[index]["name"];
+                        String price =
+                            itemsProvider.onerest_items[index]["price"];
+                        String description =
+                            itemsProvider.onerest_items[index]["description"];
+                              String DeleveryPrice =
+                            itemsProvider.items[index]["deliveryPrice"];
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) {
-                                    return  Food_details(DOCID: id );
+                                    return  Food_details(DOCID: id, description:description , image: image, name: name, price: price,DelPrice:DeleveryPrice);
                                   },
                                 ));
 
@@ -242,7 +252,7 @@ class _Category_pageState extends State<Category_page> {
                                                         spreadRadius: 7.r,
                                                         offset: Offset(2.w, 3.h))
                                                   ]),
-                                              child: const price_widget(price: 22,))),
+                                              child: const price_widget(price: "22",))),
                                     ],),
                                   SizedBox(
                                     height: 10.h,

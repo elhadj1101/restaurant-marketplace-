@@ -15,6 +15,7 @@ import '../map/map_screen.dart';
 import 'package:restaurant_marketplace_h/screens/main_app/restaurants_page/restaurant_page.dart';
 
 import '../restaurants_page/all_restaurants.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -52,11 +53,9 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     Provider_Category.selectpage(1);
                     Provider_Category.turnoffselectedpage(1);
-                    Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) =>  MapScreen(),
-            )) ;
-
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MapScreen(),
+                    ));
                   },
                   icon: const Icon(Icons.location_on),
                   color: Provider_Category.isitpressed[1]!
@@ -109,7 +108,7 @@ class _HomeState extends State<Home> {
               height: 20.h,
             ),
             Text(
-              'What would you like to  \n order ',
+              'What would you like to  \norder ',
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 30.sp,
@@ -207,12 +206,12 @@ class _HomeState extends State<Home> {
                       TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w500),
                 ),
                 GestureDetector(
-                   onTap: (){
-                     Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) {
-                                return  const all_restauratns();
-                              },
-                            ));
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) {
+                        return const all_restauratns();
+                      },
+                    ));
                   },
                   child: Row(
                     children: [
@@ -247,17 +246,21 @@ class _HomeState extends State<Home> {
                       itemCount: restaurantProvider.restaurants.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                           onTap: ()  async{
+                          onTap: () async {
                             await restaurantProvider.getDocId(index);
-                            String  id = restaurantProvider.restId ;
-
+                            String id = restaurantProvider.restId;
+                            String image = restaurantProvider.restaurants[index]
+                                ["photoId"];
+                            String name =
+                                restaurantProvider.restaurants[index]["name"];
+                            double rating =
+                                restaurantProvider.restaurants[index]["rating"];
+                            String address=restaurantProvider.restaurants[index]["mapAddress"];
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) {
-                                return  restaurant_page(restId: id );
+                                return restaurant_page(restId: id,restName:name,restAddress:address,restRating:rating,restImage:image);
                               },
                             ));
-
-
                           },
                           child: restaurant_card(
                             name: restaurantProvider.restaurants[index]["name"],
@@ -272,7 +275,7 @@ class _HomeState extends State<Home> {
                   }),
             ),
             Text(
-              'Popular items ',
+              'Items ',
               style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w500),
             ),
             Container(
@@ -294,14 +297,25 @@ class _HomeState extends State<Home> {
                       onTap: () async {
                         await itemsProvider.getDocId(index);
                         String id = itemsProvider.DocId;
+                          String image =
+                            itemsProvider.items[index]["photoId"];
+                        String name =
+                            itemsProvider.items[index]["name"];
+                        String price =
+                            itemsProvider.items[index]["price"];
+                        String description =
+                            itemsProvider.items[index]["description"];
+                                String DeleveryPrice =
+                            itemsProvider.items[index]["deliveryPrice"];
+                        itemsProvider.getPromos();
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) {
-                            return Food_details(DOCID: id);
+                            return Food_details(DOCID: id, description:description , image: image, name: name, price: price,DelPrice:DeleveryPrice);
                           },
                         ));
                       },
                       child: item_card(
-                          rest_name: itemsProvider.items[index]["res_name"],
+                          rest_name: itemsProvider.items[index]["rest_name"],
                           item_name: itemsProvider.items[index]["name"],
                           item_photo: itemsProvider.items[index]["photoId"],
                           item_price: itemsProvider.items[index]["price"]),

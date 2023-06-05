@@ -149,7 +149,7 @@ class _Sign_up_contentState extends State<Sign_up_content> {
                   cursorColor: KPrimarycolor,
                   validator: (value) {
                     if (value!.isEmpty ||
-                        !RegExp(r'^[\w-]+(\.[\w-]+)*@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$')
+                        !RegExp(r'^[a-zA-Z][\w-]*(\.[\w-]+)*@[a-zA-Z0-9-]+\.[a-zA-Z]{1,4}$')
                             .hasMatch(value)) {
                       return 'enter valid email';
                     } else {

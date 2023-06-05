@@ -10,7 +10,7 @@ class item_card extends StatelessWidget {
   final String rest_name ;
   final String item_name ;
   final String item_photo ;
-  final int item_price ;
+  final String item_price ;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +109,7 @@ class item_widget extends StatelessWidget {
 
 class price_widget extends StatelessWidget {
   const price_widget({Key? key, required this.price}) : super(key: key);
-  final int price ;
+  final String price ;
 
   @override
   Widget build(BuildContext context) {

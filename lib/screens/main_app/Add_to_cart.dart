@@ -15,14 +15,13 @@ import '../../Providers/restaurant_items_provider.dart';
 import '../../constants.dart';
 import 'category/food_details.dart';
 
-class Add_to_cart extends StatefulWidget {
-  const Add_to_cart({Key? key}) : super(key: key);
-
-  @override
-  State<Add_to_cart> createState() => _Add_to_cartState();
-}
-
-class _Add_to_cartState extends State<Add_to_cart> {
+class Add_to_cart extends StatelessWidget {
+   Add_to_cart({Key? key, required this.DOCID, required this.name, required this.price, required this.image, required this.DelPrice}) : super(key: key);
+    final String DOCID;
+  final String name;
+  final String price;
+  final String image;
+  final String DelPrice;
   final _codeController = TextEditingController();
 
   @override
@@ -33,8 +32,8 @@ class _Add_to_cartState extends State<Add_to_cart> {
         context as BuildContext,
         listen: true);
     final userProvider = Provider.of<UserProvider>(context as BuildContext);
-    int ItemPrice = itemProvider.document["price"];
-    int DeliveryPrice = itemProvider.document["deliveryPrice"];
+    double ItemPrice =double.parse(price) ;
+    double DeliveryPrice = double.parse(DelPrice);
  
 
     return Scaffold(
@@ -59,16 +58,16 @@ class _Add_to_cartState extends State<Add_to_cart> {
                 SizedBox(
                   height: 20.h,
                 ),
-                ListView.builder(
-                  itemCount: 1,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return const Order_In_Cart_card();
-                  },
-                ),
+                // ListView.builder(
+                //   itemCount: 1,
+                //   shrinkWrap: true,
+                //   physics: const NeverScrollableScrollPhysics(),
+                //   itemBuilder: (context, index) {
+                //     return  Order_In_Cart_card(DOCID: DOCID, image: image, name: name, price: price,DelPrice:DelPrice);
+                //   },
+                // ),
                 SizedBox(
-                  height: 30.h,
+                  height: 120.h,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 18.w),
@@ -330,8 +329,12 @@ class _Add_to_cartState extends State<Add_to_cart> {
 }
 
 class Order_In_Cart_card extends StatelessWidget {
-  const Order_In_Cart_card({Key? key}) : super(key: key);
-
+  const Order_In_Cart_card({Key? key, required this.DOCID, required this.name, required this.price, required this.image, required this.DelPrice}) : super(key: key);
+   final String DOCID;
+  final String name;
+  final String price;
+  final String image;
+  final String DelPrice;
   @override
   Widget build(BuildContext context) {
     final itemProvider = Provider.of<ItemsProvider>(context as BuildContext);
