@@ -6,7 +6,7 @@
    <application
         android:label="Tabaki"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/ic_launcher">
          <meta-data 
         android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyCmKJLm4LKIZGGe7ycOl5yNZWL2gBDdaeU"

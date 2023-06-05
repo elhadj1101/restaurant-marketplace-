@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,7 +24,7 @@ class Add_new_adress extends StatefulWidget {
 }
 
 class _Add_new_adressState extends State<Add_new_adress> {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final _numberController = TextEditingController();
   final _StreetController = TextEditingController();
@@ -97,6 +95,12 @@ class _Add_new_adressState extends State<Add_new_adress> {
     }
   }
 
+  void finalsignup() {
+    if (formKey.currentState!.validate()) {
+      signUp();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +113,7 @@ class _Add_new_adressState extends State<Add_new_adress> {
                 padding: EdgeInsets.fromLTRB(8.w,
                     0.21 * MediaQuery.of(context).size.height - 100, 8.w, 0),
                 child: Form(
-                   key: formKey,
+                  key: formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -136,13 +140,13 @@ class _Add_new_adressState extends State<Add_new_adress> {
                               ),
                             ),
                             IntlPhoneField(
-                                validator: (value) {
-                    if (value!.isNull) {
-                      return 'enter valid password';
-                    } else {
-                      return null;
-                    }
-                  },
+                              validator: (value) {
+                                if (value!.toString().isEmpty) {
+                                  return 'enter valid password';
+                                } else {
+                                  return null;
+                                }
+                              },
                               controller: _numberController,
                               showCountryFlag: true,
                               showDropdownIcon: true,
@@ -247,7 +251,7 @@ class _Add_new_adressState extends State<Add_new_adress> {
                                   x: 1.5,
                                   y: 13,
                                   button_color: KPrimarycolor,
-                                  function: signUp),
+                                  function: finalsignup),
                             ),
                           ],
                         ),
